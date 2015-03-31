@@ -1,6 +1,6 @@
 # Linkastor
 
-Linkastor is an opensource curation web app inspired by [Linkydink](http://linkydink.io/) with few improuvments (on the way).
+Linkastor is an opensource curation web app inspired by [Linkydink](http://linkydink.io/) with few improvements (on the way).
 
 It's meant to be self hosted (Instructions will came when it will make sense).
 
