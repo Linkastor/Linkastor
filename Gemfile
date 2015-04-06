@@ -9,6 +9,7 @@ gem 'uglifier',               '~> 2.7.1'
 gem 'jquery-rails',           '~> 4.0.3'
 gem 'turbolinks',             '~> 2.5.3'
 gem 'rails_12factor',         '~> 0.0.3'
+gem 'puma',                   '~> 2.11.1'
   
 group :development, :test do  
   gem 'byebug',               '~> 4.0.4'
