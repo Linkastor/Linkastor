@@ -18,5 +18,19 @@ describe User do
         user.reload.authentication_providers.count.should == 2
       end
     end
+    
+    it "allow nil email only at create time" do
+      FactoryGirl.create(:user, email: nil).should be_truthy
+    end
+  end
+  
+  describe "update" do
+    before(:each) do
+      @user = FactoryGirl.create(:user)
+    end
+    
+    it { @user.update_attributes(email: nil).should == false }
+    it { @user.update_attributes(email: "foo").should == false }
+    it { @user.update_attributes(email: "foo@bar.com").should == true }
   end
 end

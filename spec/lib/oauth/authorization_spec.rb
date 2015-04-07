@@ -18,6 +18,11 @@ describe Oauth::Authorization do
   let(:auth_hash) { OmniAuth::AuthHash.new({credentials: credentials, extra: extra, info: info, provider: "twitter", uid: "145560254"}) }
   
   describe "authorize" do
+    it "returns created user" do
+      result = Oauth::Authorization.new.authorize(oauth_hash: auth_hash)
+      result.should == User.last
+    end
+      
     context "new user" do
       it "creates user" do
         Oauth::Authorization.new.authorize(oauth_hash: auth_hash)

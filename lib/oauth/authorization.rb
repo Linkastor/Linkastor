@@ -3,7 +3,7 @@ class Oauth::Authorization
     #We identify the user by its twitter id
     authentication_provider = AuthenticationProvider.where(:uid => oauth_hash["uid"]).first
     
-    #For new users we build an autentication provider
+    #For new users we build an authentication provider
     if authentication_provider.nil?
       user = User.new
       update_user(user: user, oauth_hash: oauth_hash)
@@ -15,6 +15,8 @@ class Oauth::Authorization
     
     #In every case we update the oauth token
     update_authentication_provider(authentication_provider: authentication_provider, oauth_hash: oauth_hash)
+    
+    return user
   end
   
   def update_user(user:, oauth_hash:)
@@ -23,7 +25,7 @@ class Oauth::Authorization
     user.save
   end
   
-  def update_authentication_provider(authentication_provider: authentication_provider, oauth_hash: oauth_hash)
+  def update_authentication_provider(authentication_provider:, oauth_hash:)
     authentication_provider.uid = oauth_hash.uid
     authentication_provider.token = oauth_hash.credentials.token
     authentication_provider.provider = oauth_hash.provider
