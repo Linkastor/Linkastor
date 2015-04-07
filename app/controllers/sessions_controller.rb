@@ -4,11 +4,9 @@ class SessionsController < ApplicationController
     redirect_to edit_user_path(user)
   end
   
-  def add_email
-    
-  end
-  
   def failure
+    flash[:alert] = params[:message]
+    redirect_to '/'
   end
   
   protected
