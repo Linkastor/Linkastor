@@ -1,5 +1,8 @@
 class User < ActiveRecord::Base
   has_many :authentication_providers
+  has_and_belongs_to_many :groups
+  has_many :invites, :foreign_key => "referrer"
+  has_many :invites, :foreign_key => "referee"
   
   validates :email, uniqueness: true
   

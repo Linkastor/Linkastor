@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150406203734) do
+ActiveRecord::Schema.define(version: 20150408122818) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -27,6 +27,28 @@ ActiveRecord::Schema.define(version: 20150406203734) do
 
   add_index "authentication_providers", ["uid"], name: "index_authentication_providers_on_uid", unique: true, using: :btree
   add_index "authentication_providers", ["user_id"], name: "index_authentication_providers_on_user_id", using: :btree
+
+  create_table "groups", force: :cascade do |t|
+    t.string "name", null: false
+  end
+
+  create_table "groups_users", id: false, force: :cascade do |t|
+    t.integer "user_id",  null: false
+    t.integer "group_id", null: false
+  end
+
+  add_index "groups_users", ["group_id"], name: "index_groups_users_on_group_id", using: :btree
+  add_index "groups_users", ["user_id"], name: "index_groups_users_on_user_id", using: :btree
+
+  create_table "invites", force: :cascade do |t|
+    t.integer "referrer",                 null: false
+    t.integer "referee",                  null: false
+    t.string  "code",                     null: false
+    t.boolean "accepted", default: false, null: false
+  end
+
+  add_index "invites", ["code"], name: "index_invites_on_code", using: :btree
+  add_index "invites", ["referrer", "referee"], name: "index_invites_on_referrer_and_referee", unique: true, using: :btree
 
   create_table "users", force: :cascade do |t|
     t.string   "email"
