@@ -1,8 +1,9 @@
 class Invite < ActiveRecord::Base
   belongs_to :user, :foreign_key => "referrer"
-  belongs_to :user, :foreign_key => "referee"
+  belongs_to :group
   
-  validates :referrer, :referee, :code, presence: true
-  validates :referrer, uniqueness: {scope: :referee}
+  validates :referrer, :code, presence: true
+  validates :email, uniqueness: {scope: :referrer}
   validates :accepted, :inclusion => {:in => [true, false]}
+  validates_with EmailValidator
 end

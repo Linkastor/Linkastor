@@ -18,6 +18,11 @@ describe UsersController do
       user.reload.email.should == "foo@linkastor.com"
     end
     
+    it "redirects to group creation" do
+      put :update, id: user.id, user: {email: "foo@linkastor.com"}
+      response.should redirect_to new_group_url
+    end
+    
     context "invalid email" do
       it "doesn't update user email" do
         old_email = user.email

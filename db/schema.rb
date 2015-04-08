@@ -42,13 +42,14 @@ ActiveRecord::Schema.define(version: 20150408122818) do
 
   create_table "invites", force: :cascade do |t|
     t.integer "referrer",                 null: false
-    t.integer "referee",                  null: false
+    t.string  "email",                    null: false
     t.string  "code",                     null: false
+    t.string  "group_id",                 null: false
     t.boolean "accepted", default: false, null: false
   end
 
   add_index "invites", ["code"], name: "index_invites_on_code", using: :btree
-  add_index "invites", ["referrer", "referee"], name: "index_invites_on_referrer_and_referee", unique: true, using: :btree
+  add_index "invites", ["referrer", "email"], name: "index_invites_on_referrer_and_email", unique: true, using: :btree
 
   create_table "users", force: :cascade do |t|
     t.string   "email"
