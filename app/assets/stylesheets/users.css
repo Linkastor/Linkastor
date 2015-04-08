@@ -1,0 +1,15 @@
+.user {
+  margin-top: 100px;
+  text-align: center;
+  line-height: 35px;
+}
+
+.user p {
+  font-size: 22px;
+}
+
+
+.user input[type="text"] {
+  margin-top: 15px;
+  margin-bottom: 15px;
+}
