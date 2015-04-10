@@ -34,7 +34,7 @@ describe GroupsController do
         session[:user_id] = user.id
       end
       
-      context "Valid params" do
+      context "Valid name" do
         it "creates group" do
           expect {
             post :create, group: { name: "foo" }
@@ -47,7 +47,7 @@ describe GroupsController do
         end
       end
       
-      context "invalid params" do
+      context "invalid name" do
         it "doesn't create group" do
           expect {
             post :create, group: { name: nil }
@@ -57,6 +57,34 @@ describe GroupsController do
         it "renders edit" do
           post :create, group: { name: nil }
           response.should render_template("new")
+        end
+      end
+      
+      context "nil emails" do
+        it "are allowed, rendirecting to group list" do
+          post :create, group: { name: "foo" }, emails: nil
+          response.should redirect_to groups_url
+        end
+      end
+      
+      context "some invalid emails" do
+        it "doesn't send any invite" do
+          expect {
+            post :create, group: { name: "foo" }, emails: "foo@bar.com;foo1.com"
+          }.to change { Invite.count }.by(0)
+        end
+        
+        it "renders new" do
+          post :create, group: { name: "foo" }, emails: "foo@bar.com;foo1.com"
+          response.should render_template "new"
+        end
+      end
+      
+      context "valid emails" do
+        it "send invites" do
+          expect {
+            post :create, group: { name: "foo" }, emails: "foo@bar.com;foo1@bar.com"
+          }.to change { Invite.count }.by(2)
         end
       end
     end

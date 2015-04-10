@@ -10,11 +10,18 @@ class GroupsController < ApplicationController
   
   def create
     group = Group.new(group_params)
-    if group.save
-      Invitation::Request.new(referrer: current_user, group: group).send(emails: params[:emails])
-      redirect_to groups_url, info: "Group #{group.name} was created"
-    else
-      return render 'new'
+    valid_group = group.save
+    return render 'new' unless valid_group
+    
+    request = Invitation::Request.new(referrer: current_user, group: group)
+    request.send(emails: params[:emails]) do |on|
+      on.invalid_email do |email|
+        return render 'new', alert: "Could not send an email to #{email}, please enter a valid email address"
+      end
+      
+      on.valid_emails do
+        return redirect_to groups_url, info: "Group #{group.name} was created"
+      end
     end
   end
   

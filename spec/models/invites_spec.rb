@@ -1,6 +1,10 @@
 require "rails_helper"
 
 describe Invite do
+  
+  let(:user) { FactoryGirl.create(:user) }
+  let(:group) { FactoryGirl.create(:group) }
+  
   describe "create" do
     it { FactoryGirl.build(:invite).save.should == true }
     
@@ -13,8 +17,6 @@ describe Invite do
     
     context "duplicate email for same referrer" do
       it "doesn't create invite" do
-        User.destroy_all
-        user = FactoryGirl.create(:user)
         FactoryGirl.build(:invite, referrer: user, email: "foo@bar.com").save.should == true
         FactoryGirl.build(:invite, referrer: user, email: "foo@bar.com").save.should == false
       end
@@ -23,17 +25,26 @@ describe Invite do
   
   describe "association" do
     it "has a referrer" do
-      user = FactoryGirl.create(:user)
-      invite = FactoryGirl.create(:invite, referrer: user)
-      
+      FactoryGirl.create(:invite, referrer: user)
       Invite.last.referrer.should == user
     end
     
     it "has a group" do
-      group = FactoryGirl.create(:group)
-      invite = FactoryGirl.create(:invite, group: group)
+      FactoryGirl.create(:invite, group: group)
       
       Invite.last.group.should == group
+    end
+  end
+  
+  describe "delegation" do
+    it "delegates referrer_name" do
+      invite = FactoryGirl.create(:invite, referrer: user)
+      invite.referrer_name.should == user.name
+    end
+    
+    it "delegates group name" do
+      invite = FactoryGirl.create(:invite, group: group)
+      invite.group_name.should == group.name
     end
   end
 end
