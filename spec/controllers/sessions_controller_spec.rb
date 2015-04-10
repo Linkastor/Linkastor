@@ -14,6 +14,11 @@ describe SessionsController do
       response.should redirect_to edit_user_path(user)
     end
     
+    it "sets user session" do
+      get :create, provider: "twitter"
+      session[:user_id].should == User.last.id
+    end
+    
     context "user was invited" do
       before(:each) do
         session[:invite_id] = FactoryGirl.create(:invite, 
