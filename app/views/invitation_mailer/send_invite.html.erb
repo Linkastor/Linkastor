@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+  </head>
+  <body>
+    <h1>Hello !</h1>
+    <p>
+      <%= @referrer.name.capitalize %> has invited you to join the group <%= @group.name %>
+       to share curation links with you.
+      <br>
+    </p>
+    <p>
+      To join this group, just follow this link: <%= @join_url %>.
+    </p>
+    <p>Thanks for joining Linkastor and have a great day!</p>
+  </body>
+</html>

@@ -1,10 +1,10 @@
 require "rails_helper"
 
-describe Invitation do
+describe Invitation::Request do
   
   let(:user) { FactoryGirl.create(:user) }
   let(:group) { FactoryGirl.create(:group) }
-  let(:invitation) { Invitation.new(referrer: user, group: group) }
+  let(:invitation) { Invitation::Request.new(referrer: user, group: group) }
   
   describe "create_invites" do
     context "valid emails" do
@@ -15,7 +15,7 @@ describe Invitation do
         
         invite = Invite.last
         invite.email.should == "foo1@bar.com"
-        invite.referrer.should == user.id
+        invite.referrer.should == user
         invite.code.should_not == nil
       end
       
@@ -49,5 +49,6 @@ describe Invitation do
     it { invitation.parse_emails(emails: "foo@bar.com ; foo1@bar.com").should == ["foo@bar.com", "foo1@bar.com"] }
     it { invitation.parse_emails(emails: "foo@bar.com;foo1@bar.com").should == ["foo@bar.com", "foo1@bar.com"] }
     it { invitation.parse_emails(emails: "foo@bar.com;foo1@bar.com;").should == ["foo@bar.com", "foo1@bar.com"] }
+    it { invitation.parse_emails(emails: nil).should == [] }
   end
 end

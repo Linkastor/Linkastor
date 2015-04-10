@@ -1,6 +1,6 @@
 FactoryGirl.define do
   factory :invite do
-    referrer { FactoryGirl.create(:user).id }
+    referrer { FactoryGirl.create(:user) }
     group
     email        {|n| "string#{n}@example.com" }
     code        "string"

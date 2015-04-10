@@ -15,8 +15,8 @@ describe Invite do
       it "doesn't create invite" do
         User.destroy_all
         user = FactoryGirl.create(:user)
-        FactoryGirl.build(:invite, referrer: user.id, email: "foo@bar.com").save.should == true
-        FactoryGirl.build(:invite, referrer: user.id, email: "foo@bar.com").save.should == false
+        FactoryGirl.build(:invite, referrer: user, email: "foo@bar.com").save.should == true
+        FactoryGirl.build(:invite, referrer: user, email: "foo@bar.com").save.should == false
       end
     end
   end
@@ -24,9 +24,9 @@ describe Invite do
   describe "association" do
     it "has a referrer" do
       user = FactoryGirl.create(:user)
-      invite = FactoryGirl.create(:invite, referrer: user.id)
+      invite = FactoryGirl.create(:invite, referrer: user)
       
-      Invite.last.referrer.should == user.id
+      Invite.last.referrer.should == user
     end
     
     it "has a group" do

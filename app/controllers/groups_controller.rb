@@ -1,4 +1,9 @@
 class GroupsController < ApplicationController
+  before_action :authenticate_current_user!
+  
+  def index
+  end
+  
   def new
     @group = Group.new
   end
@@ -6,7 +11,7 @@ class GroupsController < ApplicationController
   def create
     group = Group.new(group_params)
     if group.save
-      Invitation.new(referrer: current_user, group: group).send(params[:emails])
+      Invitation::Request.new(referrer: current_user, group: group).send(emails: params[:emails])
       redirect_to groups_url, info: "Group #{group.name} was created"
     else
       return render 'new'
