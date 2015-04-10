@@ -10,7 +10,8 @@ class Oauth::Authorization
       authentication_provider = user.authentication_providers.build
     else
     #For existing user we just update their info
-      update_user(user: authentication_provider.user, oauth_hash: oauth_hash)
+      user = authentication_provider.user
+      update_user(user: user, oauth_hash: oauth_hash)
     end
     
     #In every case we update the oauth token
