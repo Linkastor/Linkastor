@@ -53,6 +53,11 @@ describe Oauth::Authorization do
         @user.reload.name.should == "vincent daubry"
       end
       
+      it "returns user" do
+        user = Oauth::Authorization.new.authorize(oauth_hash: auth_hash)
+        user.should == @user
+      end
+      
       it "updates authentication_provider" do
         Oauth::Authorization.new.authorize(oauth_hash: auth_hash)
         @authentication_provider.reload.token.should == "fc6c663b89415..."
