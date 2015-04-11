@@ -16,7 +16,7 @@ class SessionsController < ApplicationController
   
   def failure
     flash[:alert] = params[:message]
-    redirect_to '/', alert: 'twitter authentication failed'
+    redirect_to '/'
   end
   
   protected
