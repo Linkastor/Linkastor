@@ -24,20 +24,14 @@ module Invitation
         ActiveRecord::Base.transaction do
           emails.each do |email|
             code = SecureRandom.hex(10)
-            invites << @referrer.invites.create!(email: email, 
-                                                  code: code,
-                                                  group: @group)
+            invites << @referrer.invites.create!(email: email, code: code,group: @group)
           end
+          send_emails(invites: invites)
           @callback.on_valid_emails.try(:call)
         end
       rescue ActiveRecord::RecordInvalid => e
-        invites = []
         @callback.on_invalid_email.try(:call, e.record.email)
       end
-      
-      send_emails(invites: invites)
-      
-      return invites
     end
     
     def send_emails(invites:)

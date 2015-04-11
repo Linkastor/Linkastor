@@ -27,5 +27,7 @@ module Linkastor
         #{Rails.root.join('lib')}
         #{Rails.root.join('lib')}/validators
       ) 
+
+    config.action_mailer.preview_path = "#{Rails.root}/lib/mailer_previews"
   end
 end

@@ -18,13 +18,6 @@ describe Invitation::Request do
         invite.referrer.should == user
         invite.code.should_not == nil
       end
-      
-      it "returns sent invitations" do
-        invitations = invitation.create_invites(emails: emails)
-        
-        Invite.count.should == 2
-        invitations.map(&:email).should == emails
-      end
     end
     
     context "invalid email" do
@@ -33,11 +26,6 @@ describe Invitation::Request do
       it "cancels all invitations" do
         invitation.create_invites(emails: emails)
         Invite.count.should == 0
-      end
-      
-      it "returns empty sent invitations" do
-        invitations = invitation.create_invites(emails: emails)
-        invitations.should == []
       end
     end
   end
