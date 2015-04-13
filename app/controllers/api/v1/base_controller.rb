@@ -9,5 +9,13 @@ class Api::V1::BaseController < ActionController::Base
 
   def options
     head(:ok)
-  end 
+  end
+  
+  def authenticate_user!
+    render status: 401, json: { message: "Bad credentials" } unless current_user
+  end
+  
+  def current_user
+    Authentication::Token.check(token: params[:auth_token])
+  end
 end

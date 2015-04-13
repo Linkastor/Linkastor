@@ -5,6 +5,8 @@ Rails.application.routes.draw do
     namespace "v1" do
       post 'users/sign_in', to: 'sessions#create'
       
+      resources :groups, only: [:index]
+      
       #For CORS support
       match "/*path" => "base#options", via: [:options]
     end
