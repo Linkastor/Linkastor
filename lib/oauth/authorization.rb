@@ -29,6 +29,7 @@ class Oauth::Authorization
   def update_authentication_provider(authentication_provider:, oauth_hash:)
     authentication_provider.uid = oauth_hash.uid
     authentication_provider.token = oauth_hash.credentials.token
+    authentication_provider.secret = oauth_hash.credentials.secret
     authentication_provider.provider = oauth_hash.provider
     authentication_provider.save
   end

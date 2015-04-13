@@ -4,5 +4,6 @@ FactoryGirl.define do
     sequence(:uid)      {|n| "uid#{n}"}
     provider            "string"
     token               "string"
+    secret              "string"
   end
 end

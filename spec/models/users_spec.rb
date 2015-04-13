@@ -22,6 +22,14 @@ describe User do
     it "allow nil email only at create time" do
       FactoryGirl.create(:user, email: nil).should be_truthy
     end
+    
+    it "destroys authentication providers when destroyed" do
+      user = FactoryGirl.create(:user)
+      FactoryGirl.create(:authentication_provider, user: user)
+      expect {
+        user.destroy
+      }.to change { AuthenticationProvider.count }.by(-1)
+    end
   end
   
   describe "update" do
