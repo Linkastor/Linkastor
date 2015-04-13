@@ -35,10 +35,10 @@ describe GroupsController do
       end
       
       context "Valid name" do
-        it "creates group" do
+        it "adds group to user" do
           expect {
             post :create, group: { name: "foo" }
-          }.to change { Group.count }.by(1)
+          }.to change { user.groups.count }.by(1)
         end
         
         it "redirects to group list" do
