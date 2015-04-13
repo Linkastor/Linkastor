@@ -4,8 +4,10 @@ Rails.application.routes.draw do
   namespace "api" do
     namespace "v1" do
       post 'users/sign_in', to: 'sessions#create'
-      
-      resources :groups, only: [:index]
+    
+      resources :groups, only: [:index] do
+        resources :links, only: [:create]
+      end
       
       #For CORS support
       match "/*path" => "base#options", via: [:options]
