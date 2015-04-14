@@ -1,3 +1,5 @@
+[![Build Status](https://semaphoreci.com/api/v1/projects/9c32c634-c898-4c9f-bd5b-dc8f4aada610/397817/badge.svg)](https://semaphoreci.com/vdaubry/linkastor)      
+
 # Linkastor
 
 Linkastor is an opensource curation web app inspired by [Linkydink](http://linkydink.io/) with few improvements (on the way).
