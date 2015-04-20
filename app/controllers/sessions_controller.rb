@@ -1,10 +1,11 @@
 class SessionsController < ApplicationController
   def create
     user = Oauth::Authorization.new.authorize(oauth_hash: oauth_hash)
+    invite = Invitation::InvitationFactory.new(invite_id: session[:invite_id]).invite
     
-    if session[:invite_id].present?
-      confirmation = Invitation::Confirmation.new(invite: Invite.find(session[:invite_id]),
-                                    referee: user)
+    if invite
+      confirmation = Invitation::Confirmation.new(invite: invite,
+                                                  referee: user)
       confirmation.accept!
       return redirect_to groups_path
     end

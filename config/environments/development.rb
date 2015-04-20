@@ -42,4 +42,6 @@ Rails.application.configure do
   config.action_mailer.default_url_options = { host: 'localhost:5000' }
   config.action_mailer.delivery_method = :file
   config.action_mailer.file_settings = { :location => Rails.root.join('tmp/mail') }
+  
+  REDIS_URL="redis://localhost:6379"
 end

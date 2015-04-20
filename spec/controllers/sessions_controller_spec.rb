@@ -44,6 +44,14 @@ describe SessionsController do
         response.should redirect_to groups_path
       end
     end
+    
+    context "session_id doesn't exists" do
+      it "ignores invite and redirects to user edit" do
+        session[:invite_id] = 1
+        get :create, provider: "twitter"
+        response.should redirect_to edit_user_path(user)
+      end
+    end
   end
   
   describe "GET failure" do

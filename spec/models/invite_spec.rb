@@ -13,6 +13,7 @@ describe Invite do
       it { FactoryGirl.build(:invite, email: nil).save.should == false }
       it { FactoryGirl.build(:invite, code: nil).save.should == false }
       it { FactoryGirl.build(:invite, accepted: nil).save.should == false }
+      it { FactoryGirl.build(:invite, group: nil).save.should == false }
     end
     
     context "duplicate email for same referrer" do

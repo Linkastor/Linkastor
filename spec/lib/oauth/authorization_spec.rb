@@ -39,6 +39,7 @@ describe Oauth::Authorization do
         authentication_provider.provider.should == "twitter"
         authentication_provider.uid.should == "145560254"
         authentication_provider.token.should == "fc6c663b89415..."
+        authentication_provider.secret.should == "kU8Nl4NF6nmO3..."
       end
     end
     

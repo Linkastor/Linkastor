@@ -22,6 +22,7 @@ class GroupsController < ApplicationController
   
   def create
     @group = Group.new(group_params)
+    @group.users = [current_user]
     valid_group = @group.save
     return render 'new' unless valid_group
     

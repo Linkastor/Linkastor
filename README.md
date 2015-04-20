@@ -18,6 +18,13 @@ Few things we already though about :
 - Mobile app/extension?
 - Input via email
 
+## Security
+
+Be carefull with integration test :
+- In order to incude integration tests to our CI, we commit VCR cassettes that contains recorded http requests with Twitter. They contains traces of your Twitter application credentials. Be sure to use a fake application.
+
+- ```spec/lib/oauth/twitter/credential_spec.rb``` contains example of valid user oauth credentials. Be sure to use a fake user.
+
 ## Contributors
 
 - Vincent Daubry ([@vdaubry](http://github.com/vdaubry))

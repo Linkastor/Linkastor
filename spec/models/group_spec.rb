@@ -19,5 +19,14 @@ describe Group do
       
       Group.last.users.should == users
     end
+    
+    it "destroy all links" do
+      group = FactoryGirl.create(:group)
+      FactoryGirl.create(:link, group: group)
+      
+      expect {
+        group.destroy
+      }.to change { Link.count }.by(-1)
+    end
   end
 end

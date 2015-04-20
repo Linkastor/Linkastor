@@ -15,3 +15,7 @@ RSpec.configure do |config|
 
   config.infer_spec_type_from_file_location!
 end
+
+def sign_in(user)
+  @token = Authentication::Token.new(user: user).create
+end

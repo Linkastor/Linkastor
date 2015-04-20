@@ -1,3 +1,6 @@
+require 'webmock/rspec'
+require 'vcr'
+
 RSpec.configure do |config|
   config.expect_with :rspec do |expectations|
     expectations.syntax = [:should, :expect]
@@ -5,4 +8,9 @@ RSpec.configure do |config|
   end
 
   config.mock_with :mocha
+  
+  config.around(:each) do |example|
+    $redis.flushall
+    example.run
+  end
 end
