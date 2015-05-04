@@ -80,6 +80,9 @@ GEM
       rails-dom-testing (~> 1.0)
       railties (>= 4.2.0)
       thor (>= 0.14, < 2.0)
+    jquery-turbolinks (2.1.0)
+      railties (>= 3.1.0)
+      turbolinks
     json (1.8.2)
     loofah (2.0.1)
       nokogiri (>= 1.5.9)
@@ -218,6 +221,7 @@ DEPENDENCIES
   byebug (~> 4.0.4)
   factory_girl_rails (~> 4.5.0)
   jquery-rails (~> 4.0.3)
+  jquery-turbolinks (~> 2.1.0)
   mocha (~> 1.1.0)
   omniauth-twitter (~> 1.1.0)
   pg (~> 0.18.1)

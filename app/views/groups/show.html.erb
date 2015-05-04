@@ -1,0 +1,13 @@
+<h1><%= @group.name %></h1>
+
+<p>Share a link :</p>
+<form id="share_link" action="/api/v1/groups/<%= @group.id %>/links">
+<input id="token" type="hidden" value="<%= @token %>" /><br />
+<input id="url" name="url" type="text" placeholder="url" value="http://www.lelevier.com"/><br />
+<input id="title" name="title" type="text" placeholder="title" value="Hello World" /><br />
+<input type="submit" />
+</form>
+
+<p>Links :</p>
+<div id="links" data="/groups/<%= @group.id %>/links">
+</div>
