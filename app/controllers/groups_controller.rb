@@ -2,6 +2,7 @@ class GroupsController < ApplicationController
   before_action :authenticate_current_user!
   
   def index
+    @groups = Group.all
   end
   
   def new
@@ -28,7 +29,12 @@ class GroupsController < ApplicationController
     
     send_invites
   end
-  
+
+  def show
+    @group = Group.find(params[:id])
+    @token = Authentication::Token.new(user: current_user).create
+  end
+
   private
     def send_invites
       @group.emails = params[:group][:emails]
