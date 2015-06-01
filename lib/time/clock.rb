@@ -9,7 +9,7 @@ class Clock
   def tick
     loop do
       sleep 60
-      @on_alarm.call if @on_alarm && @alarm.fire?
+      @on_alarm.try(:call) if @alarm.fire?
     end
   end
 end

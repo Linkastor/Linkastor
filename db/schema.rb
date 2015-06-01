@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150530161655) do
+ActiveRecord::Schema.define(version: 20150601160238) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -64,6 +64,7 @@ ActiveRecord::Schema.define(version: 20150530161655) do
     t.datetime "updated_at",                 null: false
     t.boolean  "posted",     default: false, null: false
     t.datetime "posted_at"
+    t.integer  "posted_by",                  null: false
   end
 
   add_index "links", ["group_id"], name: "index_links_on_group_id", using: :btree

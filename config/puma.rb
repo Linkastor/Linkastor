@@ -11,3 +11,9 @@ environment ENV['RACK_ENV'] || 'development'
 on_worker_boot do
   ActiveRecord::Base.establish_connection  
 end
+
+after_worker_boot do
+  clock = Clock.new(crontab: "* 7 * * *")
+  clock.on_alarm = Proc.new { GroupMailerJob.new.send }
+  clock.async.tick
+end

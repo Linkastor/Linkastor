@@ -7,6 +7,7 @@ class Api::V1::LinksController < Api::V1::BaseController
     
     #TODO: When we post the same link twice, the link should be marked as not posted
     link = group.links.build(link_params)
+    link.posted_by = current_user.id
     if link.save
       render status: 201, json: link
     else
