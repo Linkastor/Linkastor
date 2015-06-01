@@ -41,4 +41,16 @@ describe User do
     it { @user.update_attributes(email: "foo").should == false }
     it { @user.update_attributes(email: "foo@bar.com").should == true }
   end
+  
+  describe "with_links_to_post" do
+    it "returns user with at least one link not posted" do
+      user = FactoryGirl.create(:user_with_group)
+      FactoryGirl.create(:link, group: user.groups.first, posted: false)
+      User.with_links_to_post.should == [user]
+    end
+    
+    it "returns empty if all links are posted" do
+      User.with_links_to_post.should == []
+    end
+  end
 end

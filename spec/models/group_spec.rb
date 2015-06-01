@@ -1,6 +1,9 @@
 require "rails_helper"
 
 describe Group do
+  
+  let(:group) { FactoryGirl.create(:group) }
+  
   describe "create" do
     it { FactoryGirl.build(:group).save.should == true }
     
@@ -12,7 +15,6 @@ describe Group do
   describe "user association" do
     it "has many users" do
       users = FactoryGirl.create_list(:user, 2)
-      group = FactoryGirl.create(:group)
       
       group.users << users
       group.save
@@ -21,12 +23,21 @@ describe Group do
     end
     
     it "destroy all links" do
-      group = FactoryGirl.create(:group)
       FactoryGirl.create(:link, group: group)
       
       expect {
         group.destroy
       }.to change { Link.count }.by(-1)
+    end
+  end
+  
+  describe "links_to_post" do
+    it "returns group links not yet posted" do
+      link1 = FactoryGirl.create(:link, group: group, posted: false)
+      link2 = FactoryGirl.create(:link, group: group, posted: true)
+      link3 = FactoryGirl.create(:link, posted: false)
+      
+      group.links_to_post.should == [link1]
     end
   end
 end

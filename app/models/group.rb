@@ -6,4 +6,8 @@ class Group < ActiveRecord::Base
   has_many :links, dependent: :destroy
   
   validates :name, presence: true
+  
+  def links_to_post
+    links.not_posted
+  end
 end

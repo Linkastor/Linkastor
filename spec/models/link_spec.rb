@@ -7,6 +7,7 @@ describe Link do
     context "mandatory fields" do
       it { FactoryGirl.build(:link, url: nil).save.should == false }
       it { FactoryGirl.build(:link, title: nil).save.should == false }
+      it { FactoryGirl.build(:link, group_id: nil).save.should == false }
     end
     
     context "duplicate links url" do
@@ -37,5 +38,13 @@ describe Link do
       links = FactoryGirl.create_list(:link, 2, group: group)
       group.reload.links.should == links
     end
+  end
+  
+  describe "not posted" do
+    it "returns links not already posted" do 
+      link1 = FactoryGirl.create(:link, posted: false)
+      link2 = FactoryGirl.create(:link, posted: true)
+      Link.not_posted.should == [link1]
+    end   
   end
 end

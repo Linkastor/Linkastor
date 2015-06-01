@@ -26,6 +26,7 @@ module Linkastor
     config.autoload_paths += %W(
         #{Rails.root.join('lib')}
         #{Rails.root.join('lib')}/validators
+        #{Rails.root.join('lib')}/time
       ) 
 
     config.action_mailer.preview_path = "#{Rails.root}/lib/mailer_previews"

@@ -1,4 +1,4 @@
-workers Integer(ENV['WEB_CONCURRENCY'] || 2)
+workers Integer(1) #WARNING : current cron implementation doesn't support multiple workers : each worker starts a clock, if you start more than one worker you will have multiple cron running simultaneously
 threads_count = Integer(ENV['MAX_THREADS'] || 5)
 threads threads_count, threads_count
 
@@ -9,7 +9,5 @@ port        ENV['PORT']     || 3000
 environment ENV['RACK_ENV'] || 'development'
 
 on_worker_boot do
-  # Worker specific setup for Rails 4.1+
-  # See: https://devcenter.heroku.com/articles/deploying-rails-applications-with-the-puma-web-server#on-worker-boot
-  ActiveRecord::Base.establish_connection
+  ActiveRecord::Base.establish_connection  
 end

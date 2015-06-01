@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+  </head>
+  <body>
+    <h1>Hi @user.name. Here are links shared with you :</h1>
+    <hr>
+    <% @groups.each do |group| %>
+      <p> From group <%= group.name%> </p>
+      <% group.links_to_post.each do |link| %>
+          <div>
+            <b><%= link_to link.title, link.url %></b>
+          </div>
+      <% end %>
+      <br>
+    <% end %>
+  </body>
+</html>

@@ -76,6 +76,14 @@ describe Api::V1::LinksController do
         end
       end
       
+      context "post same link url on different group" do
+        it "creates 2 links" do
+          group2 = FactoryGirl.create(:group, users: [user])
+          post :create, auth_token: @token, group_id: group.id, link: { title: "foo bar", url: "http://foo.com/bar.html" }
+          post :create, auth_token: @token, group_id: group2.id, link: { title: "foo bar", url: "http://foo.com/bar.html" }
+          Link.count.should == 2
+        end
+      end
       
     end
   end
