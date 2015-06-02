@@ -15,17 +15,12 @@ describe Link do
     end
     
     context "duplicate links url" do
-      it "creates only one link if links are on the same day" do
+      it "creates only one link for the same group" do
         FactoryGirl.build(:link, group: group, url: "http://foo.com/bar.html").save.should == true
         FactoryGirl.build(:link, group: group, url: "http://foo.com/bar.html").save.should == false
       end
       
-      it "creates two links if links are on different day" do
-        FactoryGirl.build(:link, group: group, url: "http://foo.com/bar.html", created_at: 1.day.ago).save.should == true
-        FactoryGirl.build(:link, group: group, url: "http://foo.com/bar.html").save.should == true
-      end
-      
-      it "creates two links if links are on the same day for different groups" do
+      it "creates two links if links are on different groups" do
         group2 = FactoryGirl.create(:group)
         FactoryGirl.build(:link, group: group, url: "http://foo.com/bar.html").save.should == true
         FactoryGirl.build(:link, group: group2, url: "http://foo.com/bar.html").save.should == true

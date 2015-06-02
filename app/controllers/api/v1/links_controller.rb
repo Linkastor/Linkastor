@@ -2,21 +2,24 @@ class Api::V1::LinksController < Api::V1::BaseController
   before_filter :authenticate_user!
   
   def create
-    group = Group.find(params[:group_id])
-    return render status: 403, json: {error: "You are not authorized to post to this group"} unless current_user.groups.include?(group)
-    
-    #TODO: When we post the same link twice, the link should be marked as not posted
-    link = group.links.build(link_params)
-    link.posted_by = current_user.id
-    if link.save
-      render status: 201, json: link
-    else
-      render status: 422, json: { error: link.errors.full_messages }
+    link_builder = Builders::LinkBuilder.new(params: params, user: current_user)
+    link_builder.create_link do |on|
+      on.unauthorized do
+        render status: 403, json: {error: "You are not authorized to post to this group"}
+      end
+      
+      on.created do |link|
+        render status: 201, json: link
+      end
+      
+      #If the link already existed in this group we reschedule it for next mail digest
+      on.already_exist do |link|
+        render status: 200, json: link
+      end
+      
+      on.invalid do |link|
+        render status: 422, json: { error: link.errors.full_messages }
+      end
     end
   end
-  
-  protected
-    def link_params
-      params.require(:link).permit(:title, :url)
-    end
 end

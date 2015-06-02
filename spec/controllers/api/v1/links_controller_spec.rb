@@ -73,11 +73,17 @@ describe Api::V1::LinksController do
         end
       end
       
-      context "post same link url multiple times on the same date" do
+      context "post same link url multiple times" do
         it "creates only one link" do
           post :create, auth_token: @token, group_id: group.id, link: { title: "foo bar", url: "http://foo.com/bar.html" }
           post :create, auth_token: @token, group_id: group.id, link: { title: "foo bar", url: "http://foo.com/bar.html" }
           Link.count.should == 1
+        end
+        
+        it "updates previously sent link to be reschedule for next mail digest" do
+          link = FactoryGirl.create(:link, group: group, posted: true, url: "http://foo.com/bar.html")
+          post :create, auth_token: @token, group_id: group.id, link: { title: "foo bar", url: "http://foo.com/bar.html" }
+          link.reload.posted.should == false
         end
       end
       
