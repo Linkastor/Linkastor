@@ -4,6 +4,23 @@ describe GroupsController do
   
   let(:user) { FactoryGirl.create(:user) }
   
+  describe "GET index" do
+    context "user not logged in" do
+      it "returns to sign in page" do
+        get :index
+        response.should redirect_to root_url
+      end
+    end
+    
+    it "returns only user groups" do
+      session[:user_id] = user.id
+      group1 = FactoryGirl.create(:group, users: [user])
+      group2 = FactoryGirl.create(:group)
+      get :index
+      assigns(:groups).should == [group1]
+    end
+  end
+  
   describe "GET new" do
     context "user not logged in" do
       it "redirects to root url" do

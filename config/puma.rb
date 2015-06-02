@@ -13,7 +13,10 @@ on_worker_boot do
 end
 
 after_worker_boot do
-  clock = Clock.new(crontab: "* 7 * * *")
-  clock.on_alarm = Proc.new { GroupMailerJob.new.send }
+  clock = Clock.new(crontab: "* * * * *")
+  clock.on_alarm = Proc.new do
+    puts "Sending mail digest to all users"
+    GroupMailerJob.new.send
+  end
   clock.async.tick
 end

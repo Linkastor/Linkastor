@@ -11,7 +11,7 @@
       <% group.links_to_post.each do |link| %>
           <div>
             <b><%= link_to link.title, link.url %></b>
-            <p>Posted By link.user.name</p> <%= image_tag(link.user.avatar) %>
+            <p><%= image_tag(link.user.avatar) %> Posted by <%= link.user.name %></p>
           </div>
       <% end %>
       <br>
