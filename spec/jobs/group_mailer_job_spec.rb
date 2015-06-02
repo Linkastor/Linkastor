@@ -25,5 +25,11 @@ describe GroupMailerJob do
       GroupMailerJob.new.send
       link.reload.posted.should == true
     end
+    
+    it "sets links posted_at" do
+      link = FactoryGirl.create(:link, group: @group, posted: false)
+      GroupMailerJob.new.send
+      link.reload.posted_at.should_not be_nil
+    end
   end
 end

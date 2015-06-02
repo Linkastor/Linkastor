@@ -1,4 +1,4 @@
-#Supports a subset of the crontab syntax. Every notation is not supported (ex: */5 * * * *)
+#Supports a subset of the crontab syntax. 'Every' notation is not supported (ex: */5 * * * *)
 class CronParser
   REGEX = /(([\d\/,\-]+|\*)\s*){5}/
   CRONTAB_CONSTANT = [:min, :hour, :day, :month, :day_of_week]
