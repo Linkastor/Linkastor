@@ -80,11 +80,11 @@ Rails.application.configure do
   ActionMailer::Base.smtp_settings = {
     :user_name => ENV['SENDGRID_USERNAME'],
     :password => ENV['SENDGRID_PASSWORD'],
-    :domain => 'linkastor.scalingo.io',
+    :domain => 'linkastor.herokuapp.com',
     :address => 'smtp.sendgrid.net',
     :port => 587,
     :authentication => :plain,
     :enable_starttls_auto => true
   }
-  config.action_mailer.default_url_options = { host: 'linkastor.scalingo.io' }
+  config.action_mailer.default_url_options = { host: 'linkastor.herokuapp.com' }
 end
