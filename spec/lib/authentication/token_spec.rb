@@ -23,26 +23,26 @@ describe Authentication::Token do
     end
   end
   
-  describe "check" do
+  describe "user" do
     context "finds user" do
       before(:each) do
         $redis.set("authentication_foo", user.id)
       end
       
       it "returns user" do
-        Authentication::Token.check(token: "foo").should == user
+        Authentication::Token.user(token: "foo").should == user
       end
     end
     
     context "token not found" do
       it "returns nil" do
-        Authentication::Token.check(token: "bar").should == nil
+        Authentication::Token.user(token: "bar").should == nil
       end
     end
     
     context "nil token" do
       it "returns nil" do
-        Authentication::Token.check(token: nil).should == nil
+        Authentication::Token.user(token: nil).should == nil
       end
     end
   end

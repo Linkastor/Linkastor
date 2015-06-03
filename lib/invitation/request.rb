@@ -18,13 +18,11 @@ module Invitation
     end
 
     def create_invites(emails:)
-      invites = []
-      
       begin
         ActiveRecord::Base.transaction do
-          emails.each do |email|
+          invites = emails.map do |email|
             code = SecureRandom.hex(10)
-            invites << @referrer.invites.create!(email: email, code: code,group: @group)
+            @referrer.invites.create!(email: email, code: code,group: @group)
           end
           send_emails(invites: invites)
           @callback.on_valid_emails.try(:call)
@@ -35,7 +33,7 @@ module Invitation
     end
     
     def send_emails(invites:)
-      invites.map do |invite|
+      invites.each do |invite|
         InviteMailerJob.new.async.perform(invite)
       end
     end

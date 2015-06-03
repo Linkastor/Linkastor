@@ -12,7 +12,7 @@ module Authentication
       token
     end
     
-    def self.check(token:)
+    def self.user(token:)
       return if token.nil?
       
       user_id = $redis.get(self.key(token: token))
