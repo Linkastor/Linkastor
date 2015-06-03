@@ -4,7 +4,7 @@
 
 Linkastor is an opensource curation web app inspired by [Linkydink](http://linkydink.io/) with few improvements (on the way).
 
-It's meant to be self hosted (Instructions will came when it will make sense).
+It's meant to be self hosted (Instructions will come when it makes sense).
 
 ## Feature roadmap 
 
@@ -21,9 +21,9 @@ Few things we already though about :
 ## Security
 
 Be carefull with integration test :
-- In order to incude integration tests to our CI, we commit VCR cassettes that contains recorded http requests with Twitter. They contains traces of your Twitter application credentials. Be sure to use a fake application.
+- In order to incude integration tests to our CI, we commit VCR cassettes that contains recorded http requests with Twitter. They contains traces of your Twitter application credentials. Be sure to use a dummy Twitter app when recording your unit test.
 
-- ```spec/lib/oauth/twitter/credential_spec.rb``` contains example of valid user oauth credentials. Be sure to use a fake user.
+- ```spec/lib/oauth/twitter/credential_spec.rb``` contains example of valid user oauth credentials. Be sure to use a dummy twitter user.
 
 ## Contributors
 

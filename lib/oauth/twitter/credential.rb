@@ -15,7 +15,6 @@ class Oauth::Twitter::Credential
     begin
       @client.verify_credentials.id
     rescue Twitter::Error::Unauthorized => e
-      return nil
     end
   end
 end

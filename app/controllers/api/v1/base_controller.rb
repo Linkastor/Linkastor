@@ -16,6 +16,6 @@ class Api::V1::BaseController < ActionController::Base
   end
   
   def current_user
-    Authentication::Token.check(token: params[:auth_token])
+    Authentication::Token.user(token: params[:auth_token])
   end
 end
