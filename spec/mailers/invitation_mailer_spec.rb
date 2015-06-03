@@ -13,7 +13,7 @@ describe InvitationMailer, :type => :mailer do
   end
 
   it 'renders the sender email' do
-    expect(mail.from).to eql(['noreply@linkastor.scalingo.io'])
+    expect(mail.from).to eql(['noreply@linkastor.herokuapp.com'])
   end
 
   it 'assigns referrer name' do
