@@ -2,6 +2,7 @@ class GroupsController < ApplicationController
   before_action :authenticate_current_user!
   
   def index
+    @title = 'Your groups'
     @groups = current_user.groups
   end
   
