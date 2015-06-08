@@ -1,5 +1,14 @@
-<ul>
-<% @links.each do |link| %>
-  <li><a href="<%= link.url %>"><%= link.title %></a></li>
+<% if @days.keys.length > 0 %>
+	<% @days.keys.sort.reverse.each do |day| %>
+		<div class="row">
+			<div class="header"><%= day.to_s(:day_title) %></div>
+			<ul>
+				<% @days[day].each do |link| %>
+					<li><a href="<%= link.url %>"><%= link.title %></a></li>
+				<% end %>
+			</ul>
+		</div>
+	<% end %>
+<% else %>
+	No links for now
 <% end %>
-</ul>

@@ -33,6 +33,7 @@ class GroupsController < ApplicationController
 
   def show
     @group = Group.find(params[:id])
+    @title = @group.name
     @token = Authentication::Token.new(user: current_user).create
   end
 

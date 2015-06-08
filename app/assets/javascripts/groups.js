@@ -6,6 +6,7 @@ function reloadLinks(){
 		dataType: "html",
 		success: function (data) {
 			$('#links').html(data);
+			console.log(data);
 		},
 		error: function(error) {
 			console.log("error ", error);
