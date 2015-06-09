@@ -33,6 +33,7 @@ $(function () {
 	        data: postData,
 	        success: function(data) {
 	        	reloadLinks();
+	        	$('#share_link')[0].reset();
 	        },
 	        error: function(error) {
 	        	alert("Error");

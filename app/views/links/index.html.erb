@@ -1,9 +1,9 @@
 <% if @days.keys.length > 0 %>
 	<% @days.keys.sort.reverse.each do |day| %>
 		<div class="row">
-			<div class="header"><%= day.to_s(:day_title) %></div>
+			<h4 class="text-muted"><%= day.to_s(:day_title) %></h4>
 			<ul>
-				<% @days[day].each do |link| %>
+				<% @days[day].sort_by {|obj| obj.created_at }.reverse.each do |link| %>
 					<li><a href="<%= link.url %>"><%= link.title %></a></li>
 				<% end %>
 			</ul>
