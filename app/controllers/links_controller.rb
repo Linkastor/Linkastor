@@ -5,6 +5,10 @@ class LinksController < ApplicationController
 		links = Link.where(:group_id => params[:group_id])
 		@days = links.group_by { |t| t.created_at.beginning_of_day }
 
-		render layout: false
+		respond_to do |format|
+			format.html  { render layout: false }
+			format.json { render json: @days.to_json(:include => :user) }
+     	end
+		
 	end
 end
