@@ -6,12 +6,14 @@
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
-group = Group.where(name: 'Seed group').first_or_create
-user = User.find(1)
-user.groups << group
+if Rails.env == 'development'
+  group = Group.where(name: 'Seed group').first_or_create
+  user = User.find(1)
+  user.groups << group
 
-for i in 0..100 do
-	link = Link.create(title: 'Seeded link', url: 'http://www.google.com', group: group, posted_by: user.id)
-	link.update_attribute :created_at, i.day.ago
-	link.update_attribute :updated_at, i.day.ago
+  for i in 0..100 do
+  	link = Link.create(title: 'Seeded link', url: 'http://www.google.com', group: group, posted_by: user.id)
+  	link.update_attribute :created_at, i.day.ago
+  	link.update_attribute :updated_at, i.day.ago
+  end
 end
