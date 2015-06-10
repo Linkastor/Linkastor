@@ -1,5 +1,16 @@
-<ul>
-<% @links.each do |link| %>
-  <li><a href="<%= link.url %>"><%= link.title %></a></li>
+<% if @days.keys.length > 0 %>
+	<% @days.keys.sort.reverse.each do |day| %>
+		<div class="row">
+			<h4 class="text-muted"><%= day.to_s(:day_title) %></h4>
+			<ul class="list-unstyled">
+				<% @days[day].sort_by {|obj| obj.created_at }.reverse.each do |link| %>
+					<li style="padding:5px;">
+						<a href="http://twitter.com/<%= link.user.nickname %>" target="_blank"><img class="avatar img-circle" src="<%= link.user.avatar %>" alt="<%= link.user.name %>" /></a>&nbsp;&nbsp;<span class="link"><a href="<%= link.url %>" target="_blank"><%= link.title %></a></span>
+					</li>
+				<% end %>
+			</ul>
+		</div>
+	<% end %>
+<% else %>
+	No links for now
 <% end %>
-</ul>

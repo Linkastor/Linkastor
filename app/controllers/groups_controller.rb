@@ -2,6 +2,7 @@ class GroupsController < ApplicationController
   before_action :authenticate_current_user!
   
   def index
+    @title = 'Your groups'
     @groups = current_user.groups
   end
   
@@ -32,6 +33,7 @@ class GroupsController < ApplicationController
 
   def show
     @group = Group.find(params[:id])
+    @title = @group.name
     @token = Authentication::Token.new(user: current_user).create
   end
 

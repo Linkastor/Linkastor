@@ -16,6 +16,7 @@ gem 'sucker_punch',               '~> 1.4.0'
 gem 'active_model_serializers',   '~> 0.9.3'
 gem 'twitter',                    '~> 5.14.0'
 gem 'redis',                      '~> 3.2.0'
+gem 'will_paginate',              '~> 3.0.6'
   
 group :development, :test do  
   gem 'byebug',               '~> 4.0.4'

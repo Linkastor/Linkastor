@@ -6,4 +6,6 @@ class Link < ActiveRecord::Base
   
   validates :posted_by, :group, :url, :title, presence: true
   validates :url, uniqueness: { scope: :group_id }
+
+  self.per_page = 10
 end

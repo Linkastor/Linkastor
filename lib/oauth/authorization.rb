@@ -21,6 +21,7 @@ class Oauth::Authorization
   end
   
   def update_user(user:, oauth_hash:)
+    user.nickname = oauth_hash.extra.raw_info.screen_name
     user.name = oauth_hash.extra.raw_info.name
     user.avatar = oauth_hash.extra.raw_info.profile_image_url
     user.save

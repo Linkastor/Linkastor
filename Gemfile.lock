@@ -212,6 +212,7 @@ GEM
     webmock (1.20.4)
       addressable (>= 2.3.6)
       crack (>= 0.3.2)
+    will_paginate (3.0.7)
 
 PLATFORMS
   ruby
@@ -238,3 +239,4 @@ DEPENDENCIES
   uglifier (~> 2.7.1)
   vcr (~> 2.9.3)
   webmock (~> 1.20.4)
+  will_paginate (~> 3.0.6)
