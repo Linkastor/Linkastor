@@ -8,8 +8,17 @@
 
 if Rails.env == 'development'
   group = Group.where(name: 'Seed group').first_or_create
-  user = User.find(1)
-  user.groups << group
+  
+  user = User.where(name: 'Sid').first_or_create
+  user.email = 'no_reply@linkastor.herokuapp.com'
+  user.avatar = 'http://images2.fanpop.com/images/polls/308000/308926_1254839318372_full.jpg'
+  user.nickname = 'sid'
+  user.save
+
+  users = User.all
+  users.each do |u|
+    u.groups << group
+  end
 
   for i in 0..100 do
   	link = Link.create(title: 'Seeded link', url: 'http://www.google.com', group: group, posted_by: user.id)
