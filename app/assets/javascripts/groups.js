@@ -1,12 +1,12 @@
 function reloadLinks(){
 	var url = $('#links').attr("data");
+	var page = $('#links').attr("page");
 
 	$.ajax({
-		url: url,
+		url: url + '?page=' + page,
 		dataType: "html",
 		success: function (data) {
 			$('#links').html(data);
-			console.log(data);
 		},
 		error: function(error) {
 			console.log("error ", error);
@@ -32,6 +32,7 @@ $(function () {
 	        type: 'post',
 	        data: postData,
 	        success: function(data) {
+	        	$('#links').attr("page", 1);
 	        	reloadLinks();
 	        	$('#share_link')[0].reset();
 	        },
@@ -42,4 +43,14 @@ $(function () {
 	});
 
 	reloadLinks();
+
+	$('#older_link').click(function(event){
+		event.preventDefault();
+
+		var page = parseInt($('#links').attr("page"));
+
+		$('#links').attr("page", (page+1));
+
+		reloadLinks();
+	})
 });
