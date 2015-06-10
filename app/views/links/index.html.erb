@@ -5,7 +5,7 @@
 			<ul class="list-unstyled">
 				<% @days[day].sort_by {|obj| obj.created_at }.reverse.each do |link| %>
 					<li style="padding:5px;">
-						<a href="http://twitter.com/<%= link.user.nickname %>" target="_blank"><img class="img-circle" src="<%= link.user.avatar %>" alt="<%= link.user.name %>" /></a>&nbsp;&nbsp;<span class="link"><a href="<%= link.url %>" target="_blank"><%= link.title %></a></span>
+						<a href="http://twitter.com/<%= link.user.nickname %>" target="_blank"><img class="avatar img-circle" src="<%= link.user.avatar %>" alt="<%= link.user.name %>" /></a>&nbsp;&nbsp;<span class="link"><a href="<%= link.url %>" target="_blank"><%= link.title %></a></span>
 					</li>
 				<% end %>
 			</ul>

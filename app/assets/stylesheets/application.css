@@ -14,3 +14,8 @@
  *= require_self
  *= require bootstrap-social
  */
+
+ .avatar {
+  width: 48px;
+  height: 48px;
+}
