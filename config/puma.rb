@@ -13,7 +13,8 @@ on_worker_boot do
 end
 
 after_worker_boot do
-  clock = Clock.new(crontab: "* * * * *")
+  #Everyday at 1am
+  clock = Clock.new(crontab: "* 1 * * *")
   clock.on_alarm = Proc.new do
     puts "Sending mail digest to all users"
     GroupMailerJob.new.send
