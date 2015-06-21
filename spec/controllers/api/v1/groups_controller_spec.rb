@@ -20,8 +20,10 @@ describe Api::V1::GroupsController do
       
       context "user has groups" do
         it "returns user group list" do
-          group1 = FactoryGirl.create(:group, users: [user], name: "group 1")
-          group2 = FactoryGirl.create(:group, users: [user], name: "group 2")
+          group1 = FactoryGirl.create(:group, name: "group 1")
+          group2 = FactoryGirl.create(:group, name: "group 2")
+          GroupsUser.create(group: group1, user: user)
+          GroupsUser.create(group: group2, user: user)
           
           get :index, auth_token: @token
           
@@ -33,7 +35,8 @@ describe Api::V1::GroupsController do
         end
         
         it "returns user single group" do
-          group = FactoryGirl.create(:group, users: [user], name: "group 1")
+          group = FactoryGirl.create(:group, name: "group 1")
+          GroupsUser.create(group: group, user: user)
           
           get :index, auth_token: @token
           

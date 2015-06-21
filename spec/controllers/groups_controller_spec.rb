@@ -14,8 +14,9 @@ describe GroupsController do
     
     it "returns only user groups" do
       session[:user_id] = user.id
-      group1 = FactoryGirl.create(:group, users: [user])
+      group1 = FactoryGirl.create(:group)
       group2 = FactoryGirl.create(:group)
+      GroupsUser.create(group: group1, user: user)
       get :index
       assigns(:groups).should == [group1]
     end

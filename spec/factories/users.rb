@@ -6,7 +6,7 @@ FactoryGirl.define do
     
     factory :user_with_group do
       after(:create) do |user|
-        FactoryGirl.create(:group, users: [user])
+        GroupsUser.create(user: user, group: FactoryGirl.create(:group))
       end
     end
   end
