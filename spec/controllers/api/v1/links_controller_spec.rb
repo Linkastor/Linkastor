@@ -3,7 +3,11 @@ require "rails_helper"
 describe Api::V1::LinksController do
   
   let(:user) { FactoryGirl.create(:user) }
-  let(:group) { FactoryGirl.create(:group, users: [user]) }
+  let(:group) do
+    group = FactoryGirl.create(:group)
+    GroupsUser.create(group: group, user: user)
+    group
+  end
   
   describe "POST create" do
     context "user not signed in" do
@@ -89,7 +93,8 @@ describe Api::V1::LinksController do
       
       context "post same link url on different group" do
         it "creates 2 links" do
-          group2 = FactoryGirl.create(:group, users: [user])
+          group2 = FactoryGirl.create(:group)
+          GroupsUser.create(group: group2, user: user)
           post :create, auth_token: @token, group_id: group.id, link: { title: "foo bar", url: "http://foo.com/bar.html" }
           post :create, auth_token: @token, group_id: group2.id, link: { title: "foo bar", url: "http://foo.com/bar.html" }
           Link.count.should == 2

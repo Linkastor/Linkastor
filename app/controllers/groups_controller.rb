@@ -24,10 +24,10 @@ class GroupsController < ApplicationController
   
   def create
     @group = Group.new(group_params)
-    @group.users = [current_user]
     valid_group = @group.save
     return render 'new' unless valid_group
     
+    GroupsUser.create(user: current_user, group: @group)
     send_invites
   end
 

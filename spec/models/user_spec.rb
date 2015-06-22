@@ -56,4 +56,21 @@ describe User do
       User.with_links_to_post.should == []
     end
   end
+  
+  describe "associations" do
+    it "cannot have the same group twice" do
+      group = FactoryGirl.create(:group)
+      user = FactoryGirl.create(:user)
+      GroupsUser.create(user: user, group: group)
+      GroupsUser.create(user: user, group: group)
+      user.groups.should == [group]
+    end
+    
+    it "destroys associated groups_user" do
+      user = FactoryGirl.create(:user_with_group)
+      GroupsUser.count.should == 1
+      user.destroy
+      GroupsUser.count.should == 0
+    end
+  end
 end
