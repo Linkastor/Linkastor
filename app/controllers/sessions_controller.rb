@@ -12,7 +12,12 @@ class SessionsController < ApplicationController
     
     session[:user_id] = user.id
     
-    redirect_to edit_user_path(user)
+    if user.email
+      redirect_to groups_path(user)
+    else
+      redirect_to edit_user_path(user)
+    end
+    
   end
   
   def failure

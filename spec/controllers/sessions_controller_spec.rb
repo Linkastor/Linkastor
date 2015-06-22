@@ -3,15 +3,26 @@ require "rails_helper"
 describe SessionsController do
   
   let(:user) { FactoryGirl.create(:user) }
+  let(:new_user) { FactoryGirl.create(:user, email: nil) } 
   
   describe "GET create" do
     before(:each) do
       Oauth::Authorization.any_instance.stubs(:authorize).returns(user)
     end
     
-    it "redirects to user edit path" do
-      get :create, provider: "twitter"
-      response.should redirect_to edit_user_path(user)
+    context "new user" do
+      it "redirects to user edit path" do
+        Oauth::Authorization.any_instance.stubs(:authorize).returns(new_user)
+        get :create, provider: "twitter"
+        response.should redirect_to edit_user_path(new_user)
+      end
+    end
+    
+    context "existing user" do
+      it "redirects to groups path" do
+        get :create, provider: "twitter"
+        response.should redirect_to groups_path(user)
+      end
     end
     
     it "sets user session" do
@@ -46,10 +57,10 @@ describe SessionsController do
     end
     
     context "session_id doesn't exists" do
-      it "ignores invite and redirects to user edit" do
+      it "ignores invite and redirects to groups" do
         session[:invite_id] = 1
         get :create, provider: "twitter"
-        response.should redirect_to edit_user_path(user)
+        response.should redirect_to groups_path(user)
       end
     end
   end
