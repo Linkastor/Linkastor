@@ -28,44 +28,9 @@
   </div>
 
 	<div class="col-md-4">
-		<div class="panel panel-default">
-		  <div class="panel-body">
-		    <h4>Share a link :</h4>
-        <%= form_tag("/groups/" + @group.id.to_s + "/links", method: "post") do %>
-  				<div class="form-group">
-  					<input id="url" name="link[url]" class="form-control" type="text" placeholder="Url" />
-  				</div>
-  				<div class="form-group">
-  					<input id="title" name="link[title]" class="form-control" type="text" placeholder="Title" />
-  				</div>
-  				<button type="submit" class="btn btn-primary">Share</button>
-  			<% end %>
-		  </div>
-		</div>
+    <%= render partial: "share_form" %>
 
-    <div class="panel panel-default">
-      <div class="panel-body">
-        <h4>Members :</h4>
-        <ul class="list-inline">
-        <% @group.groups_users.each do |groups_user| %>
-          <li>
-           <a href="http://twitter.com/<%= groups_user.user.nickname %>" target="_blank"><img class="avatar img-circle" src="<%= groups_user.user.avatar %>" alt="<%= groups_user.user.name %>" /></a>
-          </li>
-        <% end %>
-        </ul>
-      </div>
-    </div>
+    <%= render partial: "members_list" %>    
 
-    <div class="panel panel-default">
-      <div class="panel-body">
-        <h4>Invite someone :</h4>
-        <%= form_tag("/groups/" + @group.id.to_s + "/invites", method: "post") do %>
-          <div class="form-group">
-            <input id="emails" name="emails" class="form-control" type="text" placeholder="emails separated by ;" value="<%= @invalid_emails %>" />
-          </div>
-          <button type="submit" class="btn btn-primary">Invite</button>
-        <% end %>
-      </div>
-    </div>
-	</div>
+    <%= render partial: "invite_form" %>
 </div>

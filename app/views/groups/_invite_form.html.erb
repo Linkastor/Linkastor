@@ -1,0 +1,12 @@
+<div class="panel panel-default">
+    <div class="panel-body">
+      <h4>Invite someone :</h4>
+      <%= form_tag("/groups/" + @group.id.to_s + "/invites", method: "post") do %>
+        <div class="form-group">
+          <input id="emails" name="emails" class="form-control" type="text" placeholder="emails separated by ;" value="<%= @invalid_emails %>" />
+        </div>
+        <button type="submit" class="btn btn-primary">Invite</button>
+      <% end %>
+    </div>
+  </div>
+</div>
