@@ -34,7 +34,6 @@ class GroupsController < ApplicationController
   def show
     @group = Group.find(params[:id])
     @title = @group.name
-    @token = Authentication::Token.new(user: current_user).create
     @links = Link.where(:group_id => @group.id).order(created_at: :desc).paginate(:page => params[:page])
     @days = @links.group_by { |t| t.created_at.beginning_of_day }
   end
