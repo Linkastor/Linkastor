@@ -23,6 +23,10 @@ VCR.configure do |c|
   c.configure_rspec_metadata!
 end
 
+#development and test credentials
+ENV["TWITTER_OAUTH_API_ID"]="acWguFLGgV5VUiNFRE6rrnaaM"
+ENV["TWITTER_OAUTH_API_SECRET"]="Yr1QgIobfMpVIEkO4vKk3wmdgZIoRXplSlfKNVJsC9dYHD9vUB"
+
 def sign_in(user)
   @token = Authentication::Token.new(user: user).create
 end

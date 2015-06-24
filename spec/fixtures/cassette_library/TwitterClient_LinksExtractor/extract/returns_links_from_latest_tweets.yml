@@ -1687,4 +1687,74 @@ http_interactions:
         Todd","id":80405565,"id_str":"80405565","indices":[0,11]}],"urls":[{"url":"https:\/\/t.co\/9h2WUFzq6c","expanded_url":"https:\/\/github.com\/vdaubry\/github-awards","display_url":"github.com\/vdaubry\/github\u2026","indices":[87,110]}]},"favorited":false,"retweeted":false,"possibly_sensitive":false,"lang":"en"}]'
     http_version: 
   recorded_at: Wed, 24 Jun 2015 20:31:36 GMT
+- request:
+    method: post
+    uri: https://api.twitter.com/oauth2/token
+    body:
+      encoding: UTF-8
+      string: grant_type=client_credentials
+    headers:
+      Accept:
+      - "*/*"
+      User-Agent:
+      - TwitterRubyGem/5.14.0
+      Content-Type:
+      - application/x-www-form-urlencoded; charset=UTF-8
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+  response:
+    status:
+      code: 403
+      message: Forbidden
+    headers:
+      Cache-Control:
+      - no-cache, no-store, must-revalidate, pre-check=0, post-check=0
+      Content-Disposition:
+      - attachment; filename=json.json
+      Content-Length:
+      - '119'
+      Content-Type:
+      - application/json;charset=utf-8
+      Date:
+      - Wed, 24 Jun 2015 20:45:43 GMT
+      Expires:
+      - Tue, 31 Mar 1981 05:00:00 GMT
+      Last-Modified:
+      - Wed, 24 Jun 2015 20:45:43 GMT
+      Ml:
+      - A
+      Pragma:
+      - no-cache
+      Server:
+      - tsa_f
+      Set-Cookie:
+      - guest_id=v1%3A143517874301247687; Domain=.twitter.com; Path=/; Expires=Fri,
+        23-Jun-2017 20:45:43 UTC
+      Status:
+      - 403 Forbidden
+      Strict-Transport-Security:
+      - max-age=631138519
+      X-Connection-Hash:
+      - dc26ce70fb811f0f4579546aa2da88a8
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - SAMEORIGIN
+      X-Response-Time:
+      - '195'
+      X-Transaction:
+      - dc5d222f3aa5b434
+      X-Tsa-Request-Body-Time:
+      - '1'
+      X-Twitter-Response-Tags:
+      - BouncerCompliant
+      X-Ua-Compatible:
+      - IE=edge,chrome=1
+      X-Xss-Protection:
+      - 1; mode=block
+    body:
+      encoding: ASCII-8BIT
+      string: '{"errors":[{"code":99,"message":"Unable to verify your credentials","label":"authenticity_token_error"}]}'
+    http_version: 
+  recorded_at: Wed, 24 Jun 2015 20:47:29 GMT
 recorded_with: VCR 2.9.3
