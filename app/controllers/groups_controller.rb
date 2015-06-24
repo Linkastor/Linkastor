@@ -36,6 +36,7 @@ class GroupsController < ApplicationController
     @title = @group.name
     @links = Link.where(:group_id => @group.id).order(created_at: :desc).paginate(:page => params[:page])
     @days = @links.group_by { |t| t.created_at.beginning_of_day }
+    @invalid_emails = params[:invalid_emails]
   end
 
   private
