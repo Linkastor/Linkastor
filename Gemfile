@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-ruby '2.2.0'
+ruby '2.2.1'
 
 gem 'rails',                      '~> 4.2.0'
 gem 'pg',                         '~> 0.18.1'
@@ -18,6 +18,7 @@ gem 'twitter',                    '~> 5.14.0'
 gem 'redis',                      '~> 3.2.0'
 gem 'will_paginate',              '~> 3.0.6'
 gem 'sentry-raven',               '~> 0.13.1'
+gem 'newrelic_rpm',               '~> 3.12.0'
 
 group :development, :test do  
   gem 'byebug',               '~> 4.0.4'
