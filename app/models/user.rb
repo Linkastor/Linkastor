@@ -13,6 +13,7 @@ class User < ActiveRecord::Base
   validates_with EmailValidator, :on => :update
   
   def self.with_links_to_post
+    #Ugly : Group and CustomSource are actually the same thing, we should refactor to make group Inherit from CustomSource.
     group_links = joins("LEFT JOIN groups_users ON groups_users.user_id = users.id").
                   joins("LEFT JOIN groups ON groups.id = groups_users.group_id").
                   joins("LEFT JOIN custom_sources_users ON custom_sources_users.user_id = users.id").
