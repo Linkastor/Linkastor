@@ -21,7 +21,6 @@ Rails.application.routes.draw do
   end
   resources :invites, only: [:show]
   
-  #custom_sources
   get   '/custom_sources',            to: 'custom_sources#index'
   get   '/custom_sources/:type/new',  to: 'custom_sources#new', as: :new_custom_source
   post  '/custom_sources/:type',      to: 'custom_sources#create', as: :create_custom_source
