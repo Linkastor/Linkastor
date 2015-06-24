@@ -7,6 +7,8 @@ require 'rails/all'
 Bundler.require(*Rails.groups)
 require 'coffee_script'
 
+
+
 module Linkastor
   class Application < Rails::Application
     # Settings in config/environments/* take precedence over those specified here.
@@ -29,6 +31,7 @@ module Linkastor
         #{Rails.root.join('lib')}/validators
         #{Rails.root.join('lib')}/time
       ) 
+    Dir[File.join(Rails.root, "lib", "extensions", "*.rb")].each {|l| require l }
 
     config.action_mailer.preview_path = "#{Rails.root}/lib/mailer_previews"
     

@@ -25,5 +25,12 @@ describe CustomSources::Twitter do
     end
   end
   
-  
+  describe "import", vcr: true do
+    it "creates links from twitter" do
+      twitter = FactoryGirl.create(:twitter)
+      twitter.extra["username"] = "tiboll"
+      twitter.import
+      Link.count.should == 2
+    end
+  end
 end

@@ -46,7 +46,7 @@ describe User do
   end
   
   describe "with_links_to_post" do
-    it "returns user with at least one link not posted" do
+    it "returns user with at least one link not posted in a group" do
       user = FactoryGirl.create(:user_with_group)
       FactoryGirl.create(:link, group: user.groups.first, posted: false, posted_by: user.id)
       User.with_links_to_post.should == [user]
@@ -54,6 +54,14 @@ describe User do
     
     it "returns empty if all links are posted" do
       User.with_links_to_post.should == []
+    end
+    
+    it "returns user with at least one link not posted in a custom source" do
+      user = FactoryGirl.create(:user)
+      twitter = FactoryGirl.create(:twitter)
+      CustomSourcesUser.create(user: user, custom_source: twitter)
+      FactoryGirl.create(:link, custom_source: twitter, posted: false)
+      User.with_links_to_post.should == [user]
     end
   end
   
