@@ -6,12 +6,16 @@ module Twitter
         config.consumer_secret     = ENV["TWITTER_OAUTH_API_SECRET"]
       end
     end
+    
+    def contains_url?(text:)
+      text.match(/((([A-Za-z]{3,9}:(?:\/\/)?)(?:[-;:&=\+\$,\w]+@)?[A-Za-z0-9.-]+|(?:www.|[-;:&=\+\$,\w]+@)[A-Za-z0-9.-]+)((?:\/[\+~%\/.\w-_]*)?\??(?:[-\+=&;%@.\w_]*)#?(?:[\w]*))?)/).present?
+    end
 
     def tweets(username:, since:)
       since = DateTime.parse(since)
       options = {count: 200}
       tweets = @client.user_timeline(username, options)
-      tweets = tweets.select {|tweet| tweet.created_at > since}
+      tweets.select {|tweet| tweet.created_at > since && contains_url?(text: tweet.text)}
     end
   end
 end
