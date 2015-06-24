@@ -1,0 +1,10 @@
+<div class="page-header">
+  <h1> Your custom sources </h1>
+</div>
+<% @custom_sources.each do |source| %>
+  <div class="well">
+    <h4><%= source.name %></h4>
+    <!-- Add an image for the source -->
+  </div>
+<% end %>
+<%= link_to "Add links from a twitter feed", new_custom_source_path(type: "twitter") %>

@@ -72,5 +72,18 @@ describe User do
       user.destroy
       GroupsUser.count.should == 0
     end
+  
+    it "has a twitter custom source" do
+      twitter = FactoryGirl.create(:twitter)
+      CustomSourcesUser.create(user: user, custom_source: twitter)
+      user.custom_sources.should == [twitter]
+    end
+    
+    it "cannot have duplicate custom sources" do
+      twitter = FactoryGirl.create(:twitter)
+      CustomSourcesUser.create(user: user, custom_source: twitter)
+      CustomSourcesUser.create(user: user, custom_source: twitter)
+      user.custom_sources.should == [twitter]
+    end
   end
 end

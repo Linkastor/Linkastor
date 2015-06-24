@@ -1,0 +1,18 @@
+<div class="row form">
+  <div class="col-md-4 col-md-offset-4">
+    <p class="form-title"> Add links from a Twitter user to your daily digest </p>
+    <%= form_for(custom_source, url: custom_sources_url, html: {class: 'form-horizontal'}) do %>
+    
+      <%= render 'layouts/errors', object: custom_source %>
+    
+      <div class="field form-group">
+        <label for="name">Twitter username</label>
+        <%= text_field_tag :username, placeholder: "@", class: 'form-control' %>
+      </div>
+      
+      <div class="actions form-group">
+        <%= submit_tag "Validate", class: "btn btn-success" %>
+      </div>
+    <% end %>
+  </div>
+</div>
