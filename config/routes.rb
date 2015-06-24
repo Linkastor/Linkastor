@@ -16,7 +16,8 @@ Rails.application.routes.draw do
   
   resources :users, only: [:edit, :update]
   resources :groups do
-    resources :links, only: [:index]
+    resources :links, only: [:create]
+    resources :invites, only: [:create]
   end
   resources :invites, only: [:show]
   
