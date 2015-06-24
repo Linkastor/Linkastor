@@ -16,6 +16,14 @@ describe CustomSources::Twitter do
       twitter.extra["username"].should == "foo"
     end
   end
+
+  describe "relations" do
+    it "has many links" do
+      links = [FactoryGirl.create(:link)]
+      twitter = FactoryGirl.create(:twitter, links: links)
+      twitter.links.should == links
+    end
+  end
   
   
 end

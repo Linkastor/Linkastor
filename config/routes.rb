@@ -24,7 +24,7 @@ Rails.application.routes.draw do
   #custom_sources
   get   '/custom_sources',            to: 'custom_sources#index'
   get   '/custom_sources/:type/new',  to: 'custom_sources#new', as: :new_custom_source
-  post  '/custom_sources/:type',      to: 'custom_sources#create'
+  post  '/custom_sources/:type',      to: 'custom_sources#create', as: :create_custom_source
   
   get '/auth/:provider/callback', to: 'sessions#create'
   get '/auth/failure', to: 'sessions#failure'

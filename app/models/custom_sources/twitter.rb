@@ -9,5 +9,13 @@ module CustomSources
     def self.new_from_params(params:)
       self.new(name: "twitter", extra: {username: params[:username]})
     end
+
+    def display_name
+      "Twitter #{self.extra["username"]}"
+    end
+
+    def import
+      
+    end
   end
 end
