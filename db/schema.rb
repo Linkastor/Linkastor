@@ -55,7 +55,8 @@ ActiveRecord::Schema.define(version: 20150622082728) do
     t.integer "group_id", null: false
   end
 
-  add_index "groups_users", ["user_id", "group_id"], name: "index_groups_users_on_user_id_and_group_id", unique: true, using: :btree
+  add_index "groups_users", ["group_id"], name: "index_groups_users_on_group_id", using: :btree
+  add_index "groups_users", ["user_id"], name: "index_groups_users_on_user_id", using: :btree
 
   create_table "invites", force: :cascade do |t|
     t.integer  "referrer_id",                 null: false
