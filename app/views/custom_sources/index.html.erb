@@ -3,7 +3,7 @@
 </div>
 <% @custom_sources.each do |source| %>
   <div class="well">
-    <h4><%= image_tag("twitterlogo.png", size: "50") %>
+    <h4><%= image_tag(source.logo, size: "50") %>
     <%= source.display_name %></h4>
   </div>
 <% end %>

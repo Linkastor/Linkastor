@@ -14,6 +14,10 @@ class ApplicationController < ActionController::Base
   
   private
     def current_user
-      User.find(session[:user_id]) unless session[:user_id].blank?
+      begin
+        User.find(session[:user_id]) unless session[:user_id].blank?
+      rescue ActiveRecord::RecordNotFound
+        session[:user_id]=nil
+      end
     end
 end

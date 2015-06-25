@@ -54,6 +54,22 @@ describe SessionsController do
         get :create, provider: "twitter"
         response.should redirect_to groups_path
       end
+      
+      it "doesn't crash if group doesn't exist anymore" do
+        group = FactoryGirl.create(:group, name: "group bar")
+        session[:invite_id] = FactoryGirl.create(:invite, 
+                                                  email: "invite@foo.com", 
+                                                  group: group
+                                                ).id
+        group.destroy
+        get :create, provider: "twitter"
+        response.should redirect_to groups_path
+      end
+      
+      it "clear invite in session" do
+        get :create, provider: "twitter"
+        session[:invite_id].should == nil
+      end
     end
     
     context "session_id doesn't exists" do

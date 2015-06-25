@@ -13,6 +13,10 @@ module CustomSources
     def display_name
       self.extra["username"]
     end
+    
+    def logo
+      "twitterlogo.png"
+    end
 
     def import
       tweet_statuses = TwitterClient::LinksExtractor.new.extract(username: self.extra["username"], 
