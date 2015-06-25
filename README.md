@@ -17,6 +17,28 @@ To start Linkastor locally you need to add some environment variables in a ```.e
 > SENDGRID_PASSWORD=
 
 
+## Import links from your custom source
+
+You can generate adaptors to fetch links from any source in your mail digest
+There is a generator to scaffold a new adaptor, for example if you wanted to create a Facebook adaptor to fetch link from a Facebook page :
+
+``` rails generate custom_source facebook ```
+
+It will create a new model under :
+
+- app/models/custom_source/facebook.rb
+
+And views for a form where the user can add a new facebook page to watch :
+
+- app/views/custom_source/facebook/new.html.erb
+- app/views/custom_source/facebook/_form.html.erb
+
+Have a look at the comment in the generated files. You can also look at the Twitter adapter to see a working implementation :
+
+- app/models/custom_source/twitter.rb
+- app/views/custom_source/twitter/new.html.erb
+- app/views/custom_source/twitter/_form.html.erb
+
 
 ## Feature roadmap 
 

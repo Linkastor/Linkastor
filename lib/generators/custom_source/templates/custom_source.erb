@@ -1,0 +1,26 @@
+module CustomSources
+  class <%= file_name.capitalize %> < CustomSource
+    def self.new_from_params(params:)
+      # This methoid is called when validating your form
+      # This method should return a instance of your object initialized with values from the params hash :
+      #   - set a name attribute for this source
+      #   - all other parameters should be be saved as json in the 'extra' field (see custom_sources/twitter.rb for example)
+      self.new(name: "<%= file_name%>", extra: {})
+    end
+
+    def display_name
+      #return a string to represent this object in the list of sources
+    end
+    
+    def logo
+      # return a logo for this source
+    end
+
+    def import
+      # This method will be run by the cron job at the configured interval
+      # This method should get new links according to the cron job interval (ex : get all links for yesterday if it's a daily cron job )
+      # Once you have fetched all new links, create Link objects.
+      # Each Link object you create here will be posted in the digest mail
+    end
+  end
+end
