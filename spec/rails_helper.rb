@@ -16,6 +16,17 @@ RSpec.configure do |config|
   config.infer_spec_type_from_file_location!
 end
 
+VCR.configure do |c|
+  c.cassette_library_dir = 'spec/fixtures/cassette_library'
+  c.hook_into :webmock
+  c.default_cassette_options = { :record => :new_episodes }
+  c.configure_rspec_metadata!
+end
+
+#development and test credentials
+ENV["TWITTER_OAUTH_API_ID"]="acWguFLGgV5VUiNFRE6rrnaaM"
+ENV["TWITTER_OAUTH_API_SECRET"]="Yr1QgIobfMpVIEkO4vKk3wmdgZIoRXplSlfKNVJsC9dYHD9vUB"
+
 def sign_in(user)
   @token = Authentication::Token.new(user: user).create
 end

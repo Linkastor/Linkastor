@@ -6,7 +6,18 @@ class SessionsController < ApplicationController
     if invite
       confirmation = Invitation::Confirmation.new(invite: invite,
                                                   referee: user)
-      confirmation.accept!
+      confirmation.accept! do |on|
+        on.group_invalid do
+          flash[:alert] = "The group you were invited to doesn't exist anymore"
+          session[:invite_id]=nil
+        end
+        
+        on.success do |group|
+          flash[:info] = "You have successfully joined the group #{group.name}"
+          session[:invite_id]=nil
+        end
+      end
+        
       return redirect_to groups_path
     end
     

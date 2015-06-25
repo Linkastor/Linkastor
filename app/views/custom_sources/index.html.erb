@@ -1,0 +1,27 @@
+<div class="page-header">
+  <h1> Your custom sources </h1>
+</div>
+<% @custom_sources.each do |source| %>
+  <div class="well">
+    <h4><%= image_tag(source.logo, size: "50") %>
+    <%= source.display_name %></h4>
+  </div>
+<% end %>
+<hr>
+<h2>Add sources</h2>
+<div class="col-md-3">
+  <div class="row">
+    <%= link_to image_tag("twitterlogo.png", size: "200"), new_custom_source_path(type: "twitter") %>
+  </div>
+  <div class="row">
+    <%= link_to "Add links from a Twitter feed", new_custom_source_path(type: "twitter") %>
+  </div>
+</div>
+<div class="col-md-3">
+  <div class="row">
+    <%= link_to image_tag("rsslogo.png", size: "200"), "#" %>
+  </div>
+  <div class="row">
+    <%= link_to "Add links from a RSS feed", "#" %>
+  </div>
+</div>

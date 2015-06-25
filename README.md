@@ -6,6 +6,18 @@ Linkastor is an opensource curation web app inspired by [Linkydink](http://linky
 
 It's meant to be self hosted (Instructions will come when it makes sense).
 
+
+## Setup development environment
+
+To start Linkastor locally you need to add some environment variables in a ```.env``` file :
+
+> TWITTER_OAUTH_API_ID=
+> TWITTER_OAUTH_API_SECRET=
+> SENDGRID_USERNAME=
+> SENDGRID_PASSWORD=
+
+
+
 ## Feature roadmap 
 
 Few things we already though about :

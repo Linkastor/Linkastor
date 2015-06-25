@@ -1,12 +1,5 @@
 require "rails_helper"
 
-VCR.configure do |c|
-  c.cassette_library_dir = 'spec/fixtures/cassette_library'
-  c.hook_into :webmock
-  c.default_cassette_options = { :record => :new_episodes }
-  c.configure_rspec_metadata!
-end
-
 describe Oauth::Twitter::Credential, :vcr => true do
   describe "verify" do
     context "valid credentials" do

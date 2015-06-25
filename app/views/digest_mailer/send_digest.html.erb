@@ -11,10 +11,21 @@
       <% group.links_to_post.each do |link| %>
           <div>
             <b><%= link_to link.title, link.url %></b>
-            <p><%= image_tag(link.user.avatar) %> Posted by <%= link.user.name %></p>
+            <p><%= image_tag(link.user.avatar, size: "50") %> Posted by <%= link.user.name %></p>
           </div>
       <% end %>
       <br>
+      <hr>
+    <% end %>
+    <% @custom_sources.each do |source| %>
+      <p> From <%= image_tag(source.logo, size: "50") %> <%= source.display_name %> </p>
+      <% source.links_to_post.each do |link| %>
+          <div>
+            <b><%= link_to link.title, link.url %></b>
+          </div>
+      <% end %>
+      <br>
+      <hr>
     <% end %>
   </body>
 </html>

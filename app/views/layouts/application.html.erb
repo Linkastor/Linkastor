@@ -9,9 +9,13 @@
     <nav class="navbar navbar-default">
       <div class="container-fluid">
         <div class="navbar-header">
-          <a class="navbar-brand" href="/groups">
-            Linkastor
-          </a>
+          <%= link_to "Linkastor", groups_path, class: "navbar-brand" %>
+        </div>
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+          <ul class="nav navbar-nav">
+            <%= menu_link("groups", groups_path) %>
+            <%= menu_link("sources", custom_sources_path) %>
+          </ul>
         </div>
       </div>
     </nav>
@@ -31,6 +35,8 @@
       <% end %>
       <%= yield %>
     </div>
-    
+    <div class="container">
+      <%= render :partial => "layouts/footer" %>
+    </div>
   </body>
 </html>

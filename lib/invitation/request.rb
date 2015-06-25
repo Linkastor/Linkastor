@@ -22,7 +22,7 @@ module Invitation
         ActiveRecord::Base.transaction do
           invites = emails.map do |email|
             code = SecureRandom.hex(10)
-            @referrer.invites.create!(email: email, code: code,group: @group)
+            @referrer.invites.create!(email: email, code: code, group: @group)
           end
           send_emails(invites: invites)
           @callback.on_valid_emails.try(:call)

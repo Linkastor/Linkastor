@@ -10,8 +10,6 @@ describe Link do
     context "mandatory fields" do
       it { FactoryGirl.build(:link, url: nil).save.should == false }
       it { FactoryGirl.build(:link, title: nil).save.should == false }
-      it { FactoryGirl.build(:link, group_id: nil).save.should == false }
-      it { FactoryGirl.build(:link, posted_by: nil).save.should == false }
     end
     
     context "duplicate links url" do
