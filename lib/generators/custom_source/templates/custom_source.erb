@@ -1,8 +1,8 @@
 module CustomSources
   class <%= file_name.capitalize %> < CustomSource
     def self.new_from_params(params:)
-      # This methoid is called when validating your form
-      # This method should return a instance of your object initialized with values from the params hash :
+      # This method is called when validating your form
+      # This method should return an instance of your object initialized with values from the params hash :
       #   - set a name attribute for this source
       #   - all other parameters should be be saved as json in the 'extra' field (see custom_sources/twitter.rb for example)
       self.new(name: "<%= file_name%>", extra: {})
