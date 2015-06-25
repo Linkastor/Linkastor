@@ -30,7 +30,7 @@ describe CustomSources::Twitter do
       twitter = FactoryGirl.create(:twitter)
       twitter.extra["username"] = "tiboll"
       twitter.import
-      Link.count.should == 2
+      Link.count.should == 1
     end
   end
 end

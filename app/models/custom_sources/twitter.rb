@@ -11,7 +11,7 @@ module CustomSources
     end
 
     def display_name
-      "Twitter #{self.extra["username"]}"
+      self.extra["username"]
     end
 
     def import

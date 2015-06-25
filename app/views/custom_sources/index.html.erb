@@ -3,8 +3,25 @@
 </div>
 <% @custom_sources.each do |source| %>
   <div class="well">
-    <h4><%= source.display_name %></h4>
-    <!-- Add an image for the source -->
+    <h4><%= image_tag("twitterlogo.png", size: "50") %>
+    <%= source.display_name %></h4>
   </div>
 <% end %>
-<%= link_to "Add links from a twitter feed", new_custom_source_path(type: "twitter") %>
+<hr>
+<h2>Add sources</h2>
+<div class="col-md-3">
+  <div class="row">
+    <%= link_to image_tag("twitterlogo.png", size: "200"), new_custom_source_path(type: "twitter") %>
+  </div>
+  <div class="row">
+    <%= link_to "Add links from a Twitter feed", new_custom_source_path(type: "twitter") %>
+  </div>
+</div>
+<div class="col-md-3">
+  <div class="row">
+    <%= link_to image_tag("rsslogo.png", size: "200"), new_custom_source_path(type: "rss") %>
+  </div>
+  <div class="row">
+    <%= link_to "Add links from a RSS feed", new_custom_source_path(type: "rss") %>
+  </div>
+</div>
