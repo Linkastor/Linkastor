@@ -13,8 +13,8 @@
         </div>
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
           <ul class="nav navbar-nav">
-            <%= menu_link("Groups", groups_path) %>
-            <%= menu_link("Sources", custom_sources_path) %>
+            <%= menu_link("groups", groups_path) %>
+            <%= menu_link("sources", custom_sources_path) %>
           </ul>
         </div>
       </div>
@@ -35,6 +35,8 @@
       <% end %>
       <%= yield %>
     </div>
-    
+    <div class="container">
+      <%= render :partial => "layouts/footer" %>
+    </div>
   </body>
 </html>
