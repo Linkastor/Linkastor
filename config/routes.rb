@@ -17,7 +17,9 @@ Rails.application.routes.draw do
   resources :users, only: [:edit, :update]
   resources :groups do
     resources :links, only: [:create]
-    resources :invites, only: [:create]
+    resources :invites, shallow: true, only: [:create] do
+      post 'resend'
+    end
   end
   resources :invites, only: [:show]
   
