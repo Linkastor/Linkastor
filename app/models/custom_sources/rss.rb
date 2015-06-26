@@ -26,9 +26,6 @@ module CustomSources
         feed = RSS::Parser.parse(rss)
         items = feed.items.select { |item| DateTime.parse(item.published.to_s) > DateTime.yesterday.beginning_of_day }
         items.each do |item|
-          # content = ActionController::Base.helpers.strip_tags(CGI.unescapeHTML(item.content.to_s))
-          # ["\n", "“", "”"].each { |el| content.gsub!(el, ""))
-          # strip_content = content.strip
           link = Nokogiri::HTML(item.link.to_s).search("link").first["href"]
           self.links.create(url: link, title: item.content)
         end

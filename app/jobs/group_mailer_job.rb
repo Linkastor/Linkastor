@@ -3,7 +3,9 @@ class GroupMailerJob
   # We need to keep tracks of links sent by user and mark them as posted after each email is sent.
   def send
     User.with_links_to_post.find_each do |user|
-      user.custom_sources_users.each {|custom_source_user| custom_source_user.custom_source.import}
+      user.custom_sources_users.each do |custom_source_user|
+        custom_source_user.custom_source.import
+      end
       DigestMailer.send_digest(user: user).deliver_now
     end
     
