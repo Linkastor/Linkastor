@@ -6,7 +6,8 @@ class Link < ActiveRecord::Base
   scope :not_posted, -> { where(posted: false) }
   
   validates :url, :title, presence: true
-  validates :url, uniqueness: { scope: :group_id }
+  validates :url, uniqueness: { scope: :group_id }, if: 'group_id.present?'
+  validates :url, uniqueness: { scope: :custom_source_id }, if: 'custom_source_id.present?'
 
   self.per_page = 10
 end

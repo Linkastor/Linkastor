@@ -3,6 +3,7 @@ require "rails_helper"
 describe Link do
   
   let(:group) { FactoryGirl.create(:group) }
+  let(:twitter) { FactoryGirl.create(:twitter) }
   
   describe "create" do
     it { FactoryGirl.build(:link).save.should == true }
@@ -22,6 +23,17 @@ describe Link do
         group2 = FactoryGirl.create(:group)
         FactoryGirl.build(:link, group: group, url: "http://foo.com/bar.html").save.should == true
         FactoryGirl.build(:link, group: group2, url: "http://foo.com/bar.html").save.should == true
+      end
+      
+      it "creates only one link for the same source" do
+        FactoryGirl.build(:link, custom_source: twitter, url: "http://foo.com/bar.html").save.should == true
+        FactoryGirl.build(:link, custom_source: twitter, url: "http://foo.com/bar.html").save.should == false
+      end
+      
+      it "creates two links if links are on different groups" do
+        twitter2 = FactoryGirl.create(:twitter)
+        FactoryGirl.build(:link, custom_source: twitter, url: "http://foo.com/bar.html").save.should == true
+        FactoryGirl.build(:link, custom_source: twitter2, url: "http://foo.com/bar.html").save.should == true
       end
     end
   end

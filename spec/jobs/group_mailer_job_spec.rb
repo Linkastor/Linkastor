@@ -24,7 +24,7 @@ describe GroupMailerJob do
       twitter = FactoryGirl.create(:twitter)
       CustomSourcesUser.create(user: @user, custom_source: twitter)
       FactoryGirl.create(:link, custom_source: twitter)
-      CustomSourcesUser.any_instance.expects(:import).once
+      CustomSources::Twitter.any_instance.expects(:import).once
       GroupMailerJob.new.send
     end
     

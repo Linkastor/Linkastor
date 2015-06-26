@@ -3,7 +3,7 @@ FactoryGirl.define do
     t.name "Twitter"
     
     after(:build) do |twitter|
-      twitter.extra = {:username => "foobar"}
+      twitter.extra = {username: "foobar"}
     end
   end
 end

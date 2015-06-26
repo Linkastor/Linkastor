@@ -27,6 +27,7 @@ describe CustomSources::Twitter do
   
   describe "import", vcr: true do
     it "creates links from twitter" do
+      Date.stubs(:yesterday).returns(Date.parse("2015-06-24"))
       twitter = FactoryGirl.create(:twitter)
       twitter.extra["username"] = "tiboll"
       twitter.import

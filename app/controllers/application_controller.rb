@@ -2,6 +2,8 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
   
   def home
+    return redirect_to groups_url if current_user
+    
     render layout: "landing"
   end
   
