@@ -25,6 +25,6 @@ class CustomSourcesController < ApplicationController
   private
   def set_custom_source_class
     @type = params[:type]
-    @custom_source_class = Object.const_get("CustomSources::#{@type.capitalize}")
+    @custom_source_class = "CustomSources::#{@type.capitalize}".constantize
   end
 end
