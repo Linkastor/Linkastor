@@ -1,0 +1,10 @@
+Description:
+    Scaffold a new custom source adaptor to fetch links for the daily mail
+
+Example:
+    rails generate custom_source something
+
+    This will create:
+        app/models/custom_source/something.rb
+        app/views/custom_source/something/new.html.erb
+        app/views/custom_source/something/_form.html.erb
