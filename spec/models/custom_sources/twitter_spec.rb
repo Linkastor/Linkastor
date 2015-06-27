@@ -7,6 +7,16 @@ describe CustomSources::Twitter do
       twitter.extra = {username: nil}
       twitter.save.should == false
     end
+
+    it "cannot save duplicate username" do
+      twitter = FactoryGirl.build(:twitter)
+      twitter.extra = {username: "vdaubry"}
+      twitter.save.should == true
+
+      twitter2 = FactoryGirl.build(:twitter)
+      twitter2.extra = {username: "vdaubry"}
+      twitter2.save.should == false
+    end
   end
   
   describe "new_from_params" do
