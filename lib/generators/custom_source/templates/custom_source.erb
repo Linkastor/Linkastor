@@ -1,5 +1,15 @@
 module CustomSources
   class <%= file_name.capitalize %> < CustomSource
+    validate :check_validity
+
+    def check_validity
+      #Check here for mandatory fields, ex :
+      #self.errors.add(:extra, "Missing url") if self.extra["url"].blank?
+
+      #You can also enforce uniqueness for your source, ex :
+      #self.errors.add(:extra, "Url already taken") if CustomSource.where("extra ->> 'url'='#{self.extra["url"]}'").present?
+    end
+
     def self.new_from_params(params:)
       # This method is called when validating your form
       # This method should return an instance of your object initialized with values from the params hash :
