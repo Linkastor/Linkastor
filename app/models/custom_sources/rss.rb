@@ -6,7 +6,8 @@ module CustomSources
     validate :check_url
     
     def check_url
-      self.errors.add(:base, "Missing url") if self.extra["url"].blank?
+      self.errors.add(:extra, "Missing url") if self.extra["url"].blank?
+      self.errors.add(:extra, "Url already taken") if CustomSource.where("extra ->> 'url'='#{self.extra["url"]}'").present?
     end
     
     def self.new_from_params(params:)
