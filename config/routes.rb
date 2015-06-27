@@ -17,9 +17,10 @@ Rails.application.routes.draw do
   resources :users, only: [:edit, :update]
   resources :groups do
     resources :links, only: [:create]
-    resources :invites, only: [:create]
+    resources :invites, shallow: true, only: [:show, :create] do
+      post 'resend'
+    end
   end
-  resources :invites, only: [:show]
   
   get   '/custom_sources',            to: 'custom_sources#index'
   get   '/custom_sources/:type/new',  to: 'custom_sources#new', as: :new_custom_source

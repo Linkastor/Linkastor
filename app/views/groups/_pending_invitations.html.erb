@@ -1,0 +1,17 @@
+<div class="panel panel-default">
+  <div class="panel-body">
+    <h4>Pending invitations :</h4>
+    <ul class="list-inline">
+    <% if @pending_invites.blank?%> <p>No pending invitations</p> <% end %>
+      <table class="table">
+        <% @pending_invites.each do |invite| %>
+          <tr>
+            <%= form_tag(invite_resend_path(invite)) do %>
+              <td><%= invite.email %></td>
+              <td><%= submit_tag "Resend", class: "btn btn-success" %></td>
+            <% end %>
+          </tr>
+        <% end %>
+      </table>
+  </div>
+</div>

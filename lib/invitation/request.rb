@@ -1,6 +1,6 @@
 module Invitation
   class Request
-    def initialize(referrer:, group:)
+    def initialize(referrer: nil, group: nil)
       @referrer = referrer
       @group = group
       @callback = Callback.new

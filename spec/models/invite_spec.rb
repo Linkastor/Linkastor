@@ -48,4 +48,12 @@ describe Invite do
       invite.group_name.should == group.name
     end
   end
+  
+  describe "pending" do
+    it "returns not accepted invitations" do
+      accepted_invite = FactoryGirl.create(:invite, accepted: true)
+      pending_invite = FactoryGirl.create(:invite, accepted: false)
+      Invite.pending.should == [pending_invite]
+    end
+  end
 end

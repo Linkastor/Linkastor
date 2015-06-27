@@ -8,4 +8,6 @@ class Invite < ActiveRecord::Base
   validates :email, uniqueness: {scope: :referrer}
   validates :accepted, :inclusion => {:in => [true, false]}
   validates_with EmailValidator
+  
+  scope :pending, -> { where(accepted: false) }
 end

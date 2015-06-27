@@ -24,7 +24,9 @@ module CustomSources
     def import
       open(self.extra["url"]) do |rss|
         feed = RSS::Parser.parse(rss)
-        items = feed.items.select { |item| DateTime.parse(item.published.to_s) > DateTime.yesterday.beginning_of_day }
+        items = feed.items.select do |item| 
+          DateTime.parse(item.published.to_s) > DateTime.yesterday.beginning_of_day
+        end   
         items.each do |item|
           link = Nokogiri::HTML(item.link.to_s).search("link").first["href"]
           self.links.create(url: link, title: item.content)
