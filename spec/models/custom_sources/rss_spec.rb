@@ -1,6 +1,19 @@
 require "rails_helper"
 
 describe CustomSources::Rss, vcr: true do
+
+  describe "save" do
+    it "cannot save duplicate url" do
+      rss = FactoryGirl.build(:rss)
+      rss.extra = {url: "http://foo.bar"}
+      rss.save.should == true
+
+      rss = FactoryGirl.build(:rss)
+      rss.extra = {url: "http://foo.bar"}
+      rss.save.should == false
+    end
+  end
+
   describe "import" do
     it "reads product hunt feed" do
       rss = FactoryGirl.create(:rss)
