@@ -27,6 +27,22 @@ describe Invitation::Request do
         invitation.create_invites(emails: emails)
         Invite.count.should == 0
       end
+      
+      it "calls on_invalid_email" do
+        callback = mock()
+        callback.expects(:on_invalid_email).once
+        invitation.instance_variable_set(:@callback, callback)
+        invitation.create_invites(emails: emails)
+      end
+      
+      it "calls invite_already_exist" do
+        FactoryGirl.create(:invite, referrer: user, email: "foo@bar.com")
+        callback = mock()
+        callback.expects(:on_invite_already_exist).once
+        invitation.instance_variable_set(:@callback, callback)
+        
+        invitation.create_invites(emails: ["foo@bar.com"])
+      end
     end
   end
   

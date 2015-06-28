@@ -28,7 +28,8 @@ module Invitation
           @callback.on_valid_emails.try(:call)
         end
       rescue ActiveRecord::RecordInvalid => e
-        @callback.on_invalid_email.try(:call, e.record.email)
+        @callback.on_invalid_email.try(:call, e.record.email) if e.record.errors.added?(:email, 'is not a valid email address')
+        @callback.on_invite_already_exist.try(:call, e.record.email) if e.record.errors.added?(:email, 'has already been taken')
       end
     end
     
@@ -40,7 +41,11 @@ module Invitation
   end
   
   class Callback
-    attr_accessor :on_invalid_email, :on_valid_emails
+    attr_accessor :on_invalid_email, :on_valid_emails, :on_invite_already_exist
+    
+    def invite_already_exist(&block)
+      @on_invite_already_exist = block
+    end
     
     def invalid_email(&block)
       @on_invalid_email = block

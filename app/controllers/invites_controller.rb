@@ -10,8 +10,12 @@ class InvitesController < ApplicationController
     request = Invitation::Request.new(referrer: current_user, group: group)
     request.send(emails: params[:emails]) do |on|
       on.invalid_email do |email|
-        flash[:alert] = "Could not send an email to #{email} : invalid email address or invitation already sent. Please fix or remove this email address"
-        @invalid_emails = email
+        flash[:alert] = "Could not send an email to #{email} : invalid email address. Please check this email address"
+        redirect_to group
+      end
+      
+      on.invite_already_exist do |email|
+        flash[:alert] = "Could not send an email to #{email} : invitation already sent. You can resend the invite within the pending invitation list"
         redirect_to group
       end
       
