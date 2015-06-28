@@ -32,6 +32,8 @@ def seed_links
     Link.create!(title: 'Seeded link', 
                         url: "http://www.google.com/#{i}", 
                         group: Group.first, 
+                        image_url: "https://tctechcrunch2011.files.wordpress.com/2014/02/shutterstock_173525351.jpg?w=560&h=292&crop=1",
+                        description: "Most people didn’t notice last month when a 35-person company in San Francisco called HoneyBook announced a $22 million Series B. What was unusual about the..",
                         posted_by: User.first.to_param,
                         created_at: i.days.ago,
                         updated_at: i.days.ago)
@@ -41,6 +43,8 @@ def seed_links
     Link.create!(title: 'Another Seeded link',
                 url: "http://www.producthunt.com/#{i}",
                 custom_source: CustomSource.first, 
+                image_url: "https://tctechcrunch2011.files.wordpress.com/2014/02/shutterstock_173525351.jpg?w=560&h=292&crop=1",
+                description: "Most people didn’t notice last month when a 35-person company in San Francisco called HoneyBook announced a $22 million Series B. What was unusual about the..",
                 created_at: i.days.ago,
                 updated_at: i.days.ago)
   end
