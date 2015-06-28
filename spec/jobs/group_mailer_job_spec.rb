@@ -3,7 +3,7 @@ require "rails_helper"
 describe GroupMailerJob do
   
   before(:each) do
-    @user = FactoryGirl.create(:user_with_group)
+    @user = FactoryGirl.create(:user_with_group, admin: true)
     @group = @user.groups.first
   end
   

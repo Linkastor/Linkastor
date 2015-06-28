@@ -3,8 +3,8 @@ module CustomSources
     validate :check_user_name
     
     def check_user_name
-      self.errors.add(:extra, "Missing twitter username") if self.extra["username"].blank?
-      self.errors.add(:extra, "Twitter username already taken") if CustomSource.where("extra ->> 'username'='#{self.extra["username"]}'").present?
+      self.errors.add(:base, "Missing twitter username") if self.extra["username"].blank?
+      self.errors.add(:base, "Twitter username already taken") if CustomSource.where("extra ->> 'username'='#{self.extra["username"]}'").present?
     end
     
     def self.new_from_params(params:)

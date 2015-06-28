@@ -15,6 +15,10 @@ describe CustomSources::Rss, vcr: true do
   end
 
   describe "import" do
+    before(:each) do
+      Date.stubs(:yesterday).returns(Date.parse("2015-06-25"))
+    end
+
     it "reads product hunt feed" do
       rss = FactoryGirl.create(:rss)
       rss.extra["url"] = "http://www.producthunt.com/feed"
