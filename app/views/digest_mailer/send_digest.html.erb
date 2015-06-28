@@ -881,7 +881,7 @@ body.outlook p {
                           <table class="twelve columns">
                             <tr>
                               <td>
-                                <h3><%= link_to link.title, link.url %></h3>
+                                <h4><%= link_to link.title, link.url %></h4>
                               </td>
                             </tr>
                             <tr>
@@ -892,10 +892,27 @@ body.outlook p {
                             <tr>
                               <td>
                                 <p><%= link.description %></p>
-
                               </td>
                             </tr>
                             <tr>
+                              <td>
+                                <table>
+                                  <tr>
+                                    <td>
+                                      <%= image_tag(link.user.avatar, size: "50", style: "border-radius:50%") %>
+                                    </td>
+                                    <td>
+                                      
+                                    </td>
+                                    <td style="vertical-align:middle; padding-left: 10px;">
+                                      Shared by : <%= link.user.name%>
+                                    </td>
+                                  </tr>
+                                </table>
+                              </td>
+                            </tr>
+
+                            <!-- <tr>
                               <td class="wrapper last">
                                 <table class="two columns">
                                   <tr>
@@ -918,8 +935,8 @@ body.outlook p {
                                   </tr>
                                 </table>
                               </td>
-                              
-                            </tr>
+                            </tr> -->
+
                           </table>
                         </td>
                         
@@ -928,7 +945,7 @@ body.outlook p {
                   <% end %>
                 <% end %>
 
-                <table class="row">
+                <!-- <table class="row">
                   <tr>
                     <td class="wrapper last">
 
@@ -946,7 +963,7 @@ body.outlook p {
                     </td>
                   </tr>
                 </table>
-
+ -->
                 <!-- container end below -->
               </td>
             </tr>
