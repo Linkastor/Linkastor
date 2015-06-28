@@ -14,7 +14,6 @@ class ApplicationController < ActionController::Base
     end
   end
   
-  private
     def current_user
       begin
         User.find(session[:user_id]) unless session[:user_id].blank?
