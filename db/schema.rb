@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150627074541) do
+ActiveRecord::Schema.define(version: 20150628073004) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -80,6 +80,8 @@ ActiveRecord::Schema.define(version: 20150627074541) do
     t.datetime "posted_at"
     t.integer  "posted_by"
     t.integer  "custom_source_id"
+    t.string   "image_url"
+    t.text     "description"
   end
 
   add_index "links", ["custom_source_id", "url"], name: "index_links_on_custom_source_id_and_url", unique: true, using: :btree
