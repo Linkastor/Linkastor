@@ -945,7 +945,60 @@ body.outlook p {
                   <% end %>
                 <% end %>
 
-                <!-- <table class="row">
+                <% @custom_sources.each do |source| %>
+                  <hr>
+                  <table class="row">
+                    <tr>
+                      <td class="wrapper last">
+
+                        <table class="twelve columns">
+                          <tr>
+                            <td style="width:50px">
+                              <%= image_tag source.logo%>
+                            </td>
+                            <td>
+                              <h3>Links from <%= source.display_name%> :</h3>
+                            </td>
+                            <td class="expander"></td>
+                          </tr>
+                        </table>
+
+                      </td>
+                    </tr>
+                  </table>
+
+                  <% source.links_to_post.each do |link| %>
+                    <table class="row">
+                      <tr>
+                        <td class="wrapper last">
+
+                          <table class="twelve columns">
+                            <tr>
+                              <td>
+                                <h4><%= link_to link.title, link.url %></h4>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <%= link_to image_tag(link.image_url, width: "580"), link.url %>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <p><%= link.description %></p>
+                              </td>
+                            </tr>
+                            
+                          </table>
+                        </td>
+                        
+                      </tr>
+                    </table>
+                  <% end %>
+
+                <% end %>
+
+                <table class="row">
                   <tr>
                     <td class="wrapper last">
 
@@ -953,7 +1006,7 @@ body.outlook p {
                         <tr>
                           <td align="center">
                             <center>
-                              <p style="text-align:center;"><a href="#">Terms</a> | <a href="#">Privacy</a> | <a href="#">Unsubscribe</a></p>
+                              <p style="text-align:center;"><%= link_to "Linkastor", root_url %></p>
                             </center>
                           </td>
                           <td class="expander"></td>
@@ -963,7 +1016,6 @@ body.outlook p {
                     </td>
                   </tr>
                 </table>
- -->
                 <!-- container end below -->
               </td>
             </tr>
