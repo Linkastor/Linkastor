@@ -19,6 +19,10 @@ module CustomSources
       "twitterlogo.png"
     end
 
+    def avatar
+      "https://twitter.com/#{self.extra["username"]}/profile_image?size=normal"
+    end
+
     def import
       tweet_statuses = TwitterClient::LinksExtractor.new.extract(username: self.extra["username"], 
                                                                   since: Date.yesterday.beginning_of_day)
