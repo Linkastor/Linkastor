@@ -17,11 +17,17 @@ class Link < ActiveRecord::Base
     page = Nokogiri::HTML(open(self.url))
 
     if self.description == nil
-      self.description = page.xpath('//meta[@property="og:description"]')[0][:content]
+      og_descriptions = page.xpath('//meta[@property="og:description"]')
+      if og_descriptions.length > 0
+        self.description = og_descriptions[0][:content]  
+      end
     end
 
     if self.image_url == nil
-      self.image_url = page.xpath('//meta[@property="og:image"]')[0][:content]
+      og_images = page.xpath('//meta[@property="og:image"]')
+      if og_images.length > 0
+        self.image_url = og_images[0][:content]
+      end
     end
   end
 end
