@@ -21,6 +21,10 @@ Rails.application.routes.draw do
       post 'resend'
     end
   end
+
+  resources :third_parties, only: [:index]
+  resource :pocket, controller: "third_parties/pocket", only: [:destroy]
+  get 'pocket/authorize', to: 'third_parties/pocket#authorize', as: :authorize_pocket
   
   get   '/custom_sources',            to: 'custom_sources#index'
   get   '/custom_sources/:type/new',  to: 'custom_sources#new', as: :new_custom_source
@@ -30,4 +34,7 @@ Rails.application.routes.draw do
   
   get '/auth/:provider/callback', to: 'sessions#create'
   get '/auth/failure', to: 'sessions#failure'
+
+  
+
 end

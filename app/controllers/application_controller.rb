@@ -18,7 +18,8 @@ class ApplicationController < ActionController::Base
       begin
         User.find(session[:user_id]) unless session[:user_id].blank?
       rescue ActiveRecord::RecordNotFound
-        session[:user_id]=nil
+        session.delete(:user_id)
+        nil
       end
     end
 end

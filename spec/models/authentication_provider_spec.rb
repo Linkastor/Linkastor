@@ -9,7 +9,7 @@ describe AuthenticationProvider do
       it { FactoryGirl.build(:authentication_provider, provider: nil).save.should == false }
       it { FactoryGirl.build(:authentication_provider, uid: nil).save.should == false }
       it { FactoryGirl.build(:authentication_provider, token: nil).save.should == false }
-      it { FactoryGirl.build(:authentication_provider, secret: nil).save.should == false }
+      it { FactoryGirl.build(:authentication_provider, secret: nil).save.should == true  }
     end
     
     context "duplicate fields" do
