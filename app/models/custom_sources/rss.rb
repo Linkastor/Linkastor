@@ -11,15 +11,19 @@ module CustomSources
     end
     
     def self.new_from_params(params:)
-      self.new(name: "rss", extra: {url: params[:url]})
+      self.new(name: "rss", extra: {url: params[:url], website_logo: params[:website_logo], website_name: params[:website_name]})
     end
 
     def display_name
-      self.extra["url"]
+      self.extra["website_name"]
     end
     
     def logo
       "rsslogo.png"
+    end
+
+    def avatar
+      self.extra["website_logo"]
     end
 
     def import
@@ -30,7 +34,8 @@ module CustomSources
         end   
         items.each do |item|
           link = Nokogiri::HTML(item.link.to_s).search("link").first["href"]
-          self.links.create(url: link, title: item.content)
+          title = Nokogiri::HTML(item.title.to_s).search("title").first.content
+          self.links.create(url: link, title: title)
         end
       end
     end
