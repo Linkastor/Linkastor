@@ -11,4 +11,12 @@ class Link < ActiveRecord::Base
   validates :url, uniqueness: { scope: :custom_source_id }, if: 'custom_source_id.present?'
 
   self.per_page = 10
+
+  def fetch_meta
+
+    page = Nokogiri::HTML(open(self.url))
+
+    self.description = page.xpath('//meta[@property="og:description"]')[0][:content]
+    self.image_url = page.xpath('//meta[@property="og:image"]')[0][:content]
+  end
 end
