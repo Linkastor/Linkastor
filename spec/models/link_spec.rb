@@ -51,6 +51,20 @@ describe Link do
         link.image_url.should == 'https://tctechcrunch2011.files.wordpress.com/2015/06/pasted-image-0.png?w=560&h=292&crop=1'
       end
     end
+
+    it "don't override meta" do
+      VCR.use_cassette("Link/meta/fetch_meta") do
+        link = FactoryGirl.build(:link, url: 'http://techcrunch.com/2015/06/25/githubs-atom-text-editor-hits-1-0-now-has-over-350000-monthly-active-users/')
+
+        link.description = 'this is my description'
+        link.image_url = 'http://www.google.com/logo.png'
+
+        link.fetch_meta
+
+        link.description.should == 'this is my description'
+        link.image_url.should == 'http://www.google.com/logo.png'
+      end
+    end
   end
 
   describe "relations" do
