@@ -49,6 +49,22 @@ def seed_links
                 updated_at: i.days.ago)
   end
 
+  Link.create!(title: 'link with no description', 
+                url: "http://youboox.com", 
+                group: Group.first,
+                image_url: "http://fr.cdn.v5.futura-sciences.com/builds/images/thumbs/7/782e449ea7_biere-bulles_wakala-deviantart.com-cc-by-30.jpg", 
+                posted_by: User.first.to_param,
+                created_at: 0.days.ago,
+                updated_at: 0.days.ago)
+
+  Link.create!(title: 'link with no image_url', 
+                url: "http://octo.com", 
+                group: Group.first,
+                description: "This is my simple description",
+                posted_by: User.first.to_param,
+                created_at: 0.days.ago,
+                updated_at: 0.days.ago)
+
   Link.create!(title: 'link with no meta', 
                 url: "http://techcrunch.com/2015/06/30/apple-music-and-ios-8-4-now-available/", 
                 group: Group.first, 

@@ -1,0 +1,18 @@
+<li style="padding:5px;">
+  <div style="padding:5px; background:url(<%= link.image_url %>) no-repeat center center; background-size:cover;">
+    <a href="http://twitter.com/<%= link.user.nickname %>" target="_blank"><img class="avatar img-circle" src="<%= link.user.avatar %>" alt="<%= link.user.name %>" /></a>
+    &nbsp;&nbsp;
+    <span style="font-size:20px;">
+      <% if link.image_url %>
+        <a style="color: #FFFFFF;" href="<%= link.url %>" target="_blank"><%= link.title %></a>
+      <% else %>
+        <a style="color: #696969;" href="<%= link.url %>" target="_blank"><%= link.title %></a>
+      <% end %>
+    </span>
+  </div>
+  <% if link.description %>
+    <div style="padding:5px;">
+      <p><%= link.description %></p>
+    </div>
+  <% end %>
+</li>
