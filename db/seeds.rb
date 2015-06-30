@@ -48,6 +48,13 @@ def seed_links
                 created_at: i.days.ago,
                 updated_at: i.days.ago)
   end
+
+  Link.create!(title: 'link with no meta', 
+                url: "http://techcrunch.com/2015/06/30/apple-music-and-ios-8-4-now-available/", 
+                group: Group.first, 
+                posted_by: User.first.to_param,
+                created_at: 0.days.ago,
+                updated_at: 0.days.ago)
 end
 
 if Rails.env != 'test'
