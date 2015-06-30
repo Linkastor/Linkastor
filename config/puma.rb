@@ -20,4 +20,11 @@ after_worker_boot do
     GroupMailerJob.new.send
   end
   clock.async.tick
+
+  #Every minute
+  clock2 = Clock.new(crontab: "* * * * *")
+  clock2.on_alarm = Proc.new do
+    FetchMetaJob.new.fetch
+  end
+  clock2.async.tick
 end
