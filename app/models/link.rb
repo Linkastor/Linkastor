@@ -13,8 +13,8 @@ class Link < ActiveRecord::Base
   self.per_page = 10
 
   def fetch_meta
-
-    page = Nokogiri::HTML(open(self.url))
+    page = Mechanize.new.get(self.url).try(:parser)
+    return if page.nil?
 
     if self.description == nil
       og_descriptions = page.xpath('//meta[@property="og:description"]')
