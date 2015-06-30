@@ -7,8 +7,8 @@ module CustomSources
       self.errors.add(:base, "Twitter username already taken") if CustomSource.where("extra ->> 'username'='#{self.extra["username"]}'").present?
     end
     
-    def self.new_from_params(params:)
-      self.new(name: "twitter", extra: {username: params[:username]})
+    def update_from_params(params:)
+      self.update(name: "twitter", extra: {username: params[:username]})
     end
 
     def display_name

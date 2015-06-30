@@ -19,10 +19,10 @@ describe CustomSources::Twitter do
     end
   end
   
-  describe "new_from_params" do
+  describe "update_from_params" do
     it "creates a twitter source from params" do
-      twitter = CustomSources::Twitter.new_from_params(params: {username: "foo"})
-      twitter.save.should == true
+      twitter = CustomSources::Twitter.new
+      twitter.update_from_params(params: {username: "foo"}).should == true
       twitter.extra["username"].should == "foo"
     end
   end

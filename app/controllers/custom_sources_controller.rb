@@ -1,24 +1,36 @@
 class CustomSourcesController < ApplicationController
   before_action :authenticate_current_user!
-  before_action :set_custom_source_class, only: [:new, :create]
+  before_action :set_custom_source_class, only: [:new, :create, :edit, :update]
   
   def index
     @custom_sources = current_user.custom_sources
   end
   
   def new
-    @custom_source = @custom_source_class.new
-    
-    render "custom_sources/#{@type}/new"
+    @custom_source = @custom_source_class.new(extra: {})
+  end
+
+  def edit
+    @custom_source = @custom_source_class.find(params[:id])
   end
   
   def create
-    @custom_source = @custom_source_class.new_from_params(params: params)
+    @custom_source = @custom_source_class.new
     
-    if @custom_source.save && CustomSourcesUser.create(user: current_user, custom_source: @custom_source)
+    if @custom_source.update_from_params(params: params) && CustomSourcesUser.create(user: current_user, custom_source: @custom_source)
       redirect_to custom_sources_path, notice: "Your source has been added"
     else
-      render new_custom_source_path(type: @type)
+      render :new
+    end
+  end
+
+  def update
+    @custom_source = @custom_source_class.find(params[:id])
+    
+    if @custom_source.update_from_params(params: params)
+      redirect_to custom_sources_path, notice: "Your source has been updated"
+    else
+      render :edit, id: @custom_source.to_param
     end
   end
   

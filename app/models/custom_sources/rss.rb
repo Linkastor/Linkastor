@@ -10,10 +10,10 @@ module CustomSources
       self.errors.add(:base, "Url already taken") if CustomSource.where("extra ->> 'url'='#{self.extra["url"]}'").present?
     end
     
-    def self.new_from_params(params:)
-      self.new(name: "rss", extra: {url: params[:url], website_logo: params[:website_logo], website_name: params[:website_name]})
+    def update_from_params(params:)
+      self.update(name: "rss", extra: {url: params[:url], website_logo: params[:website_logo], website_name: params[:website_name]})
     end
-
+    
     def display_name
       self.extra["website_name"]
     end

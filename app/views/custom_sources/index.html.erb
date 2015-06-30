@@ -4,7 +4,7 @@
 <% @custom_sources.each do |source| %>
   <div class="well">
     <h4><%= image_tag(source.logo, size: "50") %>
-    <%= source.display_name %></h4>
+    <%= link_to source.display_name, edit_custom_source_path(type: custom_source_class_name(source), id: source.to_param) %></h4>
   </div>
 <% end %>
 <hr>
