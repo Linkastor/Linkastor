@@ -7,7 +7,12 @@ module CustomSources
     
     def check_url
       self.errors.add(:base, "Missing url") if self.extra["url"].blank?
-      self.errors.add(:base, "Url already taken") if CustomSource.where("extra ->> 'url'='#{self.extra["url"]}'").present?
+
+      duplicate_url = CustomSource.where("extra ->> 'url'='#{self.extra["url"]}'")
+      if self.persisted?        
+        duplicate_url = duplicate_url.where("id != #{self.id}")
+      end
+      self.errors.add(:base, "Url already taken") if duplicate_url.present?
     end
     
     def update_from_params(params:)

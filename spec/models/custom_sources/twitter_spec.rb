@@ -15,7 +15,14 @@ describe CustomSources::Twitter do
 
       twitter2 = FactoryGirl.build(:twitter)
       twitter2.extra = {username: "vdaubry"}
+      #byebug
       twitter2.save.should == false
+    end
+
+    it "updates existing source" do
+      twitter = FactoryGirl.create(:twitter)
+      twitter.name = "something else"
+      twitter.save.should == true
     end
   end
   
