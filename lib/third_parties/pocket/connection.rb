@@ -10,7 +10,7 @@ module ThirdParties::Pocket
       auth_provider = @user.authentication_providers.where(provider: "pocket").first
 
       if auth_provider.nil?
-        pocket_request_token = ThirdParties::Pocket::Client.new.token
+        pocket_request_token = ThirdParties::Pocket::Client.new(user: @user).token
         @callback.on_not_connected.try(:call, pocket_request_token)
       else
         @callback.on_connected.try(:call, auth_provider.uid)

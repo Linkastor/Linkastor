@@ -15,6 +15,7 @@ To start Linkastor locally you need to add some environment variables in a ```.e
 > TWITTER_OAUTH_API_SECRET=
 > SENDGRID_USERNAME=
 > SENDGRID_PASSWORD=
+> POCKET_CONSUMER_KEY=
 
 
 ## Import links from your custom source
