@@ -63,6 +63,12 @@ describe User do
       FactoryGirl.create(:link, custom_source: twitter, posted: false)
       User.with_links_to_post.should == [user]
     end
+
+    it "returns distinct users" do
+      user = FactoryGirl.create(:user_with_group)
+      FactoryGirl.create_list(:link, 2, group: user.groups.first, posted: false, posted_by: user.id)
+      User.with_links_to_post.should == [user]
+    end
   end
   
   describe "associations" do
