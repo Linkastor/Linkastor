@@ -36,7 +36,7 @@ describe Invitation::Request do
       end
       
       it "calls invite_already_exist" do
-        FactoryGirl.create(:invite, referrer: user, email: "foo@bar.com")
+        FactoryGirl.create(:invite, group: group, referrer: user, email: "foo@bar.com")
         callback = mock()
         callback.expects(:on_invite_already_exist).once
         invitation.instance_variable_set(:@callback, callback)
