@@ -23,7 +23,7 @@ gem 'mechanize',                  '~> 2.7.3'
 
 group :development, :test do  
   gem 'byebug',               '~> 4.0.4'
-  gem 'spring',               '~> 1.3.3'
+  gem 'spring',               '~> 1.3.6'
   gem 'rspec-rails',          '~> 3.1.0'
   gem 'mocha',                '~> 1.1.0'
   gem 'factory_girl_rails',   '~> 4.5.0'

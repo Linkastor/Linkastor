@@ -16,10 +16,17 @@ describe Invite do
       it { FactoryGirl.build(:invite, group: nil).save.should == false }
     end
     
-    context "duplicate email for same referrer" do
+    context "duplicate email for same referrer and same group" do
       it "doesn't create invite" do
-        FactoryGirl.build(:invite, referrer: user, email: "foo@bar.com").save.should == true
-        FactoryGirl.build(:invite, referrer: user, email: "foo@bar.com").save.should == false
+        FactoryGirl.build(:invite, group: group, referrer: user, email: "foo@bar.com").save.should == true
+        FactoryGirl.build(:invite, group: group, referrer: user, email: "foo@bar.com").save.should == false
+      end
+    end
+
+    context "duplicate email for same referrer but different group" do
+      it "creates invite" do
+        FactoryGirl.build(:invite, group: FactoryGirl.create(:group), referrer: user, email: "foo@bar.com").save.should == true
+        FactoryGirl.build(:invite, group: FactoryGirl.create(:group), referrer: user, email: "foo@bar.com").save.should == true
       end
     end
   end
