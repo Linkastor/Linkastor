@@ -1,7 +1,9 @@
 class GroupMailerJob
+  include Sidekiq::Worker
+  
   #TODO: This method works as long as we have a small number of user and groups, and everything goes fine. If this method fails for any reason, links will not be marked as posted and will be sent again.
   # We need to keep tracks of links sent by user and mark them as posted after each email is sent.
-  def send
+  def perform
     User.with_links_to_post.find_each do |user|
 
       #FEATURE_FLIP

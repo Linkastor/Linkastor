@@ -911,27 +911,27 @@ body.outlook p {
                                 </table>
                               </td>
                             </tr>
+                            <% if @user.admin && @connected_to_pocket %>
+                              <tr>
+                                <td class="wrapper last">
+                                  <table class="one columns">
+                                    <tr>
+                                      <td>
 
-                            <tr>
-                              <td class="wrapper last">
-                                <table class="one columns">
-                                  <tr>
-                                    <td>
+                                        <table>
+                                          <tr>
+                                            <td>
+                                              <%= link_to image_tag("https://s3.amazonaws.com/linkastor/pocket_app_logo.png", width: 25), pocket_links_add_link_url(link: {title: link.title, url: link.url}), target: "_blank" %>
+                                            </td>
+                                          </tr>
+                                        </table>
 
-                                      <table>
-                                        <tr>
-                                          <td>
-                                            <%= link_to image_tag("https://s3.amazonaws.com/linkastor/pocket_app_logo.png", width: 25), pocket_links_add_link_url(link: {title: link.title, url: link.url}), target: "_blank" %>
-                                          </td>
-                                        </tr>
-                                      </table>
-
-                                    </td>
-                                  </tr>
-                                </table>
-                              </td>
-                            </tr>
-
+                                      </td>
+                                    </tr>
+                                  </table>
+                                </td>
+                              </tr>
+                            <% end %>
                           </table>
                         </td>
                         

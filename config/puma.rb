@@ -11,20 +11,3 @@ environment ENV['RACK_ENV'] || 'development'
 on_worker_boot do
   ActiveRecord::Base.establish_connection  
 end
-
-after_worker_boot do
-  #Everyday at 1am
-  clock = Clock.new(crontab: "* 1 * * *")
-  clock.on_alarm = Proc.new do
-    puts "Sending mail digest to all users"
-    GroupMailerJob.new.send
-  end
-  clock.async.tick
-
-  #Every minute
-  clock2 = Clock.new(crontab: "* * * * *")
-  clock2.on_alarm = Proc.new do
-    FetchMetaJob.new.fetch
-  end
-  clock2.async.tick
-end

@@ -21,6 +21,7 @@ module Builders
       link = group.links.build(link_params)
       link.posted_by = @user.id
       if link.save
+        FetchMetaJob.perform_async(link.id)
         @callback.on_created.try(:call, link)
       else
         @callback.on_invalid.try(:call, link)

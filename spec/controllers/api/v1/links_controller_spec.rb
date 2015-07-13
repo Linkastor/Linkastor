@@ -46,6 +46,12 @@ describe Api::V1::LinksController do
           post :create, auth_token: @token, group_id: group.id, link: { title: "foo bar", url: "http://foo.com/bar.html" }
           Link.last.user.should == user
         end
+
+        it "schedule a jog to fetch link meta" do
+          expect {
+            post :create, auth_token: @token, group_id: group.id, link: { title: "foo bar", url: "http://foo.com/bar.html" }
+          }.to change(FetchMetaJob.jobs, :size).by(1)
+        end
       end
       
       context "group doesn't exist" do
@@ -100,7 +106,6 @@ describe Api::V1::LinksController do
           Link.count.should == 2
         end
       end
-      
     end
   end
 end
