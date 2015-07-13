@@ -15,14 +15,21 @@ describe CustomSources::Twitter do
 
       twitter2 = FactoryGirl.build(:twitter)
       twitter2.extra = {username: "vdaubry"}
+      #byebug
       twitter2.save.should == false
+    end
+
+    it "updates existing source" do
+      twitter = FactoryGirl.create(:twitter)
+      twitter.name = "something else"
+      twitter.save.should == true
     end
   end
   
-  describe "new_from_params" do
+  describe "update_from_params" do
     it "creates a twitter source from params" do
-      twitter = CustomSources::Twitter.new_from_params(params: {username: "foo"})
-      twitter.save.should == true
+      twitter = CustomSources::Twitter.new
+      twitter.update_from_params(params: {username: "foo"}).should == true
       twitter.extra["username"].should == "foo"
     end
   end

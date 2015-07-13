@@ -5,14 +5,22 @@ describe CustomSourcesController do
   
   let(:user) { FactoryGirl.create(:user) }
   let(:twitter) { FactoryGirl.create(:twitter) }
-  
-  let(:valid_attributes) { FactoryGirl.build(:twitter).attributes }
+  let(:rss) { FactoryGirl.create(:rss) }
   
   context "user not logged in" do
-    describe "index" do
+    describe "index, new" do
       it "redirects to login page" do
         [:index, :new].each do |action|
           get action, type: 'twitter'
+          response.should redirect_to root_url
+        end
+      end
+    end
+
+    describe "edit" do
+      it "redirects to login page" do
+        [:edit, :update].each do |action|
+          get action, id: twitter.to_param, type: 'twitter'
           response.should redirect_to root_url
         end
       end
@@ -38,18 +46,24 @@ describe CustomSourcesController do
       end
     end
     
-    describe "new" do
+    describe "GET new" do
       it "assigns a new Twitter source" do
         get :new, type: "twitter"
         assigns(:custom_source).should be_a_new CustomSources::Twitter
       end
     end
     
-    describe "create" do
+    describe "POST create" do
       context "valid params" do
-        it "adds a custom source to the user" do
+        it "adds a twitter custom source to the user" do
           expect {
             post :create, type: "twitter", username: "foobar"
+          }.to change{ user.custom_sources.count }.by(1)
+        end
+
+        it "adds a rss custom source to the user" do
+          expect {
+            post :create, type: "rss", url: "http://foo.bar"
           }.to change{ user.custom_sources.count }.by(1)
         end
       end
@@ -57,7 +71,36 @@ describe CustomSourcesController do
       context "invalid params" do
         it "renders new custom source" do
           post :create, type: "twitter"
-          response.should render_template "custom_sources/twitter/new"
+          response.should render_template "custom_sources/new"
+        end
+      end
+    end
+
+    describe "GET edit" do
+      it "assigns existing custom_source" do
+        get :edit, id: twitter.to_param, type: "twitter"
+        assigns(:custom_source).should == twitter
+      end
+    end
+
+    describe "PUT update" do
+      context "valid params" do
+        it "updates twitter custom source" do
+          put :update, id: twitter.to_param, type: "twitter", username: "foobaz"
+          twitter.reload.extra["username"].should == "foobaz"
+        end
+
+        it "updates rss custom source" do
+          put :update, id: rss.to_param, type: "rss", url: "http://foo.bar"
+          rss.reload.extra["url"].should == "http://foo.bar"
+        end
+      end
+
+      context "invalid params" do
+        it "updates custom source" do
+          put :update, id: twitter.to_param, type: "twitter", username: nil
+          twitter.reload.extra["username"].should_not be_nil
+          response.should render_template(:edit)
         end
       end
     end

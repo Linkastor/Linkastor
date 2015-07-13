@@ -12,6 +12,12 @@ describe CustomSources::Rss, vcr: true do
       rss.extra = {url: "http://foo.bar"}
       rss.save.should == false
     end
+
+    it "updates existing source" do
+      rss = FactoryGirl.create(:rss)
+      rss.name = "something else"
+      rss.save.should == true
+    end
   end
 
   describe "import" do

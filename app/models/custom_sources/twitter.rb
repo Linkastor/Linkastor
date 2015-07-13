@@ -4,11 +4,16 @@ module CustomSources
     
     def check_user_name
       self.errors.add(:base, "Missing twitter username") if self.extra["username"].blank?
-      self.errors.add(:base, "Twitter username already taken") if CustomSource.where("extra ->> 'username'='#{self.extra["username"]}'").present?
+
+      duplicate_username = CustomSource.where("extra ->> 'username'='#{self.extra["username"]}'")
+      if self.persisted?        
+        duplicate_username = duplicate_username.where("id != #{self.id}")
+      end
+      self.errors.add(:base, "Twitter username already taken") if duplicate_username.present?
     end
     
-    def self.new_from_params(params:)
-      self.new(name: "twitter", extra: {username: params[:username]})
+    def update_from_params(params:)
+      self.update(name: "twitter", extra: {username: params[:username]})
     end
 
     def display_name

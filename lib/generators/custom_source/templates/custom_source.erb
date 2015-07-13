@@ -10,12 +10,12 @@ module CustomSources
       #self.errors.add(:extra, "Url already taken") if CustomSource.where("extra ->> 'url'='#{self.extra["url"]}'").present?
     end
 
-    def self.new_from_params(params:)
+    def update_from_params(params:)
       # This method is called when validating your form
-      # This method should return an instance of your object initialized with values from the params hash :
+      # This method should update an instance of your object with values from the params hash :
       #   - set a name attribute for this source
       #   - all other parameters should be be saved as json in the 'extra' field (see custom_sources/twitter.rb for example)
-      self.new(name: "<%= file_name%>", extra: {})
+      self.update(name: "<%= file_name%>", extra: {})
     end
 
     def display_name
