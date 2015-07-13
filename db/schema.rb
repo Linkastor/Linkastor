@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150628073004) do
+ActiveRecord::Schema.define(version: 20150713123247) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -23,7 +23,7 @@ ActiveRecord::Schema.define(version: 20150628073004) do
     t.string   "token",      null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string   "secret",     null: false
+    t.string   "secret"
   end
 
   add_index "authentication_providers", ["uid"], name: "index_authentication_providers_on_uid", unique: true, using: :btree
@@ -68,7 +68,7 @@ ActiveRecord::Schema.define(version: 20150628073004) do
   end
 
   add_index "invites", ["code"], name: "index_invites_on_code", using: :btree
-  add_index "invites", ["referrer_id", "email"], name: "index_invites_on_referrer_id_and_email", unique: true, using: :btree
+  add_index "invites", ["group_id", "referrer_id", "email"], name: "index_invites_on_group_id_and_referrer_id_and_email", unique: true, using: :btree
 
   create_table "links", force: :cascade do |t|
     t.integer  "group_id"

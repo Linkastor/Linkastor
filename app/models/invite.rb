@@ -5,7 +5,7 @@ class Invite < ActiveRecord::Base
   delegate :name, to: :group, prefix: true
   
   validates :referrer, :group, :code, presence: true
-  validates :email, uniqueness: {scope: :referrer}
+  validates :email, uniqueness: {scope: [:referrer, :group]}
   validates :accepted, :inclusion => {:in => [true, false]}
   validates_with EmailValidator
   
