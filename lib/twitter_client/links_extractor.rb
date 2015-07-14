@@ -7,7 +7,8 @@ module TwitterClient
     def extract(username:, since:)
       tweets = @client.tweets(username: username, since: since)
       tweets.map do |tweet|
-        TwitterClient::TweetStatus.new(tweet.text, tweet.text.extract_url )
+        url = tweet.text.extract_url
+        TwitterClient::TweetStatus.new(tweet.text, tweet.text.extract_url) if url
       end.compact
     end
   end

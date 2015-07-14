@@ -1757,4 +1757,74 @@ http_interactions:
       string: '{"errors":[{"code":99,"message":"Unable to verify your credentials","label":"authenticity_token_error"}]}'
     http_version: 
   recorded_at: Wed, 24 Jun 2015 20:47:29 GMT
+- request:
+    method: post
+    uri: https://2G3TwhdIjOMYN0ETjhQONRxUp:R4oD6mfOXZkMq9wt93SEl7INnYBC5otRiMGVoOPdhINgYVBmVB@api.twitter.com/oauth2/token
+    body:
+      encoding: UTF-8
+      string: grant_type=client_credentials
+    headers:
+      Accept:
+      - "*/*"
+      User-Agent:
+      - TwitterRubyGem/5.14.0
+      Content-Type:
+      - application/x-www-form-urlencoded; charset=UTF-8
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Cache-Control:
+      - no-cache, no-store, must-revalidate, pre-check=0, post-check=0
+      Content-Disposition:
+      - attachment; filename=json.json
+      Content-Length:
+      - '156'
+      Content-Type:
+      - application/json;charset=utf-8
+      Date:
+      - Tue, 14 Jul 2015 06:36:03 GMT
+      Expires:
+      - Tue, 31 Mar 1981 05:00:00 GMT
+      Last-Modified:
+      - Tue, 14 Jul 2015 06:36:03 GMT
+      Ml:
+      - A
+      Pragma:
+      - no-cache
+      Server:
+      - tsa_f
+      Set-Cookie:
+      - guest_id=v1%3A143685576388425817; Domain=.twitter.com; Path=/; Expires=Thu,
+        13-Jul-2017 06:36:03 UTC
+      Status:
+      - 200 OK
+      Strict-Transport-Security:
+      - max-age=631138519
+      X-Connection-Hash:
+      - 6fbe2c73299e8a1977ae0a3a58bf1e8b
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - SAMEORIGIN
+      X-Response-Time:
+      - '166'
+      X-Transaction:
+      - c7a991334e72f04f
+      X-Tsa-Request-Body-Time:
+      - '3'
+      X-Twitter-Response-Tags:
+      - BouncerCompliant
+      X-Ua-Compatible:
+      - IE=edge,chrome=1
+      X-Xss-Protection:
+      - 1; mode=block
+    body:
+      encoding: ASCII-8BIT
+      string: '{"token_type":"bearer","access_token":"AAAAAAAAAAAAAAAAAAAAAElOgQAAAAAAz0WkhmdYheMhB%2FzPyvaPHDBG%2Bmw%3DNC3hbqIXqavhsvK83diSYoN9vdxkt6NlZUWd22OgEGGh7rDQuQ"}'
+    http_version: 
+  recorded_at: Tue, 14 Jul 2015 06:36:04 GMT
 recorded_with: VCR 2.9.3
