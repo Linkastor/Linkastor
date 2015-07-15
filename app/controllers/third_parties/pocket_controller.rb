@@ -15,9 +15,11 @@ class ThirdParties::PocketController < ApplicationController
 
   def add_link
     auth_provider = current_user.authentication_providers.where(provider: "pocket").first
-    link = params[:link]
-    ThirdParties::Pocket::Client.new(user: current_user).add_link(title: link[:title], url: link[:url], access_token: auth_provider.token)
-    flash[:info] = "Your link has been successfully added to your pocket account"
+    if auth_provider
+      link = params[:link]
+      ThirdParties::Pocket::Client.new(user: current_user).add_link(title: link[:title], url: link[:url], access_token: auth_provider.token)
+      flash[:info] = "Your link has been successfully added to your pocket account"
+    end
   end
 
 end

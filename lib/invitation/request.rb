@@ -35,7 +35,7 @@ module Invitation
     
     def send_emails(invites:)
       invites.each do |invite|
-        InviteMailerJob.new.async.perform(invite)
+        InviteMailerJob.perform_async(invite)
       end
     end
   end

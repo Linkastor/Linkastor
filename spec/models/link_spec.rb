@@ -40,33 +40,6 @@ describe Link do
     end
   end
 
-  describe "fetch_meta" do
-    it "should fetch meta" do
-      VCR.use_cassette("Link/meta/fetch_meta") do
-        link = FactoryGirl.build(:link, url: 'http://techcrunch.com/2015/06/25/githubs-atom-text-editor-hits-1-0-now-has-over-350000-monthly-active-users/')
-
-        link.fetch_meta
-
-        link.description.should == 'GitHub\'s highly extensible Atom text editor hit 1.0 today. The editor release has only been available to the public for about a year now, but it has already..'
-        link.image_url.should == 'https://tctechcrunch2011.files.wordpress.com/2015/06/pasted-image-0.png?w=560&h=292&crop=1'
-      end
-    end
-
-    it "don't override meta" do
-      VCR.use_cassette("Link/meta/fetch_meta") do
-        link = FactoryGirl.build(:link, url: 'http://techcrunch.com/2015/06/25/githubs-atom-text-editor-hits-1-0-now-has-over-350000-monthly-active-users/')
-
-        link.description = 'this is my description'
-        link.image_url = 'http://www.google.com/logo.png'
-
-        link.fetch_meta
-
-        link.description.should == 'this is my description'
-        link.image_url.should == 'http://www.google.com/logo.png'
-      end
-    end
-  end
-
   describe "relations" do
     it "belongs to a group" do
       links = FactoryGirl.create_list(:link, 2, group: group)
