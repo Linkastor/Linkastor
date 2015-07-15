@@ -26,6 +26,7 @@ end
 #development and test credentials
 ENV["TWITTER_OAUTH_API_ID"]="2G3TwhdIjOMYN0ETjhQONRxUp"
 ENV["TWITTER_OAUTH_API_SECRET"]="R4oD6mfOXZkMq9wt93SEl7INnYBC5otRiMGVoOPdhINgYVBmVB"
+ENV["POCKET_CONSUMER_KEY"]="42980-f9f04843b3e6193ef4ca1245"
 
 def sign_in(user)
   @token = Authentication::Token.new(user: user).create

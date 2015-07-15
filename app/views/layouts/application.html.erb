@@ -13,10 +13,11 @@
         </div>
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
           <ul class="nav navbar-nav">
-            <%= menu_link("groups", groups_path) %>
+            <li><%= menu_link("groups", groups_path) %></li>
             <!-- FEATURE_FLIP -->
             <% if current_user.try(:admin) %>
-              <%= menu_link("sources", custom_sources_path) %>
+              <li><%= menu_link("sources", custom_sources_path) %></li>
+              <li><%= menu_link("third party", third_parties_path) %></li>
             <% end %>
           </ul>
         </div>

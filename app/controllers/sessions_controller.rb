@@ -9,12 +9,12 @@ class SessionsController < ApplicationController
       confirmation.accept! do |on|
         on.group_invalid do
           flash[:alert] = "The group you were invited to doesn't exist anymore"
-          session[:invite_id]=nil
+          session.delete(:invite_id)
         end
         
         on.success do |group|
           flash[:info] = "You have successfully joined the group #{group.name}"
-          session[:invite_id]=nil
+          session.delete(:invite_id)
         end
       end
         

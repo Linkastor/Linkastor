@@ -1,14 +1,15 @@
 <li style="padding:5px;">
   <div style="padding:5px; background:url(<%= link.image_url %>) no-repeat center center; background-size:cover;">
-    <a href="http://twitter.com/<%= link.user.nickname %>" target="_blank"><img class="avatar img-circle" src="<%= link.user.avatar %>" alt="<%= link.user.name %>" /></a>
+    <%= link_to image_tag(link.user.avatar, class: "avatar img-circle"), "http://twitter.com/#{link.user.nickname}", target: "_blank" %>
     &nbsp;&nbsp;
     <span style="font-size:20px;">
       <% if link.image_url %>
-        <a style="color: #FFFFFF;" href="<%= link.url %>" target="_blank"><%= link.title %></a>
+        <%= link_to link.title, link.url, target: "_blank", style: "color: #FFFFFF;" %>
       <% else %>
-        <a style="color: #696969;" href="<%= link.url %>" target="_blank"><%= link.title %></a>
+        <%= link_to link.title, link.url, target: "_blank", style: "color: #696969;" %>
       <% end %>
     </span>
+    <%= link_to image_tag("pocket_app_logo.png", width: 25), pocket_links_add_link_path(link: {title: link.title, url: link.url}), target: "_blank" %>
   </div>
   <% if link.description %>
     <div style="padding:5px;">
