@@ -27,5 +27,7 @@ class LinksController < ApplicationController
   def show
     @group = Group.find(params[:group_id])
     @link = Link.find(params[:id])
+    @comments = Comment.where(link: @link).order(:created_at)
+    @comment = Comment.new()
   end
 end

@@ -1,4 +1,20 @@
 <h4><%= link_to @group.name, group_path(@group) %></h4>
 <ul class="list-unstyled">
-  <%= render partial: "shared/link", locals: { link: @link} %>
+  <li style="padding:5px;">
+    <%= render partial: "shared/link", locals: { link: @link} %>
+    <ul class="list-unstyled" style="padding-left: 20px;">
+      <% @comments.each do |comment| %>
+        <li style="background-color: #CCEEFF; margin: 2px; min-height: 40px; width: 80%;">
+          <%= link_to image_tag(comment.user.avatar, class: "avatar img-circle"), "http://twitter.com/#{comment.user.nickname}", target: "_blank" %>
+          <%= comment.content %>
+        </li>
+      <% end %>
+      <li style="background-color: #CCEEFF; margin: 2px; min-height: 40px; width: 80%;">
+        <%= form_for [@group, @link, @comment] do |f| %>
+          <%= f.text_field :content, placeholder: "Content", class: 'form-control' %>
+          <%= f.submit "Validate", class: "btn btn-success" %>
+        <% end %>
+      </li>
+    </ul>
+  </li>
 </ul>

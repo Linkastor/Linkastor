@@ -73,9 +73,19 @@ def seed_links
                 updated_at: 0.days.ago)
 end
 
+def seed_comments
+  Comment.destroy_all
+  (0..10).each do |i|
+    Comment.create!(content: "my constructive comment #{i}",
+                    user: User.first,
+                    link: Link.last)
+  end
+end
+
 if Rails.env != 'test'
   seed_users
   seed_groups
   seed_custom_sources
   seed_links
+  seed_comments
 end
