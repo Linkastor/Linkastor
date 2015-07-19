@@ -23,4 +23,9 @@ class LinksController < ApplicationController
 
     redirect_to group_url(params[:group_id])
   end
+
+  def show
+    @group = Group.find(params[:group_id])
+    @link = Link.find(params[:id])
+  end
 end

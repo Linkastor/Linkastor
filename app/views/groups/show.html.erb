@@ -11,7 +11,8 @@
             <h4 class="text-muted"><%= day.to_s(:day_title) %></h4>
             <ul class="list-unstyled">
               <% @days[day].sort_by {|obj| obj.created_at }.reverse.each do |link| %>
-                <%= render partial: "link", locals: { link: link} %>
+                <%= render partial: "shared/link", locals: { link: link} %>
+                <%= link_to "comments...", group_link_path(@group, link) %>
               <% end %>
             </ul>
           </div>
