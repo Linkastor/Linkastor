@@ -1,9 +1,26 @@
 class FetchMetaJob
-  def fetch
-    links = Link.where("description IS NULL OR image_url IS NULL")
-    links.each do |link|
-      link.fetch_meta
-      link.save
+  include Sidekiq::Worker
+  
+  def perform(link_id)
+    link = Link.find(link_id)
+    
+    page = Mechanize.new.get(link.url).try(:parser)
+    return if page.nil?
+
+    if link.description == nil
+      og_descriptions = page.xpath('//meta[@property="og:description"]')
+      if og_descriptions.length > 0
+        link.description = og_descriptions[0][:content]  
+      end
     end
+
+    if link.image_url == nil
+      og_images = page.xpath('//meta[@property="og:image"]')
+      if og_images.length > 0
+        link.image_url = og_images[0][:content]
+      end
+    end
+
+    link.save
   end
 end
