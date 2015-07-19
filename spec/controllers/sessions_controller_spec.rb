@@ -70,6 +70,12 @@ describe SessionsController do
         get :create, provider: "twitter"
         session[:invite_id].should == nil
       end
+
+      it "sets invitation to accepted" do
+        invitation = Invite.find(session[:invite_id])
+        get :create, provider: "twitter"
+        invitation.reload.accepted.should == true
+      end
     end
     
     context "session_id doesn't exists" do
