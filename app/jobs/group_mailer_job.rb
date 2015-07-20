@@ -5,14 +5,16 @@ class GroupMailerJob
   # We need to keep tracks of links sent by user and mark them as posted after each email is sent.
   def perform
     User.with_links_to_post.find_each do |user|
-
-      #FEATURE_FLIP
-      if user.admin
-        user.custom_sources_users.each do |custom_source_user|
-          custom_source_user.custom_source.import
+      begin
+        if user.admin
+          user.custom_sources_users.each do |custom_source_user|
+            custom_source_user.custom_source.import
+          end
         end
+        DigestMailer.send_digest(user: user).deliver_now
+      rescue StandardError => e
+        Rails.logger.error e
       end
-      DigestMailer.send_digest(user: user).deliver_now
     end
     
     #FIXME: there is a race condition here : Links that are added while we are sending emails will be marked as posted and never sent
