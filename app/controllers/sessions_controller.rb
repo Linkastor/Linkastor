@@ -3,6 +3,8 @@ class SessionsController < ApplicationController
     user = Oauth::Authorization.new.authorize(oauth_hash: oauth_hash)
     invite = Invitation::InvitationFactory.new(invite_id: session[:invite_id]).invite
     
+    session[:user_id] = user.id
+
     if invite
       confirmation = Invitation::Confirmation.new(invite: invite,
                                                   referee: user)
@@ -21,7 +23,7 @@ class SessionsController < ApplicationController
       return redirect_to groups_path
     end
     
-    session[:user_id] = user.id
+    
     
     if user.email
       redirect_to groups_path(user)

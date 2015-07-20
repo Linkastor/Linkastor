@@ -15,6 +15,8 @@ module Invitation
         @referee.email = @invite.email
         @referee.groups << @invite.group
         @referee.save
+        @invite.update(accepted: true)
+        
         @callback.on_success.try(:call, @invite.group)
       end
     end
@@ -26,7 +28,7 @@ module Invitation
     def group_invalid(&block)
       @on_group_invalid = block
     end
-    
+
     def success(&block)
       @on_success = block
     end
