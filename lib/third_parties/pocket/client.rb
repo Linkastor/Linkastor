@@ -28,6 +28,6 @@ class ThirdParties::Pocket::Client
   end
 
   def add_link(title:, url:, access_token:)
-    post(path: "/v3/add", body: {url: url, title: title, consumer_key: ENV["POCKET_CONSUMER_KEY"], access_token: access_token})
+    return post(path: "/v3/add", body: {url: url, title: title, consumer_key: ENV["POCKET_CONSUMER_KEY"], access_token: access_token})
   end
 end
