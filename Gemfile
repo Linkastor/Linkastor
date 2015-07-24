@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-ruby '2.2.1'
+ruby '2.2.2'
 
 gem 'rails',                      '~> 4.2.0'
 gem 'pg',                         '~> 0.18.1'
@@ -24,7 +24,7 @@ gem 'sidekiq'
 group :development, :test do  
   gem 'byebug',               '~> 4.0.4'
   gem 'spring',               '~> 1.3.6'
-  gem 'rspec-rails',          '~> 3.1.0'
+  gem 'rspec-rails',          '~> 3.3.3'
   gem 'mocha',                '~> 1.1.0'
   gem 'factory_girl_rails',   '~> 4.5.0'
 end
