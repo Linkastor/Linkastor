@@ -8,7 +8,7 @@
       <%= link_to link.title, link.url, target: "_blank", style: "color: #696969;" %>
     <% end %>
   </span>
-  <%= link_to image_tag("pocket_app_logo.png", width: 25), pocket_links_add_link_path(link: {title: link.title, url: link.url}), target: "_blank" %>
+  <%= link_to image_tag("pocket_app_logo.png", width: 25), pocket_links_add_link_path(link: {title: link.title, url: link.url}), target: "_blank" if @connected_to_pocket %>
 </div>
 <% if link.description %>
   <div style="padding:5px;">

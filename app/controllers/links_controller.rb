@@ -29,5 +29,9 @@ class LinksController < ApplicationController
     @link = Link.find(params[:id])
     @comments = Comment.where(link: @link).order(:created_at)
     @comment = Comment.new()
+    
+    ThirdParties::Pocket::Connection.new(user: current_user).connected? do |on|
+      on.connected { @connected_to_pocket = true }
+    end
   end
 end
