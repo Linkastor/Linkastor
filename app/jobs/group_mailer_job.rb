@@ -11,6 +11,7 @@ class GroupMailerJob
             custom_source_user.custom_source.import
           end
         end
+        Rails.logger.info "Sending mail to user #{user.email}"
         DigestMailer.send_digest(user: user).deliver_now
       rescue StandardError => e
         Rails.logger.error e
