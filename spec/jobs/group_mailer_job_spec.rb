@@ -41,6 +41,14 @@ describe GroupMailerJob do
       link.reload.posted_at.should_not be_nil
     end
 
+    it "doesn't update posted_at for links already posted" do
+      link = FactoryGirl.create(:link, group: @group, posted: false, posted_at: nil)
+      link2 = FactoryGirl.create(:link, group: @group, posted: true, posted_at: Date.parse("2015-08-11"))
+      GroupMailerJob.new.perform
+      link.reload.posted_at.should_not be_nil
+      link2.reload.posted_at.should == Date.parse("2015-08-11")
+    end
+
     context "fail to send email to a user" do
       it "keeps sending mail to next users" do
         user2 = FactoryGirl.create(:user, admin: false)

@@ -22,6 +22,6 @@ class GroupMailerJob
     
     #FIXME: there is a race condition here : Links that are added while we are sending emails will be marked as posted and never sent
     # resolving the above TODO should also fix this problem
-    Link.update_all(posted: true, posted_at: DateTime.now)
+    Link.where(posted: false).update_all(posted: true, posted_at: DateTime.now)
   end
 end
