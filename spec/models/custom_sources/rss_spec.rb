@@ -40,5 +40,16 @@ describe CustomSources::Rss, vcr: true do
       link.url.should == "http://www.producthunt.com/r/4570ddb30433f0/25610?app_id=339"
       link.title.should == "Antbassador — You're a human finger in a world of ants"
     end
+
+    context "RSS format instead of atom" do
+      it "saves url and content" do
+        rss = FactoryGirl.create(:rss)
+        rss.extra["url"] = "https://remoteworking.curated.co/issues.rss"
+        rss.import
+        link = rss.links.first
+        link.url.should == "https://remoteworking.curated.co/issues/38"
+        link.title.should == "The Power of Checklists - Aug 10th 2015"
+      end
+    end
   end
 end

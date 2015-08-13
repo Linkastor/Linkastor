@@ -34,12 +34,12 @@ module CustomSources
     def import
       open(self.extra["url"]) do |rss|
         feed = RSS::Parser.parse(rss)
-        items = feed.items.select do |item| 
-          DateTime.parse(item.published.to_s) > DateTime.yesterday.beginning_of_day
-        end   
+        items = feed.items
+                    .map {|feed_item| CustomSources::FeedParser::ItemFactory.new(item: feed_item).item}
+                    .select {|item| DateTime.parse(item.published) > DateTime.yesterday.beginning_of_day }
         items.each do |item|
-          link = Nokogiri::HTML(item.link.to_s).search("link").first["href"]
-          title = Nokogiri::HTML(item.title.to_s).search("title").first.content
+          link = item.link
+          title = item.title
           self.links.create(url: link, title: title)
         end
       end

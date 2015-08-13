@@ -8,15 +8,11 @@ class GroupMailerJob
     Rails.logger.info "Found users with pending mail : #{users.count}"
     users.find_each do |user|
       begin
-        if user.admin
-          user.custom_sources_users.each do |custom_source_user|
-            custom_source_user.custom_source.import
-          end
-        end
         Rails.logger.info "Sending mail to user #{user.email}"
         DigestMailer.send_digest(user: user).deliver_now
       rescue StandardError => e
         Rails.logger.error e
+        Raven.capture_exception(e)
       end
     end
     
