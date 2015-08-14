@@ -1,8 +1,8 @@
 class User < ActiveRecord::Base
   include ActiveModel::Validations
   
-  has_many :custom_sources_users
-  has_many :custom_sources, through: :custom_sources_users, dependent: :destroy
+  has_many :custom_sources_users, dependent: :destroy
+  has_many :custom_sources, through: :custom_sources_users
   has_many :authentication_providers, dependent: :destroy
   has_many :groups_users
   has_many :groups, through: :groups_users, dependent: :destroy

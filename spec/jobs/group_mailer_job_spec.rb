@@ -21,7 +21,7 @@ describe GroupMailerJob do
       DigestMailer.expects(:send_digest).with(user: @user).never
       GroupMailerJob.new.perform
     end
-    
+
     it "marks sent links as posted" do
       link = FactoryGirl.create(:link, group: @group, posted: false)
       GroupMailerJob.new.perform
