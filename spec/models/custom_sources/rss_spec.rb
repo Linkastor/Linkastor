@@ -22,6 +22,7 @@ describe CustomSources::Rss, vcr: true do
 
   describe "relations" do
     it "destroys associated CustomSourcesUser" do
+      user = FactoryGirl.create(:user)
       twitter = FactoryGirl.create(:twitter)
       CustomSourcesUser.create(user: user, custom_source: twitter)
       twitter.destroy
