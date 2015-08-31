@@ -834,7 +834,7 @@ body.outlook p {
                         <tr>
                           <td class="panel">
 
-                            <p>Want more options and a better experience ? . <%= link_to "Check out your links directly inside the Linkastor website!", root_path %></p>
+                            <p>Want more options and a better experience ? . <%= link_to "Check out your links directly inside the Linkastor website!", root_url %></p>
 
                           </td>
                           <td class="expander"></td>
@@ -882,7 +882,7 @@ body.outlook p {
                             </tr>
                             <tr>
                               <td>
-                                <p><%= link.description.truncate(300) %></p>
+                                <p><%= link.description.try(:truncate, 300) %></p>
                               </td>
                             </tr>
                             <tr>
