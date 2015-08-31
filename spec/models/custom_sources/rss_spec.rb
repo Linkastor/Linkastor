@@ -20,6 +20,16 @@ describe CustomSources::Rss, vcr: true do
     end
   end
 
+  describe "relations" do
+    it "destroys associated CustomSourcesUser" do
+      user = FactoryGirl.create(:user)
+      twitter = FactoryGirl.create(:twitter)
+      CustomSourcesUser.create(user: user, custom_source: twitter)
+      twitter.destroy
+      CustomSourcesUser.count.should == 0
+    end
+  end
+
   describe "import" do
     before(:each) do
       Date.stubs(:yesterday).returns(Date.parse("2015-06-25"))

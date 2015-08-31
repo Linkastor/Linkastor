@@ -86,7 +86,7 @@ describe User do
       user.destroy
       GroupsUser.count.should == 0
     end
-  
+
     it "has a twitter custom source" do
       twitter = FactoryGirl.create(:twitter)
       CustomSourcesUser.create(user: user, custom_source: twitter)
@@ -98,6 +98,13 @@ describe User do
       CustomSourcesUser.create(user: user, custom_source: twitter)
       CustomSourcesUser.create(user: user, custom_source: twitter)
       user.custom_sources.should == [twitter]
+    end
+
+    it "destroys associated CustomSourcesUser" do
+      twitter = FactoryGirl.create(:twitter)
+      CustomSourcesUser.create(user: user, custom_source: twitter)
+      user.destroy
+      CustomSourcesUser.count.should == 0
     end
   end
 end
