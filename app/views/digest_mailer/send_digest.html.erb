@@ -52,6 +52,7 @@ img {
   float: left; 
   clear: both; 
   display: block;
+  max-height: 250px;
 }
 
 center {
@@ -833,7 +834,7 @@ body.outlook p {
                         <tr>
                           <td class="panel">
 
-                            <p>Want more options and a better experience ? . <a href="#">Check out your links directly inside the Linkastor website!</a></p>
+                            <p>Want more options and a better experience ? . <%= link_to "Check out your links directly inside the Linkastor website!", root_path %></p>
 
                           </td>
                           <td class="expander"></td>
@@ -881,7 +882,7 @@ body.outlook p {
                             </tr>
                             <tr>
                               <td>
-                                <p><%= link.description %></p>
+                                <p><%= link.description.truncate(300) %></p>
                               </td>
                             </tr>
                             <tr>
