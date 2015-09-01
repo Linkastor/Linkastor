@@ -2,6 +2,8 @@ require 'rss'
 require 'open-uri'
 
 module CustomSources
+  class InvalidRss < StandardError; end
+
   class Rss < CustomSource
     validate :check_url
     
@@ -31,10 +33,16 @@ module CustomSources
       self.extra["website_logo"]
     end
 
+    def feed(rss)
+      RSS::Parser.parse(rss, false)
+    rescue StandardError => e
+      Rails.logger.error "cannot parse #{display_name} : #{e}"
+      raise CustomSources::InvalidRss.new(e.message)
+    end
+
     def import
       open(self.extra["url"]) do |rss|
-        feed = RSS::Parser.parse(rss)
-        items = feed.items
+        items = feed(rss).items
                     .map {|feed_item| CustomSources::FeedParser::ItemFactory.new(item: feed_item).item}
                     .select {|item| DateTime.parse(item.published) > DateTime.yesterday.beginning_of_day }
         items.each do |item|
