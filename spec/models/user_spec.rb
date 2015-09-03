@@ -6,6 +6,11 @@ describe User do
   
   describe "create" do
     it { FactoryGirl.build(:user).save.should == true }
+
+    it "can create multiple user without email" do
+      FactoryGirl.build(:user, email: nil).save.should == true
+      FactoryGirl.build(:user, email: nil).save.should == true
+    end
     
     context "duplicate fields" do
       it "validates unique emails" do
