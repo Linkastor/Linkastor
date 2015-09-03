@@ -21,7 +21,10 @@ gem 'newrelic_rpm',               '~> 3.12.0'
 gem 'mechanize',                  '~> 2.7.3'
 gem 'sidekiq',                    '~> 3.4.1'
 gem 'nokogiri',                   '~> 1.6.6.2'
-gem 'premailer-rails',            '~> 1.8.2'
+
+group :production do
+  gem 'premailer-rails',            '~> 1.8.2'
+end
 
 group :development, :test do  
   gem 'byebug',               '~> 4.0.4'

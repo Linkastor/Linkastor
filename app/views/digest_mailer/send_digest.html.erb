@@ -108,8 +108,8 @@ table.container {
 }
 
 table.row { 
-  padding: 0px; 
-  width: 100%;
+  padding: 0px;
+  height: 50px;
   position: relative;
 }
 
@@ -118,7 +118,7 @@ table.container table.row {
 }
 
 td.wrapper {
-  padding: 10px 20px 0px 0px;
+  padding: 10px 20px 0px 10px;
   position: relative;
 }
 
@@ -129,7 +129,7 @@ table.column {
 
 table.columns td,
 table.column td {
-  padding: 0px 0px 10px; 
+  padding: 5px 0px 10px;
 }
 
 table.columns td.sub-columns,
@@ -359,7 +359,7 @@ small {
 }
 
 a {
-  color: #2ba6cb; 
+
   text-decoration: none;
 }
 
@@ -368,11 +368,11 @@ a:hover {
 }
 
 a:active { 
-  color: #2795b6 !important;
+
 }
 
 a:visited { 
-  color: #2ba6cb !important;
+
 }
 
 h1 a, 
@@ -381,7 +381,7 @@ h3 a,
 h4 a, 
 h5 a, 
 h6 a {
-  color: #2ba6cb;
+
 }
 
 h1 a:active, 
@@ -390,7 +390,7 @@ h3 a:active,
 h4 a:active, 
 h5 a:active, 
 h6 a:active { 
-  color: #2ba6cb !important; 
+
 } 
 
 h1 a:visited, 
@@ -399,7 +399,7 @@ h3 a:visited,
 h4 a:visited, 
 h5 a:visited, 
 h6 a:visited { 
-  color: #2ba6cb !important; 
+
 } 
 
 /* Panels */
@@ -716,7 +716,7 @@ body.outlook p {
     .template-label {
       color: #ffffff;
       font-weight: bold;
-      font-size: 11px;
+      font-size: 25px;
     }
 
     .callout .panel {
@@ -725,7 +725,7 @@ body.outlook p {
     }
 
     .header {
-      background: #999999;
+      background: #139DEF;
     }
 
     .footer .wrapper {
@@ -780,15 +780,9 @@ body.outlook p {
 
                         <table class="twelve columns">
                           <tr>
-
                             <td class="six sub-columns">
-                              <img src="https://s3.amazonaws.com/linkastor/beaver_mail.png" height="50">
-                            </td>
-                            <td class="six sub-columns last" align="right" style="text-align:right; vertical-align:middle;">
                               <span class="template-label">Linkastor</span>
                             </td>
-                            <td class="expander"></td>  
-
                           </tr>
                         </table>
 
@@ -815,7 +809,7 @@ body.outlook p {
                         <tr>
                           <td>
 
-                            <h1>Links shared with <%= @user.name.capitalize %> :</h1>
+                            <h3>Hi <%= @user.name.capitalize %> !</h3>
                             <p class="lead"> The beavers worked hard to get you these links</p>
                           </td>
                           <td class="expander"></td>
@@ -834,7 +828,7 @@ body.outlook p {
                         <tr>
                           <td class="panel">
 
-                            <p>Want more options and a better experience ? . <%= link_to "Check out your links directly inside the Linkastor website!", root_url %></p>
+                            <p>Want more options and a better experience ? <%= link_to "Check out your links directly inside the Linkastor website!", root_url %></p>
 
                           </td>
                           <td class="expander"></td>
@@ -854,7 +848,7 @@ body.outlook p {
                         <table class="twelve columns">
                           <tr>
                             <td>
-                              <h3>Links from <%= group.name%> :</h3>
+                              <h5>Links from <%= group.name%> :</h5>
                             </td>
                             <td class="expander"></td>
                           </tr>
@@ -872,17 +866,17 @@ body.outlook p {
                           <table class="twelve columns">
                             <tr>
                               <td>
+                                <%= link_to image_tag(link.image_url, width: "580", class: "center"), link.url %>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
                                 <h4 class="center"><%= link_to link.title, link.url %></h4>
                               </td>
                             </tr>
                             <tr>
                               <td>
-                                <%= link_to image_tag(link.image_url, width: "580"), link.url %>
-                              </td>
-                            </tr>
-                            <tr>
-                              <td>
-                                <p><%= link.description.try(:truncate, 300) %></p>
+                                <p style="text-align: center;"><%= link.description.try(:truncate, 300) %></p>
                               </td>
                             </tr>
                             <tr>
@@ -899,30 +893,16 @@ body.outlook p {
                                       Shared by : <%= link.user.name%>
                                     </td>
                                   </tr>
+                                  <% if @user.admin && @connected_to_pocket %>
+                                    <tr>
+                                      <td>
+                                        <%= link_to image_tag("https://s3.amazonaws.com/linkastor/pocket_app_logo.png", style: "width: 25px; padding-left: 10px;"), pocket_links_add_link_url(link: {title: link.title, url: link.url}), target: "_blank" %>
+                                      </td>
+                                    </tr>
+                                  <% end %>
                                 </table>
                               </td>
                             </tr>
-                            <% if @user.admin && @connected_to_pocket %>
-                              <tr>
-                                <td class="wrapper last">
-                                  <table class="one columns">
-                                    <tr>
-                                      <td>
-
-                                        <table>
-                                          <tr>
-                                            <td>
-                                              <%= link_to image_tag("https://s3.amazonaws.com/linkastor/pocket_app_logo.png", width: 25), pocket_links_add_link_url(link: {title: link.title, url: link.url}), target: "_blank" %>
-                                            </td>
-                                          </tr>
-                                        </table>
-
-                                      </td>
-                                    </tr>
-                                  </table>
-                                </td>
-                              </tr>
-                            <% end %>
                           </table>
                         </td>
                         
