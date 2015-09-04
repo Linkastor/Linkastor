@@ -109,7 +109,7 @@ table.container {
 
 table.row { 
   padding: 0px;
-  height: 50px;
+  width: 100%;
   position: relative;
 }
 
@@ -359,20 +359,16 @@ small {
 }
 
 a {
-
   text-decoration: none;
 }
 
-a:hover { 
-  color: #2795b6 !important;
+a:hover {
 }
 
-a:active { 
-
+a:active {
 }
 
-a:visited { 
-
+a:visited {
 }
 
 h1 a, 
@@ -381,25 +377,22 @@ h3 a,
 h4 a, 
 h5 a, 
 h6 a {
-
 }
 
 h1 a:active, 
 h2 a:active,  
 h3 a:active, 
 h4 a:active, 
-h5 a:active, 
-h6 a:active { 
-
+h5 a:active,
+h6 a:active {
 } 
 
 h1 a:visited, 
 h2 a:visited,  
 h3 a:visited, 
 h4 a:visited, 
-h5 a:visited, 
-h6 a:visited { 
-
+h5 a:visited,
+h6 a:visited {
 } 
 
 /* Panels */
@@ -887,7 +880,7 @@ body.outlook p {
                                       <%= image_tag(link.user.avatar, size: "50", style: "border-radius:50%") %>
                                     </td>
                                     <td>
-                                      
+
                                     </td>
                                     <td style="vertical-align:middle; padding-left: 10px;">
                                       Shared by : <%= link.user.name%>
@@ -944,7 +937,7 @@ body.outlook p {
                           <table class="twelve columns">
                             <tr>
                               <td>
-                                <h4><%= link_to link.title, link.url %></h4>
+                                <h6><%= link_to link.title, link.url %></h6>
                               </td>
                             </tr>
                             <tr>

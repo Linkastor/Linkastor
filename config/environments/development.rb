@@ -54,6 +54,6 @@ Rails.application.configure do
   config.action_mailer.perform_deliveries = true
   config.action_mailer.delivery_method = :smtp
   config.asset_host = "http://localhost:5000"
-  
-  REDIS_URL="redis://localhost:6379"
+
+  INLINE_MAIL_CSS=false
 end

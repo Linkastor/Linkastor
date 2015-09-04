@@ -7,6 +7,6 @@ class DigestMailer < ApplicationMailer
       on.connected { @connected_to_pocket = true }
     end
 
-    mail(to: @user.email, subject: "Yummy ! Your Linkastor daily digest")
+    mail(to: @user.email, subject: "Yummy ! Your Linkastor daily digest", skip_premailer: INLINE_MAIL_CSS)
   end
 end
