@@ -42,8 +42,6 @@ GEM
     arel (6.0.2)
     buftok (0.2.0)
     builder (3.2.2)
-    byebug (4.0.5)
-      columnize (= 0.9.0)
     celluloid (0.16.0)
       timers (~> 4.0.0)
     coffee-rails (4.1.0)
@@ -53,7 +51,6 @@ GEM
       coffee-script-source
       execjs
     coffee-script-source (1.9.1.1)
-    columnize (0.9.0)
     connection_pool (2.2.0)
     crack (0.4.2)
       safe_yaml (~> 1.0.0)
@@ -259,7 +256,6 @@ PLATFORMS
 
 DEPENDENCIES
   active_model_serializers (~> 0.9.3)
-  byebug (~> 4.0.4)
   dotenv-rails
   factory_girl_rails (~> 4.5.0)
   jquery-rails (~> 4.0.3)
