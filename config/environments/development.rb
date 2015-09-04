@@ -55,5 +55,4 @@ Rails.application.configure do
   config.action_mailer.delivery_method = :smtp
   config.asset_host = "http://localhost:5000"
 
-  INLINE_MAIL_CSS=false
 end

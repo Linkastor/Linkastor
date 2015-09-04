@@ -90,5 +90,4 @@ Rails.application.configure do
   }
   config.action_mailer.default_url_options = { host: 'linkastor.herokuapp.com' }
 
-  INLINE_MAIL_CSS=true
 end
