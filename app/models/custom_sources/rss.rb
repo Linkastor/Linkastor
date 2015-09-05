@@ -44,12 +44,21 @@ module CustomSources
       open(self.extra["url"]) do |rss|
         items = feed(rss).items
                     .map {|feed_item| CustomSources::FeedParser::ItemFactory.new(item: feed_item).item}
-                    .select {|item| DateTime.parse(item.published) > DateTime.yesterday.beginning_of_day }
+                    .select {|item| published_after_yesterday?(item) }
         items.each do |item|
           link = item.link
           title = item.title
           self.links.create(url: link, title: title)
         end
+      end
+    end
+
+    def published_after_yesterday?(item)
+      begin
+        DateTime.parse(item.published) > DateTime.yesterday.beginning_of_day
+      rescue ArgumentError => e
+        Rails.logger.error("Found invalid date : #{item.published} in feed #{self.extra["url"]}")
+        false
       end
     end
   end

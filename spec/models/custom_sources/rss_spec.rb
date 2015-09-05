@@ -68,5 +68,14 @@ describe CustomSources::Rss, vcr: true do
         }.to raise_error(CustomSources::InvalidRss)
       end
     end
+
+    context "RSS feed has some invalid date" do
+      it "skips link" do
+        rss.extra["url"] = "http://www.producthunt.com/feed"
+        DateTime.stubs(:parse).raises(ArgumentError)
+        rss.import
+        rss.links.count.should == 0
+      end
+    end
   end
 end
