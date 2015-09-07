@@ -1,5 +1,6 @@
 class DigestMailer < ApplicationMailer
   def send_digest(user:)
+    @link_presenter = LinkPresenter.new
     @user = user
     @groups = user.groups
     @custom_sources = @user.admin ? @user.custom_sources : []
