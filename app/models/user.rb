@@ -6,11 +6,11 @@ class User < ActiveRecord::Base
   has_many :authentication_providers, dependent: :destroy
   has_many :groups_users
   has_many :groups, through: :groups_users, dependent: :destroy
-  has_many :invites, :foreign_key => "referrer_id"
-  has_many :links, :foreign_key => "posted_by"
+  has_many :invites, foreign_key: "referrer_id"
+  has_many :links, foreign_key: "posted_by"
   
-  validates :email, uniqueness: true
-  validates_with EmailValidator, :on => :update
+  validates :email, uniqueness: true, allow_nil: true
+  validates_with EmailValidator, on: :update
   
   def self.with_links_to_post
     #Ugly : Group and CustomSource are actually the same thing, we should refactor to make group Inherit from CustomSource.
