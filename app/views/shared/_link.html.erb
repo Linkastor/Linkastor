@@ -12,6 +12,6 @@
 </div>
 <% if link.description %>
   <div style="padding:5px;">
-    <p><%= link.description %></p>
+    <p><%= @link_presenter.safe_link_description(link) %></p>
   </div>
 <% end %>

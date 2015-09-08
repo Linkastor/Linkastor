@@ -869,7 +869,7 @@ body.outlook p {
                             </tr>
                             <tr>
                               <td>
-                                <p style="text-align: center;"><%= link.description.try(:truncate, 335) %></p>
+                                <p style="text-align: center;"><%= @link_presenter.safe_link_description(link) %></p>
                               </td>
                             </tr>
                             <tr>
@@ -947,7 +947,7 @@ body.outlook p {
                             </tr>
                             <tr>
                               <td>
-                                <p><%= link.description %></p>
+                                <p><%= @link_presenter.safe_link_description(link) %></p>
                               </td>
                             </tr>
                             
