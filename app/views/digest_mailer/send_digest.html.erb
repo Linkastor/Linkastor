@@ -864,12 +864,12 @@ body.outlook p {
                             </tr>
                             <tr>
                               <td>
-                                <h4 class="center"><%= link_to link.title, link.url %></h4>
+                                <h4 class="center"><%= link_to @link_presenter.safe_link_title(link), link.url %></h4>
                               </td>
                             </tr>
                             <tr>
                               <td>
-                                <p style="text-align: center;"><%= link.description.try(:truncate, 335) %></p>
+                                <p style="text-align: center;"><%= @link_presenter.safe_link_description(link) %></p>
                               </td>
                             </tr>
                             <tr>
@@ -937,7 +937,7 @@ body.outlook p {
                           <table class="twelve columns">
                             <tr>
                               <td>
-                                <h6 style="font-size: 18px;"><%= link_to link.title, link.url %></h6>
+                                <h6 style="font-size: 18px;"><%= link_to @link_presenter.safe_link_title(link), link.url %></h6>
                               </td>
                             </tr>
                             <tr>
@@ -947,7 +947,7 @@ body.outlook p {
                             </tr>
                             <tr>
                               <td>
-                                <p><%= link.description %></p>
+                                <p><%= @link_presenter.safe_link_description(link) %></p>
                               </td>
                             </tr>
                             

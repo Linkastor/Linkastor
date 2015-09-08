@@ -1,5 +1,6 @@
 class GroupsController < ApplicationController
   before_action :authenticate_current_user!
+  before_action :set_link_presenter, only: [:show]
   
   def index
     @title = 'Your groups'
@@ -65,4 +66,10 @@ class GroupsController < ApplicationController
     def group_params
       params.require(:group).permit(:name)
     end
+
+  private
+
+  def set_link_presenter
+    @link_presenter = LinkPresenter.new
+  end
 end
