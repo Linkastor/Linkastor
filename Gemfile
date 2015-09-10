@@ -25,6 +25,7 @@ gem 'premailer-rails',            '~> 1.8.2'
 
 group :development, :test do
   gem 'spring',               '~> 1.3.6'
+  gem 'bullet',               '~> 4.14.7'
 end
 
 group :development do

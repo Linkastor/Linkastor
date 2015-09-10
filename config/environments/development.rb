@@ -55,4 +55,12 @@ Rails.application.configure do
   config.action_mailer.delivery_method = :smtp
   config.asset_host = "http://localhost:5000"
 
+  config.after_initialize do
+    Bullet.enable = true
+    Bullet.alert = true
+    Bullet.bullet_logger = true
+    Bullet.console = true
+    Bullet.rails_logger = true
+  end
+
 end

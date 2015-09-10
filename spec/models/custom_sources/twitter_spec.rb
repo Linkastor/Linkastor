@@ -43,12 +43,30 @@ describe CustomSources::Twitter do
   end
   
   describe "import", vcr: true do
-    it "creates links from twitter" do
+    before(:each) do
       Date.stubs(:yesterday).returns(Date.parse("2015-06-24"))
-      twitter = FactoryGirl.create(:twitter)
-      twitter.extra["username"] = "tiboll"
-      twitter.import
+      @twitter = FactoryGirl.create(:twitter)
+      @twitter.extra["username"] = "tiboll"
+    end
+
+    it "creates links from twitter" do
+      @twitter.import
       Link.count.should == 1
+    end
+
+    it "fetches meta for links" do
+      expect {
+        @twitter.import
+      }.to change{FetchMetaJob.jobs.size}.by(58)
+    end
+
+    context "failed to create link" do
+      it "doesn't fetch meta" do
+        Link.any_instance.stubs(:save).returns(false)
+        expect {
+          @twitter.import
+        }.to change{FetchMetaJob.jobs.size}.by(0)
+      end
     end
   end
 end

@@ -42,6 +42,9 @@ GEM
     arel (6.0.2)
     buftok (0.2.0)
     builder (3.2.2)
+    bullet (4.14.7)
+      activesupport (>= 3.0.0)
+      uniform_notifier (~> 1.9.0)
     celluloid (0.16.0)
       timers (~> 4.0.0)
     coffee-rails (4.1.0)
@@ -244,6 +247,7 @@ GEM
     unf (0.1.4)
       unf_ext
     unf_ext (0.0.7.1)
+    uniform_notifier (1.9.0)
     vcr (2.9.3)
     webmock (1.20.4)
       addressable (>= 2.3.6)
@@ -256,6 +260,7 @@ PLATFORMS
 
 DEPENDENCIES
   active_model_serializers (~> 0.9.3)
+  bullet (~> 4.14.7)
   dotenv-rails
   factory_girl_rails (~> 4.5.0)
   jquery-rails (~> 4.0.3)

@@ -33,20 +33,25 @@ describe CustomSources::Rss, vcr: true do
   describe "import" do
     before(:each) do
       Date.stubs(:yesterday).returns(Date.parse("2015-06-25"))
+      rss.extra["url"] = "http://www.producthunt.com/feed"
     end
 
     it "reads product hunt feed" do
-      rss.extra["url"] = "http://www.producthunt.com/feed"
       rss.import
       rss.links.count.should == 45
     end
     
     it "saves url and content" do
-      rss.extra["url"] = "http://www.producthunt.com/feed"
       rss.import
       link = rss.links.first
       link.url.should == "http://www.producthunt.com/r/4570ddb30433f0/25610?app_id=339"
       link.title.should == "Antbassador — You're a human finger in a world of ants"
+    end
+
+    it "fetches link meta" do
+      expect {
+        rss.import
+      }.to change{FetchMetaJob.jobs.size}.by(50)
     end
 
     context "RSS format instead of atom" do
@@ -60,9 +65,12 @@ describe CustomSources::Rss, vcr: true do
     end
 
     context "RSS feed has some invalid value" do
-      it "raises an InvalidRss error" do
-        rss.extra["url"] = "http://www.producthunt.com/feed"
+      before(:each) do
         RSS::Parser.stubs(:parse).raises(RSS::NotAvailableValueError.new("foo", "bar"))
+        rss.extra["url"] = "http://www.producthunt.com/feed"
+      end
+
+      it "raises an InvalidRss error" do
         expect {
           rss.import
         }.to raise_error(CustomSources::InvalidRss)
@@ -70,11 +78,20 @@ describe CustomSources::Rss, vcr: true do
     end
 
     context "RSS feed has some invalid date" do
-      it "skips link" do
-        rss.extra["url"] = "http://www.producthunt.com/feed"
+      before(:each) do
         DateTime.stubs(:parse).raises(ArgumentError)
+        rss.extra["url"] = "http://www.producthunt.com/feed"
+      end
+
+      it "skips link" do
         rss.import
         rss.links.count.should == 0
+      end
+
+      it "doesn't fetch link meta" do
+        expect {
+          rss.import
+        }.to change{FetchMetaJob.jobs.size}.by(0)
       end
     end
   end

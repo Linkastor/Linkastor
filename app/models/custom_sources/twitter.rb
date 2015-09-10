@@ -32,7 +32,10 @@ module CustomSources
       tweet_statuses = TwitterClient::LinksExtractor.new.extract(username: self.extra["username"], 
                                                                   since: Date.yesterday.beginning_of_day)
       tweet_statuses.each do |status|
-        self.links.create(url: status.link, title: status.text)
+        link = self.links.build(url: status.link, title: status.text)
+        if link.save
+          FetchMetaJob.perform_async(link.id)
+        end
       end
     end
   end

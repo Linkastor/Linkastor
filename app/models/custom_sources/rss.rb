@@ -46,9 +46,10 @@ module CustomSources
                     .map {|feed_item| CustomSources::FeedParser::ItemFactory.new(item: feed_item).item}
                     .select {|item| published_after_yesterday?(item) }
         items.each do |item|
-          link = item.link
-          title = item.title
-          self.links.create(url: link, title: title)
+          link = self.links.build(url: item.link, title: item.title)
+          if link.save
+            FetchMetaJob.perform_async(link.id)
+          end
         end
       end
     end

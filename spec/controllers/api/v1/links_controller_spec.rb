@@ -50,7 +50,7 @@ describe Api::V1::LinksController do
         it "schedule a jog to fetch link meta" do
           expect {
             post :create, auth_token: @token, group_id: group.id, link: { title: "foo bar", url: "http://foo.com/bar.html" }
-          }.to change(FetchMetaJob.jobs, :size).by(1)
+          }.to change {FetchMetaJob.jobs.size}.by(1)
         end
       end
       
