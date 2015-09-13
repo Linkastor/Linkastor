@@ -3,14 +3,23 @@ class FetchMetaJob
   
   def perform(link_id)
     link = Link.find(link_id)
-    
+    Rails.logger.debug "Fetching meta for link #{link.url}"
+
+    begin
+      update_meta!(link)
+    rescue StandardError => e
+      Rails.logger.error e.message
+    end
+  end
+
+  def update_meta!(link)
     page = Mechanize.new.get(link.url).try(:parser)
     return if page.nil?
 
     if link.description == nil
       og_descriptions = page.xpath('//meta[@property="og:description"]')
       if og_descriptions.length > 0
-        link.description = og_descriptions[0][:content]  
+        link.description = og_descriptions[0][:content]
       end
     end
 
