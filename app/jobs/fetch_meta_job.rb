@@ -7,6 +7,7 @@ class FetchMetaJob
 
     begin
       update_meta!(link)
+      RemoveDuplicateJob.new.perform(link.id)
     rescue StandardError => e
       Rails.logger.error e.message
     end
