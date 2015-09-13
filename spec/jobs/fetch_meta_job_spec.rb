@@ -1,10 +1,11 @@
 require "rails_helper"
 
 describe FetchMetaJob, vcr: true do
+
+  let(:link) { FactoryGirl.create(:link, url: 'http://techcrunch.com/2015/06/25/githubs-atom-text-editor-hits-1-0-now-has-over-350000-monthly-active-users/') }
+
   describe "perform" do
     it "should fetch meta" do
-      link = FactoryGirl.create(:link, url: 'http://techcrunch.com/2015/06/25/githubs-atom-text-editor-hits-1-0-now-has-over-350000-monthly-active-users/')
-      
       FetchMetaJob.new.perform(link.id)
 
       link.reload
@@ -24,6 +25,11 @@ describe FetchMetaJob, vcr: true do
       link.reload
       link.description.should == 'this is my description'
       link.image_url.should == 'http://www.google.com/logo.png'
+    end
+
+    it "calls remove duplicate" do
+      RemoveDuplicateJob.any_instance.expects(:perform).with(link.id)
+      FetchMetaJob.new.perform(link.id)
     end
   end
 end
