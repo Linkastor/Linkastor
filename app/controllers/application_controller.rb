@@ -10,7 +10,7 @@ class ApplicationController < ActionController::Base
   def authenticate_current_user!
     if session[:user_id].blank?
       flash[:info] = "Please sign in with twitter to access this page"
-      return redirect_to root_url 
+      return redirect_to root_url, status: 301
     end
   end
   
