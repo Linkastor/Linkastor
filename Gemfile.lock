@@ -254,6 +254,7 @@ GEM
       crack (>= 0.3.2)
     webrobots (0.1.1)
     will_paginate (3.0.7)
+    words_counted (0.1.5)
 
 PLATFORMS
   ruby
@@ -287,6 +288,7 @@ DEPENDENCIES
   vcr (~> 2.9.3)
   webmock (~> 1.20.4)
   will_paginate (~> 3.0.6)
+  words_counted (~> 0.1.5)
 
 BUNDLED WITH
    1.10.6

@@ -93,6 +93,7 @@ ActiveRecord::Schema.define(version: 20150913202739) do
     t.integer  "custom_source_id"
     t.string   "image_url"
     t.text     "description"
+    t.integer  "wordcount"
   end
 
   add_index "links", ["custom_source_id", "url"], name: "index_links_on_custom_source_id_and_url", unique: true, using: :btree

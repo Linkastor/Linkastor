@@ -15,3 +15,8 @@
     <p><%= @link_presenter.safe_link_description(link) %></p>
   </div>
 <% end %>
+<% if link.wordcount %>
+  <div style="padding:5px;">
+    <p><%= @link_presenter.reading_duration(link) %></p>
+  </div>
+<% end %>
