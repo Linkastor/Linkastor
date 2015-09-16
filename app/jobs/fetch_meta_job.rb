@@ -18,6 +18,8 @@ class FetchMetaJob
       return
     end
 
+    raise StandardError.new("Couldn't read url with mechanize : #{link.url}") if page.nil?
+
     if link.description == nil
       og_descriptions = page.xpath('//meta[@property="og:description"]')
       if og_descriptions.length > 0
