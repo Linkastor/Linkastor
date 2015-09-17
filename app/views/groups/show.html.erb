@@ -13,7 +13,6 @@
               <% @days[day].sort_by {|obj| obj.created_at }.reverse.each do |link| %>
                 <li style="padding:5px;">
                   <%= render partial: "shared/link", locals: { link: link} %>
-                  <%= link_to "comments...", group_link_path(@group, link) %>
                 </li>
               <% end %>
             </ul>
