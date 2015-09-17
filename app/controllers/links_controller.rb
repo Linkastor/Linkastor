@@ -1,5 +1,6 @@
 class LinksController < ApplicationController
   before_action :authenticate_current_user!
+  before_action :set_link_presenter
 
   def create
     link_builder = Builders::LinkBuilder.new(params: params, user: current_user)
@@ -33,5 +34,11 @@ class LinksController < ApplicationController
     ThirdParties::Pocket::Connection.new(user: current_user).connected? do |on|
       on.connected { @connected_to_pocket = true }
     end
+  end
+
+  private
+
+  def set_link_presenter
+    @link_presenter = LinkPresenter.new
   end
 end

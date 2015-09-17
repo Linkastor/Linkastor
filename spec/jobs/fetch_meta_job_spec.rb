@@ -10,7 +10,6 @@ describe FetchMetaJob, vcr: true do
       link.reload
       link.description.should == 'GitHub\'s highly extensible Atom text editor hit 1.0 today. The editor release has only been available to the public for about a year now, but it has already..'
       link.image_url.should == 'https://tctechcrunch2011.files.wordpress.com/2015/06/pasted-image-0.png?w=560&h=292&crop=1'
-
     end
 
     it "doesn't override meta" do
@@ -32,6 +31,15 @@ describe FetchMetaJob, vcr: true do
       FetchMetaJob.new.perform(link.id)
 
       link.reload.wordcount.should == 862
+    end
+
+    it "doesn't fetch meta for pdf" do
+      link = FactoryGirl.create(:link, url: 'http://martinfowler.com/ieeeSoftware/whenType.pdf')
+
+      FetchMetaJob.new.perform(link.id)
+
+      link.reload
+      link.description.should == nil
     end
 
   end

@@ -1,5 +1,7 @@
 class FetchMetaJob
   include Sidekiq::Worker
+
+  class LinkPageUnavailable < StandardError; end
   
   def perform(link_id)
     link = Link.find(link_id)
@@ -12,13 +14,13 @@ class FetchMetaJob
   def update_meta!(link)
     #FIXME : we should let this crash when page is unavailabe (so it can be retried), but find a way to not report this in sentry
     begin
-      page = Mechanize.new.get(link.url).try(:parser)
+      ressource = Mechanize.new.get(link.url)
     rescue StandardError => e
-      Rails.logger.error e.message
-      return
+      raise FetchMetaJob::LinkPageUnavailable.new e.message
     end
 
-    raise StandardError.new("Couldn't read url with mechanize : #{link.url}") if page.nil?
+    return unless ressource.is_a?(Mechanize::Page)
+    page = ressource.parser
 
     if link.description == nil
       og_descriptions = page.xpath('//meta[@property="og:description"]')
