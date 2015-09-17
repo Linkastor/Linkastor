@@ -23,7 +23,9 @@
           <p><%= @link_presenter.reading_duration(link) %></p>
         </div>
       <% end %>
-      <%= link_to "comments...", group_link_path(@group, link) %>
+      <% if current_user.try(:admin) %>
+        <%= link_to "comments...", group_link_path(@group, link) %>
+      <% end %>
     </div>
   </div>
 </div>
