@@ -1,18 +1,21 @@
 <div class="page-header">
-	<h1><%= @title %></h1>
+	<h1 class="display-1"><%= @title %></h1>
 </div>
-<div class="panel panel-default">
-  <div class="panel-body">
-    <i class="glyphicon glyphicon-plus"></i><%= link_to 'Create a new group', new_group_path() %>
+<div class="jumbotron jumbotron-fluid linkastor-jumbotron-group">
+  <div class="container">
+    <%= link_to 'Create a new group', new_group_path(), class: 'btn btn-primary btn-lg' %>
   </div>
 </div>
 <% @groups.each do |group| %>
-	<div class="well">
-		<h4><%= link_to group.name, group_path(group) %></h4>
-		<ul class="list-inline">
-		<% group.users.each do |user| %>
-			<a href="http://twitter.com/<%= user.nickname %>" target="_blank"><img class="avatar img-circle" src="<%= user.avatar %>" alt="<%= user.name %>" /></a>
-		<% end %>
-		</ul>
+	<div class="jumbotron jumbotron-fluid linkastor-jumbotron-group">
+    <div class="container">
+  		<h4 class="lead"><%= link_to group.name, group_path(group) %></h4>
+      <hr class="m-y-md">
+  		<ul class="list-inline">
+  		<% group.users.each do |user| %>
+  			<a href="http://twitter.com/<%= user.nickname %>" target="_blank"><img class="avatar img-circle" src="<%= user.avatar %>" alt="<%= user.name %>" /></a>
+  		<% end %>
+  		</ul>
+    </div>
 	</div>
 <% end %>
