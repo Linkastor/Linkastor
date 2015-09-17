@@ -1,22 +1,18 @@
-<div style="padding:5px; background:url(<%= link.image_url %>) no-repeat center center; background-size:cover;">
-  <%= link_to image_tag(link.user.avatar, class: "avatar img-circle"), "http://twitter.com/#{link.user.nickname}", target: "_blank" %>
-  &nbsp;&nbsp;
-  <span style="font-size:20px;">
-    <% if link.image_url %>
-      <%= link_to @link_presenter.safe_link_title(link), link.url, target: "_blank", style: "color: #FFFFFF;" %>
-    <% else %>
-      <%= link_to @link_presenter.safe_link_title(link), link.url, target: "_blank", style: "color: #696969;" %>
+<div class="card">
+  <img class="card-img-top" data-src="<%= link.image_url %>" alt="Card image cap">
+  <div class="card-block">
+    <h4 class="card-title"><%= link_to @link_presenter.safe_link_title(link), link.url, target: "_blank" %></h4>
+    <% if link.description %>
+      <p class="card-text"><%= @link_presenter.safe_link_description(link) %></p>
     <% end %>
-  </span>
-  <%= link_to image_tag("pocket_app_logo.png", width: 25), pocket_links_add_link_path(link: {title: link.title, url: link.url}), target: "_blank" if @connected_to_pocket %>
+  </div>
+  <div class="card-block">
+    <%= link_to "comments...", group_link_path(@group, link), class: 'card-link' %>
+    <%= link_to image_tag("pocket_app_logo.png", width: 25), pocket_links_add_link_path(link: {title: link.title, url: link.url}), target: "_blank", class: 'card-link' if @connected_to_pocket %>
+    <% if link.wordcount %>
+      <div style="card-link">
+        <p><%= @link_presenter.reading_duration(link) %></p>
+      </div>
+    <% end %>
+  </div>
 </div>
-<% if link.description %>
-  <div style="padding:5px;">
-    <p><%= @link_presenter.safe_link_description(link) %></p>
-  </div>
-<% end %>
-<% if link.wordcount %>
-  <div style="padding:5px;">
-    <p><%= @link_presenter.reading_duration(link) %></p>
-  </div>
-<% end %>
