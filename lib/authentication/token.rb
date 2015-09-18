@@ -7,7 +7,7 @@ module Authentication
     def create
       token = SecureRandom.hex
       auth_key = Authentication::Token.key(token: token)
-      $redis.set(auth_key, @user.id)
+      $redis.set(auth_key, user.id)
       $redis.expire(auth_key, Rails.application.config.api_session_expiration)
       token
     end
@@ -24,4 +24,8 @@ module Authentication
         "authentication_"+token
       end
   end
+
+  private
+  attr_reader :user
+
 end
