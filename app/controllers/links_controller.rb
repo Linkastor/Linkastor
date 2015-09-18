@@ -36,6 +36,16 @@ class LinksController < ApplicationController
     end
   end
 
+  def destroy
+    link = Link.find(params[:id])
+
+    if link.user.id == current_user.id
+      link.destroy
+    end
+
+    redirect_to group_url(params[:group_id])
+  end
+
   private
 
   def set_link_presenter
