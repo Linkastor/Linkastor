@@ -20,12 +20,14 @@ module Authentication
     end
     
     private
+      attr_reader :user
+    
       def self.key(token:)
         "authentication_"+token
       end
+
   end
 
-  private
-  attr_reader :user
+
 
 end
