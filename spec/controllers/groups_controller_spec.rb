@@ -1,8 +1,43 @@
 require "rails_helper"
 
 describe GroupsController do
-  
+  render_views
+
   let(:user) { FactoryGirl.create(:user) }
+  let(:group) { FactoryGirl.create(:group) }
+
+  describe "GET show" do
+    context "user not logged in" do
+      it "returns to sign in page" do
+        get :show, id: group.id
+        response.should redirect_to root_url
+      end
+    end
+
+    context "user logged in" do
+      before(:each) do
+        session[:user_id] = user.id
+      end
+
+      it "groups links by days" do
+        day1 = Date.parse("10/10/2010")
+        day2 = Date.parse("11/10/2010")
+        day3 = Date.parse("11/10/2009")
+
+        link1 = FactoryGirl.create(:link, group: group, created_at: day1)
+        link2 = FactoryGirl.create(:link, group: group, created_at: day1)
+        link3 = FactoryGirl.create(:link, group: group, created_at: day2)
+        link4 = FactoryGirl.create(:link, group: group, created_at: day3)
+
+        get :show, id: group.id
+        assigns(:links_by_day).should == {day3 => [link4],
+                                          day1 => [link1, link2],
+                                          day2 => [link3]}
+      end
+
+
+    end
+  end
   
   describe "GET index" do
     context "user not logged in" do
@@ -121,7 +156,6 @@ describe GroupsController do
         end
       
         it "edits existing group" do
-          group = FactoryGirl.create(:group)
           get :edit, id: group.id
           assigns(:group).should == group
         end
@@ -129,7 +163,6 @@ describe GroupsController do
     end
     
     describe "PUT update" do
-      let(:group) { FactoryGirl.create(:group) }
       
       context "user not logged in" do
         it "redirects to root url" do

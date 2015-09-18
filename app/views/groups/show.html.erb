@@ -1,25 +1,24 @@
 <div class="page-header">
-	<h1><%= @title %></h1>
+	<h1><%= @group.name %></h1>
 </div>
 
 <div class="row">
   <div class="col-md-8">
     <div id="links">
-    <% if @days.keys.length > 0 %>
-        <% @days.keys.sort.reverse.each do |day| %>
-          <div class="row">
-            <h4 class="text-muted"><%= day.to_s(:day_title) %></h4>
-            <ul class="list-unstyled">
-              <% @days[day].sort_by {|obj| obj.created_at }.reverse.each do |link| %>
-                <li style="padding:5px;">
-                  <%= render partial: "shared/link", locals: { link: link} %>
-                </li>
-              <% end %>
-            </ul>
-          </div>
-        <% end %>
-      <% else %>
+      <% if @links_by_day.blank? %>
         No links for now
+      <% end %>
+
+      <% @links_by_day.keys.each do |day| %>
+        <div class="row">
+          <ul class="list-unstyled">
+            <% @links_by_day[day].each do |link| %>
+              <li style="padding:5px;">
+                <%= render partial: "shared/link", locals: { link: link} %>
+              </li>
+            <% end %>
+          </ul>
+        </div>
       <% end %>
     </div>
     <div id="links_navigation">

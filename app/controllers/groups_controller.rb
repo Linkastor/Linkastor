@@ -1,9 +1,9 @@
 class GroupsController < ApplicationController
   before_action :authenticate_current_user!
   before_action :set_link_presenter, only: [:show]
+  before_action :set_group, only: [:edit, :update, :show]
   
   def index
-    @title = 'Your groups'
     @groups = current_user.groups
   end
   
@@ -12,11 +12,9 @@ class GroupsController < ApplicationController
   end
   
   def edit
-    @group = Group.find(params[:id])
   end
   
   def update
-    @group = Group.find(params[:id])
     valid_group = @group.update_attributes(group_params)
     return render 'edit' unless valid_group
     
@@ -33,11 +31,8 @@ class GroupsController < ApplicationController
   end
 
   def show
-    @group = Group.find(params[:id])
-    @title = @group.name
-    @links = Link.where(:group_id => @group.id).order(created_at: :desc).paginate(:page => params[:page])
-    @days = @links.group_by { |t| t.created_at.beginning_of_day }
-    @invalid_emails = params[:invalid_emails]
+    @links = @group.links.recent.paginate(page: params[:page])
+    @links_by_day = @links.includes(:user).group_by {|link| link.created_at.to_date}
     @pending_invites = @group.invites.pending
   end
 
@@ -71,5 +66,9 @@ class GroupsController < ApplicationController
 
   def set_link_presenter
     @link_presenter = LinkPresenter.new
+  end
+
+  def set_group
+    @group = Group.find(params[:id])
   end
 end

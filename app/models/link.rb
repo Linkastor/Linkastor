@@ -4,6 +4,7 @@ class Link < ActiveRecord::Base
   belongs_to :user, :foreign_key => "posted_by"
   
   scope :not_posted, -> { where(posted: false) }
+  scope :recent, -> { order(created_at: :desc) }
   
   validates :url, :title, presence: true
   validates :posted_by, presence:true, if: 'group_id.present?'
