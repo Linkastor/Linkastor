@@ -25,6 +25,6 @@ module Authentication
       def self.key(token:)
         "authentication_"+token
       end
-  end
 
+  end
 end
