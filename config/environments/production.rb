@@ -88,6 +88,6 @@ Rails.application.configure do
     :authentication => :plain,
     :enable_starttls_auto => true
   }
-  config.action_mailer.default_url_options = { host: 'linkastor.herokuapp.com' }
+  config.action_mailer.default_url_options = { host: 'http://linkastor.herokuapp.com' }
 
 end
