@@ -34,6 +34,7 @@ Rails.application.routes.draw do
   get   '/custom_sources/:type/:id/edit',  to: 'custom_sources#edit', as: :edit_custom_source
   put   '/custom_sources/:type/:id',  to: 'custom_sources#update', as: :update_custom_source
   post  '/custom_sources/:type',      to: 'custom_sources#create', as: :create_custom_source
+  delete '/custom_sources/:type/:id',      to: 'custom_sources#destroy', as: :destroy_custom_source
   
   get '/auth/:provider/callback', to: 'sessions#create'
   get '/auth/failure', to: 'sessions#failure'
