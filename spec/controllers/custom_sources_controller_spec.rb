@@ -3,9 +3,9 @@ require "rails_helper"
 describe CustomSourcesController do
   render_views
   
-  let(:user) { FactoryGirl.create(:user) }
-  let(:twitter) { FactoryGirl.create(:twitter) }
-  let(:rss) { FactoryGirl.create(:rss) }
+  let!(:user) { FactoryGirl.create(:user) }
+  let!(:twitter) { FactoryGirl.create(:twitter) }
+  let!(:rss) { FactoryGirl.create(:rss) }
   
   context "user not logged in" do
     describe "index, new" do
@@ -17,13 +17,21 @@ describe CustomSourcesController do
       end
     end
 
-    describe "edit" do
-      it "redirects to login page" do
-        [:edit, :update].each do |action|
-          get action, id: twitter.to_param, type: 'twitter'
-          response.should redirect_to root_url
-        end
-      end
+    describe "edit, update, destroy" do
+      it {
+        get :edit, id: twitter.to_param, type: 'twitter'
+        response.should redirect_to root_url
+      }
+
+      it {
+        put :update, id: twitter.to_param, type: 'twitter'
+        response.should redirect_to root_url
+      }
+
+      it {
+        delete :destroy, id: twitter.to_param, type: 'twitter'
+        response.should redirect_to root_url
+      }
     end
   end
   
@@ -102,6 +110,19 @@ describe CustomSourcesController do
           twitter.reload.extra["username"].should_not be_nil
           response.should render_template(:edit)
         end
+      end
+    end
+
+    describe "DELETE destroy" do
+      it "destroy custom source" do
+        expect {
+          delete :destroy, id: twitter.to_param, type: "twitter"
+        }.to change {CustomSources::Twitter.count}.by(-1)
+      end
+
+      it "renders index" do
+        delete :destroy, id: twitter.to_param, type: "twitter"
+        response.should render_template :index
       end
     end
   end

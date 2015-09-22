@@ -1,6 +1,6 @@
 class CustomSourcesController < ApplicationController
   before_action :authenticate_current_user!
-  before_action :set_custom_source_class, only: [:new, :create, :edit, :update]
+  before_action :set_custom_source_class, only: [:new, :create, :edit, :update, :destroy]
   
   def index
     @custom_sources = current_user.custom_sources
@@ -32,6 +32,12 @@ class CustomSourcesController < ApplicationController
     else
       render :edit, id: @custom_source.to_param
     end
+  end
+
+  def destroy
+    @custom_sources = current_user.custom_sources
+    @custom_source_class.find(params[:id]).destroy
+    render :index
   end
   
   private
