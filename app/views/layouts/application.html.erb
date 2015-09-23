@@ -23,7 +23,7 @@
         </div>
       </div>
     </nav>
-    <div class="container">
+    <div class="container" id="main-container">
       <% if flash[:alert] %>
         <div class="alert alert-danger alert-dismissible" role="alert">
           <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
@@ -43,4 +43,16 @@
       <%= render :partial => "layouts/footer" %>
     </div>
   </body>
+  <script type="text/javascript">
+    $().ready(function(){
+      if (browserIsChrome) {
+        checkChromeExtension(function(installed){
+          if(!installed)
+          {
+            $("#main-container").prepend('<div id="extension-banner" class="alert alert-warning" role="alert"><p>Looks like you are using Google Chrome!</p><p>Make sure to get the <a href="'+extension_link+'" target="_blank">Chrome Extension here</a> to post Links as fast as you can!</p></div>')
+          }
+        });
+      };
+    });
+  </script>
 </html>
