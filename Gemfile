@@ -23,6 +23,7 @@ gem 'sidekiq',                    '~> 3.4.1'
 gem 'nokogiri',                   '~> 1.6.6.2'
 gem 'premailer-rails',            '~> 1.8.2'
 gem 'words_counted',              '~> 0.1.5'
+gem 'clockwork',                  '~> 1.2.0'
 
 group :development, :test do
   gem 'spring',               '~> 1.3.6'
