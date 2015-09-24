@@ -6,6 +6,10 @@ module CustomSources
 
   class Rss < CustomSource
     validate :check_url
+
+    def self.find_or_initialize(params:)
+      CustomSources::Rss.where('extra @> ?', {"url"=>params[:url]}.to_json).first_or_initialize
+    end
     
     def check_url
       self.errors.add(:base, "Missing url") if self.extra["url"].blank?

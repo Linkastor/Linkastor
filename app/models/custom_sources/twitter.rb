@@ -11,6 +11,10 @@ module CustomSources
       end
       self.errors.add(:base, "Twitter username already taken") if duplicate_username.present?
     end
+
+    def self.find_or_initialize(params:)
+      CustomSources::Twitter.where('extra @> ?', {"username"=>params[:username]}.to_json).first_or_initialize
+    end
     
     def update_from_params(params:)
       self.update(name: "twitter", extra: {username: params[:username]})

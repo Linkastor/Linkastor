@@ -15,7 +15,7 @@ class CustomSourcesController < ApplicationController
   end
   
   def create
-    @custom_source = @custom_source_class.new
+    @custom_source = @custom_source_class.find_or_initialize(params: params)
     
     if @custom_source.update_from_params(params: params) && CustomSourcesUser.create(user: current_user, custom_source: @custom_source)
       redirect_to custom_sources_path, notice: "Your source has been added"

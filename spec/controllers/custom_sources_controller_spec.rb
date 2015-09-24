@@ -74,6 +74,28 @@ describe CustomSourcesController do
             post :create, type: "rss", url: "http://foo.bar"
           }.to change{ user.custom_sources.count }.by(1)
         end
+
+        it "creates new custom source" do
+          expect {
+            post :create, type: "rss", url: "http://foo.bar"
+          }.to change{ CustomSources::Rss.count }.by(1)
+        end
+
+        it "reuses existing rss custom source" do
+          rss = FactoryGirl.create(:rss)
+          rss.update(extra: {url: "http://foo.bar"})
+          expect {
+            post :create, type: "rss", url: "http://foo.bar"
+          }.to change{ CustomSources::Rss.count }.by(0)
+        end
+
+        it "reuses existing twitter custom source" do
+          twitter = FactoryGirl.create(:twitter)
+          twitter.update(extra: {username: "vdaubry"})
+          expect {
+            post :create, type: "rss", username: "vdaubry"
+          }.to change{ CustomSources::Twitter.count }.by(0)
+        end
       end
       
       context "invalid params" do
