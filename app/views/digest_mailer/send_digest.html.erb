@@ -851,7 +851,7 @@ body.outlook p {
                     </tr>
                   </table>
 
-                  <% group.links_to_post.each do |link| %>
+                  <% GroupPresenter.links(group).each do |link| %>
                     <table class="row">
                       <tr>
                         <td class="wrapper last">
@@ -870,6 +870,11 @@ body.outlook p {
                             <tr>
                               <td>
                                 <p style="text-align: center;"><%= @link_presenter.safe_link_description(link) %></p>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <p style="text-align: left; font-size: 11px;">Reading duration : <%= @link_presenter.reading_duration(link) %></p>
                               </td>
                             </tr>
                             <tr>
@@ -950,7 +955,11 @@ body.outlook p {
                                 <p><%= @link_presenter.safe_link_description(link) %></p>
                               </td>
                             </tr>
-                            
+                            <tr>
+                              <td>
+                                <p style="text-align: left; font-size: 11px;">Reading duration : <%= @link_presenter.reading_duration(link) %></p>
+                              </td>
+                            </tr>
                           </table>
                         </td>
                         

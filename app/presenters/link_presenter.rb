@@ -8,7 +8,7 @@ class LinkPresenter
   end
 
   def reading_duration(link)
-    return unless link.wordcount
+    return "unknown" unless link.wordcount
 
     duration = link.wordcount/200 #assuming you read 200 words in a minute
 
