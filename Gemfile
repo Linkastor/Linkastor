@@ -9,7 +9,6 @@ gem 'uglifier',                   '~> 2.7.1'
 gem 'jquery-rails',               '~> 4.0.3'
 gem 'turbolinks',                 '~> 2.5.3'
 gem 'jquery-turbolinks',          '~> 2.1.0'
-gem 'rails_12factor',             '~> 0.0.3'
 gem 'puma',                       '~> 2.11.1'
 gem 'omniauth-twitter',           '~> 1.1.0'
 gem 'active_model_serializers',   '~> 0.9.3'
@@ -24,6 +23,7 @@ gem 'nokogiri',                   '~> 1.6.6.2'
 gem 'premailer-rails',            '~> 1.8.2'
 gem 'words_counted',              '~> 0.1.5'
 gem 'clockwork',                  '~> 1.2.0'
+gem 'lograge',                    '~> 0.3.4'
 
 group :development, :test do
   gem 'spring',               '~> 1.3.6'
@@ -40,4 +40,8 @@ group :test do
   gem 'rspec-rails',          '~> 3.3.3'
   gem 'mocha',                '~> 1.1.0'
   gem 'factory_girl_rails',   '~> 4.5.0'
+end
+
+group :production do
+  gem 'rails_12factor',       '~> 0.0.3'
 end
