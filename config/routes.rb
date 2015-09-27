@@ -39,6 +39,8 @@ Rails.application.routes.draw do
   get '/auth/:provider/callback', to: 'sessions#create'
   get '/auth/failure', to: 'sessions#failure'
 
-  
+  if Rails.env.production?
+    match '*path', via: :all, to: 'application#error_404'
+  end
 
 end
