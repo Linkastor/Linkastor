@@ -18,4 +18,8 @@ class ApplicationController < ActionController::Base
   def current_user
     @current_user ||= User.where(id: session[:user_id]).first
   end
+
+  def error_404
+    render file: 'public/404.html', status: 404, layout: false
+  end
 end
