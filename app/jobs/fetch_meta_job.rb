@@ -38,7 +38,12 @@ class FetchMetaJob
 
     if link.wordcount == nil
       res = []
-      page.traverse{ |x| res << x if x.text? and not x.text =~ /^\s*$/ }
+      page.traverse do |x|
+        if x.text?
+          txt = x.text.encode('UTF-8', 'binary', invalid: :replace, undef: :replace, replace: '')
+          res << txt unless txt =~ /^\s*$/
+        end
+      end
       link.wordcount = WordsCounted.count(res.join(" ")).word_count
     end
 

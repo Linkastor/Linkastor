@@ -30,7 +30,15 @@ describe FetchMetaJob, vcr: true do
 
       FetchMetaJob.new.perform(link.id)
 
-      link.reload.wordcount.should == 862
+      link.reload.wordcount.should == 838
+    end
+
+    it "force encoding when counting words" do
+      link = FactoryGirl.create(:link, url: "http://steveblank.com/2013/07/22/an-mvp-is-not-a-cheaper-product-its-about-smart-learning/")
+
+      FetchMetaJob.new.perform(link.id)
+
+      link.reload.wordcount.should == 5477
     end
 
     it "doesn't fetch meta for pdf" do
