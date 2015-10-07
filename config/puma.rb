@@ -1,4 +1,4 @@
-workers Integer(1) #WARNING : current cron implementation doesn't support multiple workers : each worker starts a clock, if you start more than one worker you will have multiple cron running simultaneously
+workers Integer(2)
 threads_count = Integer(ENV['MAX_THREADS'] || 5)
 threads threads_count, threads_count
 
