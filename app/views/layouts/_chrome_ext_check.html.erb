@@ -1,6 +1,5 @@
 <%= javascript_tag do %>
   $().ready(function(){
-    console.log("ready");
     if (browserIsChrome) {
       checkChromeExtension(function(installed){
         if(!installed)
