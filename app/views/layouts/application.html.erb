@@ -3,6 +3,7 @@
   <head>
     <title><%= @title %></title>
     <%= render partial: "layouts/include" %>
+    <%= render partial: "layouts/chrome_ext_check" %>
   </head>
   <body>
 
@@ -23,7 +24,7 @@
         </div>
       </div>
     </nav>
-    <div class="container">
+    <div class="container" id="main-container">
       <% if flash[:alert] %>
         <div class="alert alert-danger alert-dismissible" role="alert">
           <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
