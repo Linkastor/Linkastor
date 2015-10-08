@@ -3,6 +3,7 @@
   <head>
     <title><%= @title %></title>
     <%= render partial: "layouts/include" %>
+    <%= render partial: "layouts/chrome_ext_check" %>
   </head>
   <body>
 
@@ -43,16 +44,4 @@
       <%= render :partial => "layouts/footer" %>
     </div>
   </body>
-  <script type="text/javascript">
-    $().ready(function(){
-      if (browserIsChrome) {
-        checkChromeExtension(function(installed){
-          if(!installed)
-          {
-            $("#main-container").prepend('<div id="extension-banner" class="alert alert-warning" role="alert"><p>Looks like you are using Google Chrome!</p><p>Make sure to get the <a href="'+extension_link+'" target="_blank">Chrome Extension here</a> to post Links as fast as you can!</p></div>')
-          }
-        });
-      };
-    });
-  </script>
 </html>
