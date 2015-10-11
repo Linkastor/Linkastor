@@ -34,6 +34,16 @@ set :deploy_to, '/srv/www/linkastor'
 # Default value for keep_releases is 5
 set :keep_releases, 2
 
+# Puma conf
+set :puma_pid, -> { File.join(shared_path, 'tmp', 'pids', 'puma.pid') }
+set :puma_bind, "unix://#{shared_path}/tmp/sockets/puma.sock"
+set :puma_access_log, -> { File.join(shared_path, 'log', 'puma_access.log') }
+set :puma_error_log, -> { File.join(shared_path, 'log', 'puma_error.log') }
+
+# Sidekiq conf
+set :sidekiq_pid, -> { File.join(shared_path, 'tmp', 'pids', 'sidekiq.pid') }
+set :sidekiq_log, -> { File.join(shared_path, 'log', 'sidekiq.log') }
+
 namespace :deploy do
 
   after :restart, :clear_cache do
@@ -56,4 +66,38 @@ namespace :deploy do
     end
   end
 
+  desc "Upload config files"
+  task :upload_conf  do
+    on roles(:web) do
+      puma_template = ERB.new File.read("config/deploy/templates/puma.erb")
+      upload! StringIO.new(puma_template.result(binding)), File.join(shared_path, 'puma.rb')
+
+      sidekiq_template = ERB.new File.read("config/deploy/templates/sidekiq.erb")
+      upload! StringIO.new(sidekiq_template.result(binding)), File.join(shared_path, 'sidekiq.yml')
+
+      upload! 'config/database.yml', "#{deploy_to}/shared/database.yml"
+      upload! 'config/newrelic.yml', "#{deploy_to}/shared/newrelic.yml"
+    end
+  end
+
+  desc "Symlinks config files"
+  task :symlink_config do
+    on roles(:web) do
+      execute "ln -nfs #{deploy_to}/shared/database.yml #{current_path}/config/database.yml"
+      execute "ln -nfs #{deploy_to}/shared/newrelic.yml #{current_path}/config/newrelic.yml"
+    end
+  end
+
+  desc "restart process watched by monit"
+  task :monit_restart do
+    on roles(:web) do
+      puts "restarting services"
+      sudo "monit restart puma"
+      sudo "monit restart sidekiq"
+    end
+  end
+
+  after "deploy:published", "deploy:symlink_config"
+  after "deploy:symlink_config", "deploy:monit_restart"
+  after "deploy:published", "deploy:symlink_config"
 end
