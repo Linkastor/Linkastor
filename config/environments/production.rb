@@ -58,7 +58,7 @@ Rails.application.configure do
   # config.cache_store = :mem_cache_store
 
   # Enable serving of images, stylesheets, and JavaScripts from an asset server.
-  config.asset_host = 'http://linkastor.herokuapp.com'
+  config.asset_host = 'http://linkastor.com'
 
   # Ignore bad email addresses and do not raise email delivery errors.
   # Set this to true and configure the email server for immediate delivery to raise delivery errors.
@@ -77,17 +77,17 @@ Rails.application.configure do
   # Do not dump schema after migrations.
   config.active_record.dump_schema_after_migration = false
 
-  Rails.application.routes.default_url_options[:host] = 'linkastor.herokuapp.com'
+  Rails.application.routes.default_url_options[:host] = 'linkastor.com'
   
   ActionMailer::Base.smtp_settings = {
     :user_name => ENV['SENDGRID_USERNAME'],
     :password => ENV['SENDGRID_PASSWORD'],
-    :domain => 'linkastor.herokuapp.com',
+    :domain => 'linkastor.com',
     :address => 'smtp.sendgrid.net',
     :port => 587,
     :authentication => :plain,
     :enable_starttls_auto => true
   }
-  config.action_mailer.default_url_options = { host: 'http://linkastor.herokuapp.com' }
+  config.action_mailer.default_url_options = { host: 'http://linkastor.com' }
 
 end

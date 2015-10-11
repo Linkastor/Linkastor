@@ -44,7 +44,7 @@ Rails.application.configure do
   ActionMailer::Base.smtp_settings = {
       :user_name => ENV['SENDGRID_USERNAME'],
       :password => ENV['SENDGRID_PASSWORD'],
-      :domain => 'linkastor.herokuapp.com',
+      :domain => 'linkastor.com',
       :address => 'smtp.sendgrid.net',
       :port => 587,
       :authentication => :plain,
