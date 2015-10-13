@@ -4,7 +4,7 @@ class LinkPresenter
   end
 
   def safe_link_description(link)
-    ActionController::Base.helpers.strip_tags(link.description).try(:truncate, 335).html_safe
+    ActionController::Base.helpers.strip_tags(link.description).try(:truncate, 335).try(:html_safe)
   end
 
   def reading_duration(link)
