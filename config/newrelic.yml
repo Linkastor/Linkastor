@@ -1,5 +1,5 @@
 common: &default_settings
-  license_key: e174c1116eb37d956c24f030afd81d2e4d467d3c
+  license_key: 10ea87f88ca03f22220bf13dd3614950a96cb9ae
   app_name: Linkastor
   log_level: info
 
