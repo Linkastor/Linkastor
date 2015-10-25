@@ -45,16 +45,19 @@ module CustomSources
     end
 
     def import
-      open(self.extra["url"]) do |rss|
-        items = feed(rss).items
-                    .map {|feed_item| CustomSources::FeedParser::ItemFactory.new(item: feed_item).item}
-                    .select {|item| published_after_yesterday?(item) }
-        items.each do |item|
-          link = self.links.build(url: item.link, title: item.title)
-          if link.save
-            FetchMetaJob.perform_async(link.id)
-          end
+      today_items = all_items.map {|feed_item| CustomSources::FeedParser::ItemFactory.new(item: feed_item).item}
+                  .select {|item| published_after_yesterday?(item) }
+      today_items.each do |item|
+        link = self.links.build(url: item.link, title: item.title)
+        if link.save
+          FetchMetaJob.perform_async(link.id)
         end
+      end
+    end
+
+    def all_items
+      open(self.extra["url"]) do |rss|
+        feed(rss).items
       end
     end
 
