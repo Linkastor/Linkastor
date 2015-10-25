@@ -48,10 +48,6 @@ namespace :deploy do
 
   after :restart, :clear_cache do
     on roles(:web), in: :groups, limit: 3, wait: 10 do
-      # Here we can do anything such as:
-      # within release_path do
-      #   execute :rake, 'cache:clear'
-      # end
     end
   end
 
@@ -74,17 +70,6 @@ namespace :deploy do
 
       sidekiq_template = ERB.new File.read("config/deploy/templates/sidekiq.erb")
       upload! StringIO.new(sidekiq_template.result(binding)), File.join(shared_path, 'sidekiq.yml')
-
-      upload! 'config/database.yml', "#{deploy_to}/shared/database.yml"
-      upload! 'config/newrelic.yml', "#{deploy_to}/shared/newrelic.yml"
-    end
-  end
-
-  desc "Symlinks config files"
-  task :symlink_config do
-    on roles(:web) do
-      execute "ln -nfs #{deploy_to}/shared/database.yml #{current_path}/config/database.yml"
-      execute "ln -nfs #{deploy_to}/shared/newrelic.yml #{current_path}/config/newrelic.yml"
     end
   end
 
@@ -97,7 +82,5 @@ namespace :deploy do
     end
   end
 
-  after "deploy:published", "deploy:symlink_config"
-  after "deploy:symlink_config", "deploy:monit_restart"
-  after "deploy:published", "deploy:symlink_config"
+  after "deploy:published", "deploy:monit_restart"
 end
