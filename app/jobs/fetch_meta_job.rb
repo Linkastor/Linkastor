@@ -5,7 +5,7 @@ class FetchMetaJob
   
   def perform(link_id)
     link = Link.find(link_id)
-    Rails.logger.debug "Fetching meta for link #{link.url}"
+    Rails.logger.info "Fetching meta for link #{link.url}"
 
     update_meta!(link)
     RemoveDuplicateJob.new.perform(link.id)
