@@ -45,20 +45,26 @@ module CustomSources
     end
 
     def import
+      Rails.logger.info "Start import for #{display_name}"
+      Rails.logger.info "Found #{all_items.count} total links for #{display_name}"
+
       today_items = all_items.map {|feed_item| CustomSources::FeedParser::ItemFactory.new(item: feed_item).item}
                   .select {|item| published_after_yesterday?(item) }
+
+      Rails.logger.info "Found #{today_items.count} todays links for #{display_name}"
+
       today_items.each do |item|
         link = self.links.build(url: item.link, title: item.title)
         if link.save
           FetchMetaJob.perform_async(link.id)
+        else
+          Rails.logger.info "Invalid link : #{link.url} - #{link.errors.full_messages}"
         end
       end
     end
 
     def all_items
-      open(self.extra["url"]) do |rss|
-        feed(rss).items
-      end
+      @all_items ||= open(self.extra["url"]) { |rss| feed(rss).items }
     end
 
     def published_after_yesterday?(item)
