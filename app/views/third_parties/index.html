@@ -1,11 +1,23 @@
 <div clas="col-md-12">
   <p>Connect Linkastor to external services</p>
   <div class="row">
+    <h3>Send to Pocket</h3>
     <%= link_to image_tag("pocket_app_logo.png", width: 100), @pocket_auth_url %>
     <% if @pocket_username %>
       <%= link_to "disconnect #{@pocket_username}", pocket_path, method: :delete, class: "btn btn-danger" %>
     <% else %>
       <%= link_to "connect", @pocket_auth_url, class: "btn btn-success" %>
+    <% end %>
+  </div>
+  <div class="row">
+    &nbsp;
+  </div>
+  <div class="row">
+    <h3>Send to Kindle</h3>
+    <%= image_tag("kindle_logo.jpg", width: 100) %>
+    <%= form_tag do %>
+      <%= text_field :content, placeholder: "Your Kindle Email", class: 'form-control' %>
+      <%= submit_tag "Send", class: "btn btn-success" %>
     <% end %>
   </div>
   
