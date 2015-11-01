@@ -833,25 +833,8 @@ body.outlook p {
                 </table>
 
                 <% @groups.each do |group| %>
-                  <hr>
-                  <table class="row">
-                    <tr>
-                      <td class="wrapper last">
-
-                        <table class="twelve columns">
-                          <tr>
-                            <td>
-                              <h5>Links from <%= group.name%>:</h5>
-                            </td>
-                            <td class="expander"></td>
-                          </tr>
-                        </table>
-
-                      </td>
-                    </tr>
-                  </table>
-
-                  <% GroupPresenter.links(group).each do |link| %>
+                  <% if GroupPresenter.hasLinkToPost(group) %>
+                    <hr>
                     <table class="row">
                       <tr>
                         <td class="wrapper last">
@@ -859,53 +842,72 @@ body.outlook p {
                           <table class="twelve columns">
                             <tr>
                               <td>
-                                <%= link_to image_tag(link.image_url, width: "580", class: "center"), link.url %>
+                                <h5>Links from <%= group.name%>:</h5>
                               </td>
-                            </tr>
-                            <tr>
-                              <td>
-                                <h4 class="center"><%= link_to @link_presenter.safe_link_title(link), link.url %></h4>
-                              </td>
-                            </tr>
-                            <tr>
-                              <td>
-                                <p style="text-align: center;"><%= @link_presenter.safe_link_description(link) %></p>
-                              </td>
-                            </tr>
-                            <tr>
-                              <td>
-                                <p style="text-align: left; font-size: 11px;">Reading duration : <%= @link_presenter.reading_duration(link) %></p>
-                              </td>
-                            </tr>
-                            <tr>
-                              <td>
-                                <table>
-                                  <tr>
-                                    <td>
-                                      <%= image_tag(link.user.avatar, size: "50", style: "border-radius:50%") %>
-                                    </td>
-                                    <td>
-
-                                    </td>
-                                    <td style="vertical-align:middle; padding-left: 10px;">
-                                      Shared by : <%= link.user.name%>
-                                    </td>
-                                  </tr>
-                                  <% if @user.admin && @connected_to_pocket %>
-                                    <tr>
-                                      <td>
-                                        <%= link_to image_tag("https://s3.amazonaws.com/linkastor/pocket_app_logo.png", style: "width: 25px; padding-left: 10px;"), pocket_links_add_link_url(link: {title: link.title, url: link.url}), target: "_blank" %>
-                                      </td>
-                                    </tr>
-                                  <% end %>
-                                </table>
-                              </td>
+                              <td class="expander"></td>
                             </tr>
                           </table>
+
                         </td>
-                        
                       </tr>
                     </table>
+
+                    <% GroupPresenter.links(group).each do |link| %>
+                      <table class="row">
+                        <tr>
+                          <td class="wrapper last">
+
+                            <table class="twelve columns">
+                              <tr>
+                                <td>
+                                  <%= link_to image_tag(link.image_url, width: "580", class: "center"), link.url %>
+                                </td>
+                              </tr>
+                              <tr>
+                                <td>
+                                  <h4 class="center"><%= link_to @link_presenter.safe_link_title(link), link.url %></h4>
+                                </td>
+                              </tr>
+                              <tr>
+                                <td>
+                                  <p style="text-align: center;"><%= @link_presenter.safe_link_description(link) %></p>
+                                </td>
+                              </tr>
+                              <tr>
+                                <td>
+                                  <p style="text-align: left; font-size: 11px;">Reading duration : <%= @link_presenter.reading_duration(link) %></p>
+                                </td>
+                              </tr>
+                              <tr>
+                                <td>
+                                  <table>
+                                    <tr>
+                                      <td>
+                                        <%= image_tag(link.user.avatar, size: "50", style: "border-radius:50%") %>
+                                      </td>
+                                      <td>
+
+                                      </td>
+                                      <td style="vertical-align:middle; padding-left: 10px;">
+                                        Shared by : <%= link.user.name%>
+                                      </td>
+                                    </tr>
+                                    <% if @user.admin && @connected_to_pocket %>
+                                      <tr>
+                                        <td>
+                                          <%= link_to image_tag("https://s3.amazonaws.com/linkastor/pocket_app_logo.png", style: "width: 25px; padding-left: 10px;"), pocket_links_add_link_url(link: {title: link.title, url: link.url}), target: "_blank" %>
+                                        </td>
+                                      </tr>
+                                    <% end %>
+                                  </table>
+                                </td>
+                              </tr>
+                            </table>
+                          </td>
+                          
+                        </tr>
+                      </table>
+                    <% end %>
                   <% end %>
                 <% end %>
 
