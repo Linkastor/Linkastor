@@ -31,7 +31,7 @@ class @GoogleAnalytics
       window._gaq.push ["_trackPageLoadTime"]
 
   @isLocalRequest: ->
-    GoogleAnalytics.documentDomainIncludes ""
+    GoogleAnalytics.documentDomainIncludes "local"
 
   @documentDomainIncludes: (str) ->
     document.domain.indexOf(str) isnt -1
