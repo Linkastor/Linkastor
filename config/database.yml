@@ -12,16 +12,18 @@ default: &default
 
 development:
   <<: *default
+  host: linkastor_db
   database: linkastor_development
-  password: 
+  password: linkastor
 
 # Warning: The database defined as "test" will be erased and
 # re-generated from your development database when you run "rake".
 # Do not set this db to the same as development or production.
 test:
   <<: *default
+  host: linkastor_db
   database: linkastor_test
-  password: 
+  password: linkastor
 
 production:
   <<: *default
