@@ -35,6 +35,8 @@ To start Linkastor locally you need to add some environment variables in a ```.e
 
 Or use Kitematic to visualize the runing containers
 
+- stop the docker vm : `docker-machine stop default` 
+
 ## Import links from your custom source
 
 You can generate adaptors to fetch links from any source in your mail digest
