@@ -17,6 +17,25 @@ To start Linkastor locally you need to add some environment variables in a ```.e
 > SENDGRID_PASSWORD=
 > POCKET_CONSUMER_KEY=
 
+- Install [Docker Toolbox](https://www.docker.com/docker-toolbox) 
+- setup the docker machine : `docker-machine create --driver=virtualbox default` and update the docker environment : `eval "$(docker-machine env default)"`
+- create the cluster : `docker-compose build`
+- setup the database : `docker-compose run web rake db:setup` (eventually run `db:seed` the same way)
+- launch the cluster : `docker-compose run --service-ports -d web`
+- visit the web app : `open "http://".$(docker-machine ip default).":5000"`
+
+### Run tests
+
+- setup the database : `docker-compose run web rake db:setup`
+- launche the tests : `docker-compose run test`
+
+## Stop everything
+
+- run `docker-compose stop`
+
+Or use Kitematic to visualize the runing containers
+
+- stop the docker vm : `docker-machine stop default` 
 
 ## Import links from your custom source
 
@@ -39,7 +58,6 @@ Have a look at the comment in the generated files. You can also look at the Twit
 - app/models/custom_source/twitter.rb
 - app/views/custom_source/twitter/new.html.erb
 - app/views/custom_source/twitter/_form.html.erb
-
 
 ## Feature roadmap 
 

@@ -1,0 +1,36 @@
+db:
+  container_name: linkastor_db
+  image: postgres:9.4.5
+  environment:
+    POSTGRES_PASSWORD: linkastor
+    POSTGRES_USER: linkastor
+  ports: 
+    - "5432:5432"
+redis:
+  container_name: linkastor_redis
+  image: redis
+  ports:
+    - "6379:6379"
+web: &web
+  build: .
+  command: foreman start
+  env_file: .env
+  environment: 
+    REDIS_URL: redis://linkastor_redis:6379/linkastor
+    RACK_ENV: development
+    RAILS_ENV: development
+  volumes:
+    - .:/linkastor
+  ports:
+    - "5000:5000"
+  links:
+    - db
+    - redis
+test:
+  <<: *web
+  ports: []
+  command: bundle exec rspec
+  environment:
+    REDIS_URL: redis://linkastor_redis:6379/linkastor_test
+    RACK_ENV: test
+    RAILS_ENV: test
